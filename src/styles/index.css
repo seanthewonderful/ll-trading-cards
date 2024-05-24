@@ -1,0 +1,20 @@
+.modal {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.3);
+  width:100vw;
+  height: 100vh;
+  z-Index: 1000
+}
+.modal-section {
+  width: 30vw;
+  height:40vh;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

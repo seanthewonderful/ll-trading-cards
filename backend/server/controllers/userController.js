@@ -1,0 +1,92 @@
+import { User } from '../../database/models.js'
+import bcryptjs from 'bcryptjs'
+
+const userHandlers = {
+
+  register: async (req, res) => {
+    console.log("HIT")
+    console.log(req.body)
+    const { email, firstName, lastName, password, favTeam } = req.body
+
+    if (await User.findOne({ where: { email } })) {
+      res.status(409).send({ 
+        success: false,
+        message: "User already exists", 
+      })
+      return
+    }
+
+    let user = await User.create({ email, firstName, lastName, password, favTeam })
+
+    await user.reload()
+
+    req.session.user = user
+
+    res.status(200).send({
+      success: true,
+      message: "User created",
+      user: user
+    })
+  },
+
+  login: async (req, res) => {
+    const { email, password } = req.body
+
+    let user = await User.scope("withPassword").findOne({ where: { email } })
+
+    
+    if (!user) {
+      res.status(401).send({ 
+        success: false,
+        message: "User does not exist", 
+      })
+      return
+    }
+    
+    if (!bcryptjs.compareSync(password, user.password)) {
+      res.status(401).send({ 
+        success: false,
+        message: "Incorrect password", 
+      })
+      return
+    }
+    
+    user = await User.findOne({ where: { email } })
+
+    req.session.user = user
+
+    res.status(200).send({
+      success: true,
+      message: "User logged in",
+      user: user
+    })
+  },
+
+  logout: async (req, res) => {
+    req.session.destroy()
+    res.status(200).send({
+      success: true,
+      message: "User logged out",
+    })
+  },
+
+  sessionCheck: async (req, res) => {
+    console.log("HIT SESSION CHECK")
+
+    if (req.session.user) {
+      res.status(200).send({
+        success: true,
+        message: "User logged in",
+        user: req.session.user,
+      })
+    } else {
+      res.status(200).send({
+        success: false,
+        message: "No user logged in",
+        user: null,
+      })
+    }
+  }
+}
+
+export default userHandlers
