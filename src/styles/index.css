@@ -18,3 +18,56 @@
   justify-content: center;
   align-items: center;
 }
+
+nav {
+  background: linear-gradient(to top, #e6b980 0%, #eacda3 100%);
+  width: 100vw;
+  height: 5vh;
+  display: flex;
+  justify-content: space-between;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 5vh;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background: linear-gradient(to top, #e6b980 0%, #eacda3 100%);
+}
+
+#dugout-div {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100vw;
+  height: 90vh;
+}
+
+#player-basic-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  width: auto;
+  height: 90vh;
+}
+
+#choose-template-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: 90vh;
+}
+
+#choose-template-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

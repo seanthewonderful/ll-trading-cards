@@ -10,7 +10,7 @@ const ChooseTemplate = () => {
     <BaseballCard template={template}/>
   ) : (
     <>
-    <div>
+    <div id="choose-template-buttons">
       <button onClick={() => setTemplate("Topps")}>Topps</button>
       <button onClick={() => setTemplate("Upperdeck")}>Upperdeck</button>
       <button onClick={() => setTemplate("ProImage")}>ProImage</button>

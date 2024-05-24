@@ -22,14 +22,19 @@ function Navbar() {
 
   return (
     <nav id='navbar'>
+
       <NavLink to="/">
         <button>Home</button>
       </NavLink>
+
       <NavLink to="/dugout">
         <button>Dugout</button>
       </NavLink>
       
-      <button onClick={logout}>Logout</button>
+      <NavLink onClick={logout}>
+        <button>Logout</button>
+      </NavLink>
+      
     </nav>
   )
 }

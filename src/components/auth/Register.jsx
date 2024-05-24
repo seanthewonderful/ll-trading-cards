@@ -93,7 +93,10 @@ const Register = ({ onClose }) => {
         />
 
       <label htmlFor="fav-team">Favorite Team</label>
-      <select id="fav-team">
+      <select 
+        id="fav-team"
+        onChange={(e) => setRegisterInfo({ ...registerInfo, favTeam: e.target.value })}
+        >
         <option value="MLB">MLB</option>
         <option value="AL">American League</option>
         <option value="NL">National League</option>

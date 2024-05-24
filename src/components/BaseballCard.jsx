@@ -1,12 +1,5 @@
 import { useState } from "react"
 
-import PlayerBasicInfo from "./forms/PlayerBasicInfo"
-import PlayerPhotos from "./forms/PlayerPhotos"
-import TeamLogo from "./forms/TeamLogo"
-import LeagueLogo from "./forms/LeagueLogo"
-import PitchStats from "./forms/PitchStats"
-import HitStats from "./forms/HitStats"
-
 const BaseballCard = ({ template }) => {
 
   const [cardData, setCardData] = useState({
@@ -72,8 +65,8 @@ const BaseballCard = ({ template }) => {
 
   return (
     <div>
-      <h1>Input Player Details: </h1>
-
+      <h1>Baseball Card Preview</h1>
+{/* 
       <form onSubmit={handleUpload}>
         <label htmlFor="csv-file">Upload your player's CSV file from Fangraphs</label>
         <input 
@@ -90,7 +83,7 @@ const BaseballCard = ({ template }) => {
       <TeamLogo />
       <LeagueLogo />
       <PitchStats />
-      <HitStats />
+      <HitStats /> */}
       
     </div>
   )
