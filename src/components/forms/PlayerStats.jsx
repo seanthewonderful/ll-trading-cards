@@ -1,41 +1,250 @@
 import { useState } from 'react'
-import TeamStats from './TeamStats'
+
+import InputNumber from './InputNumber.jsx'
 
 function PlayerStats() {
 
   const [playerStats, setPlayerStats] = useState({
     batting: {
-      PA: "",
-      AB: "",
-      runs: "",
-      hits: "",
-      rbi: "",
-      sb: "",
-      bb: "",
-      avg: "",
-      obp: "",
-      slg: "",
-      ops: "",
+      W: 0,
+      L: 0,
+      AVG: 0,
+      HR: 0,
+      RBI: 0,
+      SB: 0,
+      R: 0,
+      OBP: 0,
+      SLG: 0,
+      OPS: 0,
+      H: 0,
+      '2B': 0,
+      '3B': 0,
+      BB: 0,
+      HBP: 0,
+      SO: 0,
     },
     pitching: {
-      W: "",
-      L: "",
-      SV: "",
-      IP: "",
-      H: "",
-      R: "",
-      ER: "",
-      BB: "",
-      HBP: "",
-      SO: "",
-      WHIP: "",
-    },
+      ERA: 0,
+      W: 0,
+      L: 0,
+      SO: 0,
+      SV: 0,
+      WHIP: 0,
+      BAA: 0,
+      IP: 0,
+      H: 0,
+      R: 0,
+      BB: 0,
+      HBP: 0,
+    }
   })
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log("PLAYER STATS: ",playerStats)
+  }
+
   return (
-    <div>
-      <TeamStats />
-    </div>
+    <form 
+      id='player-stats-batting'
+      onSubmit={handleSubmit}
+      >
+      <h3>Player Stats:</h3>
+
+      <InputNumber
+        inputVal={playerStats.batting.W}
+        setInputVal={(w) => {
+          setPlayerStats({ ...playerStats, batting: { ...playerStats.batting, W: w } })
+        }}
+        min={0}
+        max={1000}
+        formName={"w"}
+        className={"batting batting-w"}
+        labelName={"Wins"}
+      />
+
+      <InputNumber
+        inputVal={playerStats.batting.L}
+        setInputVal={(l) => {
+          setPlayerStats({ ...playerStats, batting: { ...playerStats.batting, L: l } })
+        }}
+        min={0}
+        max={1000}
+        formName={"l"}
+        className={"batting batting-l"}
+        labelName={"Losses"}
+      />
+
+      <InputNumber
+        inputVal={playerStats.batting.AVG}
+        setInputVal={(avg) => {
+          setPlayerStats({ ...playerStats, batting: { ...playerStats.batting, AVG: avg } })
+        }}
+        min={0}
+        max={1000}
+        formName={"avg"}
+        className={"batting batting-avg"}
+        labelName={"Batting Average"}
+      />
+
+      <InputNumber
+        inputVal={playerStats.batting.HR}
+        setInputVal={(hr) => {
+          setPlayerStats({ ...playerStats, batting: { ...playerStats.batting, HR: hr } })
+        }}
+        min={0}
+        max={1000}
+        formName={"hr"}
+        className={"batting batting-hr"}
+        labelName={"Home Runs"}
+      />
+
+      <InputNumber
+        inputVal={playerStats.batting.RBI}
+        setInputVal={(rbi) => {
+          setPlayerStats({ ...playerStats, batting: { ...playerStats.batting, RBI: rbi } })
+        }}
+        min={0}
+        max={1000}
+        formName={"rbi"}
+        className={"batting batting-rbi"}
+        labelName={"RBI"}
+      />
+
+      <InputNumber
+        inputVal={playerStats.batting.SB}
+        setInputVal={(sb) => {
+          setPlayerStats({ ...playerStats, batting: { ...playerStats.batting, SB: sb } })
+        }}
+        min={0}
+        max={1000}
+        formName={"sb"}
+        className={"batting batting-sb"}
+        labelName={"Stolen Bases"}
+      />
+
+      <InputNumber
+        inputVal={playerStats.batting.R}
+        setInputVal={(r) => {
+          setPlayerStats({ ...playerStats, batting: { ...playerStats.batting, R: r } })
+        }}
+        min={0}
+        max={1000}
+        formName={"r"}
+        className={"batting batting-r"}
+        labelName={"Runs"}
+      />
+
+      <InputNumber
+        inputVal={playerStats.batting.OBP}
+        setInputVal={(obp) => {
+          setPlayerStats({ ...playerStats, batting: { ...playerStats.batting, OBP: obp } })
+        }}
+        min={0}
+        max={1000}
+        formName={"obp"}
+        className={"batting batting-obp"}
+        labelName={"On-Base Percentage"}
+      />
+
+      <InputNumber
+        inputVal={playerStats.batting.SLG}
+        setInputVal={(slg) => {
+          setPlayerStats({ ...playerStats, batting: { ...playerStats.batting, SLG: slg } })
+        }}
+        min={0}
+        max={1000}
+        formName={"slg"}
+        className={"batting batting-slg"}
+        labelName={"Slugging Percentage"}
+      />
+
+      <InputNumber
+        inputVal={playerStats.batting.OPS}
+        setInputVal={(ops) => {
+          setPlayerStats({ ...playerStats, batting: { ...playerStats.batting, OPS: ops } })
+        }}
+        min={0}
+        max={1000}
+        formName={"ops"}
+        className={"batting batting-ops"}
+        labelName={"Overall Percentage"}
+      />
+
+      <InputNumber
+        inputVal={playerStats.batting.H}
+        setInputVal={(h) => {
+          setPlayerStats({ ...playerStats, batting: { ...playerStats.batting, H: h } })
+        }}
+        min={0}
+        max={1000}
+        formName={"h"}
+        className={"batting batting-h"}
+        labelName={"Hits"}
+      />
+
+      <InputNumber
+        inputVal={playerStats.batting['2B']}
+        setInputVal={(h) => {
+          setPlayerStats({ ...playerStats, batting: { ...playerStats.batting, '2B': h } })
+        }}
+        min={0}
+        max={1000}
+        formName={"2b"}
+        className={"batting batting-2b"}
+        labelName={"Doubles"}
+      />
+
+      <InputNumber
+        inputVal={playerStats.batting['3B']}
+        setInputVal={(h) => {
+          setPlayerStats({ ...playerStats, batting: { ...playerStats.batting, '3B': h } })
+        }}
+        min={0}
+        max={1000}
+        formName={"3b"}
+        className={"batting batting-3b"}
+        labelName={"Triples"}
+      />
+
+      <InputNumber
+        inputVal={playerStats.batting.BB}
+        setInputVal={(h) => {
+          setPlayerStats({ ...playerStats, batting: { ...playerStats.batting, BB: h } })
+        }}
+        min={0}
+        max={1000}
+        formName={"bb"}
+        className={"batting batting-bb"}
+        labelName={"Walks"}
+      />
+
+      <InputNumber
+        inputVal={playerStats.batting.HBP}
+        setInputVal={(h) => {
+          setPlayerStats({ ...playerStats, batting: { ...playerStats.batting, HBP: h } })
+        }}
+        min={0}
+        max={1000}
+        formName={"hbp"}
+        className={"batting batting-hbp"}
+        labelName={"Hit-by-Pitch"}
+      />
+
+      <InputNumber
+        inputVal={playerStats.batting.SO}
+        setInputVal={(so) => {
+          setPlayerStats({ ...playerStats, batting: { ...playerStats.batting, SO: so } })
+        }}
+        min={0}
+        max={1000}
+        formName={"so"}
+        className={"batting batting-so"}
+        labelName={"Strikeouts"}
+      />
+
+      <button type='submit'>Submit</button>
+    </form>
   )
 }
 

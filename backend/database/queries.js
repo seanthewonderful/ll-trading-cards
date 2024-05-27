@@ -1,5 +1,5 @@
-import { db, User } from "./models.js"
+import { db, User, Position } from "./models.js"
 
-console.log(await User.findAll())
+console.log(await Position.findAll())
 
 await db.close()

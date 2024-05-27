@@ -1,0 +1,22 @@
+
+#card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  height: 70vh;
+  width: 50vw;
+  border: 1px solid black;
+}
+
+#baseball-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: no-repeat center url(/src/assets/grain.png);
+  height: 95%;
+  width: 95%;
+  z-index: 1;
+}

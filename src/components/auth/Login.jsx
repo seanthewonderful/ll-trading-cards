@@ -24,7 +24,7 @@ const Login = ({ onClose }) => {
       onClose()
       dispatch({ type: "SET_USER", payload: res.data.user })
     })
-    .catch(err => console.warn("LOGIN ERROR: ", err))
+    .catch(err => console.warn("LOGIN ERROR: ", err.response.data.message))
   }
 
   return (

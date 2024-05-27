@@ -30,6 +30,10 @@ function Navbar() {
       <NavLink to="/dugout">
         <button>Dugout</button>
       </NavLink>
+
+      <NavLink to="/profile">
+        <button>Profile</button>
+      </NavLink>
       
       <NavLink onClick={logout}>
         <button>Logout</button>

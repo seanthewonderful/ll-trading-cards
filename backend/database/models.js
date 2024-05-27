@@ -79,6 +79,66 @@ User.init(
   }
 )
 
+export class Player extends Model {
+  [util.inspect.custom]() {
+    return this.toJSON()
+  }
+}
+Player.init(
+  {
+    playerId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    position: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    sequelize: db,
+    modelName: "player",
+    timestamps: false
+  } 
+)
+
+export class PlayerTeam extends Model {
+  [util.inspect.custom]() {
+    return this.toJSON()
+  }
+}
+PlayerTeam.init(
+  {
+    userTeamId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    league: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    sequelize: db,
+    modelName: "userTeam",
+    timestamps: false
+  } 
+)
+
 export class BaseballCard extends Model {
   [util.inspect.custom]() {
     return this.toJSON()
@@ -110,3 +170,94 @@ BaseballCard.init(
     timestamps: false
   } 
 )
+
+export class Position extends Model {
+  [util.inspect.custom]() {
+    return this.toJSON()
+  }
+}
+Position.init(
+  {
+    positionId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    sequelize: db,
+    modelName: "position",
+    timestamps: false
+  } 
+)
+
+export class MLBTeam extends Model {
+  [util.inspect.custom]() {
+    return this.toJSON()
+  }
+}
+MLBTeam.init(
+  {
+    teamId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    location: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    abbreviation: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    city: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    state: {
+      type: DataTypes.STRING(2),
+      allowNull: false,
+    },
+  },
+  {
+    sequelize: db,
+    modelName: "mlbTeam",
+    timestamps: false
+  } 
+)
+
+export class TeamLogo extends Model {
+  [util.inspect.custom]() {
+    return this.toJSON()
+  }
+}
+TeamLogo.init(
+  {
+    teamLogoId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    url: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    sequelize: db,
+    modelName: "teamLogo",
+    timestamps: false
+  } 
+)
+
+User.belongsTo(MLBTeam, { foreignKey: "favTeam" })
+MLBTeam.hasOne(User, { foreignKey: "favTeam" })

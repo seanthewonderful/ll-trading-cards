@@ -1,6 +1,8 @@
-import Turnstyle from "./components/auth/Turnstyle.jsx"
 import Dugout from "./components/Dugout.jsx"
 import Welcome from "./components/Welcome.jsx"
+import UserProfile from "./components/auth/UserProfile.jsx"
+import BaseballCard from "./components/BaseballCard.jsx"
+
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from "react-router-dom"
 
 const router = createBrowserRouter(
@@ -9,14 +11,15 @@ const router = createBrowserRouter(
       path="/" 
       element={<Welcome />}
       >
-      {/* <Route 
-        path="turnstyle" 
-        element={<Turnstyle />} 
-        /> */}
+      <Route 
+        path="profile" 
+        element={<UserProfile />} 
+        />
       <Route 
         path="dugout" 
         element={<Dugout />} 
         />
+
     </Route>
   )
 )

@@ -44,8 +44,7 @@ const PlayerBasicInfo = () => {
         />
 
       <label htmlFor="bio">Bio</label>
-      <input 
-        type="text"
+      <textarea 
         id="bio" 
         name="bio" 
         onChange={(e) => setPlayerInfo({ ...playerInfo, bio: e.target.value })}

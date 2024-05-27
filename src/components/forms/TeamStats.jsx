@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 import InputNumber from './InputNumber.jsx'
-import InputPercentage from './InputPercentage.jsx'
 
 function TeamStats() {
 
@@ -23,7 +22,6 @@ function TeamStats() {
       BB: 0,
       HBP: 0,
       SO: 0,
-      G: 0,
     },
     pitching: {
       ERA: 0,
@@ -41,9 +39,17 @@ function TeamStats() {
     }
   })
 
-  return (
-    <form id='team-stats-batting'>
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log("Team Stats: ", teamStats)
+  }
 
+  return (
+    <form 
+      id='team-stats-batting'
+      onSubmit={handleSubmit}
+      >
+      <h3>Team Stats:</h3>
       <InputNumber
         inputVal={teamStats.batting.W}
         setInputVal={(w) => {

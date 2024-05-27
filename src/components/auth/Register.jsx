@@ -51,6 +51,7 @@ const Register = ({ onClose }) => {
 
   return (
     <form onSubmit={handleRegister}>
+      
       <label htmlFor="email">Email</label>
       <input 
         type="text"
@@ -123,8 +124,8 @@ const Register = ({ onClose }) => {
         <option value="PHI">Philadelphia Phillies</option>
         <option value="PIT">Pittsburgh Pirates</option>
         <option value="SD">San Diego Padres</option>
-        <option value="SEA">Seattle Mariners</option>
         <option value="SF">San Francisco Giants</option>
+        <option value="SEA">Seattle Mariners</option>
         <option value="STL">St. Louis Cardinals</option>
         <option value="TB">Tampa Bay Rays</option>
         <option value="TEX">Texas Rangers</option>

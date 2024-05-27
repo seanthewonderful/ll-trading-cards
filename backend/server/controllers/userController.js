@@ -1,4 +1,4 @@
-import { User } from '../../database/models.js'
+import { User, MLBTeam, TeamLogo } from '../../database/models.js'
 import bcryptjs from 'bcryptjs'
 
 const userHandlers = {
@@ -16,7 +16,9 @@ const userHandlers = {
       return
     }
 
-    let user = await User.create({ email, firstName, lastName, password, favTeam })
+    const mlbTeam = await MLBTeam.findOne({ where: { abbreviation: favTeam } })
+
+    let user = await mlbTeam.createUser({ email, firstName, lastName, password })
 
     await user.reload()
 
