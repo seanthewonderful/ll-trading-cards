@@ -1,29 +1,24 @@
-import { db, User, MLBTeam, TeamLogo, Player, Position, PlayerTeam } from "./models.js";
+import { db, User, MLBTeam, TeamLogo, Player } from "./models.js";
 
 await db.sync({ force: true });
 
 console.log("Seeing users...")
 await User.create({
-  email: "t",
+  email: "asdf",
   firstName: "Timmy",
   lastName: "Two-Base",
   password: "asdf",
 });
 
-await User.create({
-  email: "s",
-  firstName: "Billy",
-  lastName: "Base-on-Balls",
-  password: "asdf",
-});
+// await User.create({
+//   email: "s",
+//   firstName: "Billy",
+//   lastName: "Base-on-Balls",
+//   password: "asdf",
+// });
 console.log("Users seeded")
 
-console.log("Seeding Positions...")
 
-const positions = ["Pitcher", "Catcher", "First Base", "Second Base", "Third Base", "Shortstop", "Left Fielder", "Center Fielder", "Right Fielder", "Rover", "Designated Hitter"];
-for (let position of positions) {
-  await Position.create({ name: position })
-}
 
 console.log("Seeding MLB Teams...")
 const mlbTeams = [

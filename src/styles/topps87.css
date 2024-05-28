@@ -1,22 +1,107 @@
 
 #card-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: black;
-  height: 70vh;
-  width: 50vw;
-  border: 1px solid black;
+  position: absolute;
+  top: 0px;
+  height: 9.5cm;
+  width: 7cm;
 }
 
 #baseball-card {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   background: no-repeat center url(/src/assets/grain.png);
-  height: 95%;
-  width: 95%;
+  box-shadow: 0 0 10px 10px;
+  height: 8.9cm;
+  width: 6.4cm;
   z-index: 1;
+}
+
+#card-image-div-black {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  clip-path: polygon(0% 20%, 25% 0%, 100% 0%, 100% 80%, 75% 100%, 0% 100%);
+  position: relative;
+  top: 10px;
+  height: 87%;
+  width: 90%;
+  z-index: 2;
+}
+#card-image-div-white {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-color: white;
+  clip-path: polygon(0.5% 20%, 25% 0.5%, 99.5% 0.5%, 99.5% 80%, 75% 99.5%, 0.5% 99.5%);
+  height: 100%;
+  width: 100%;
+  z-index: 3;
+}
+#card-image {
+  position: relative;
+  height: 99%;
+  width: 99%;
+  object-fit: cover;
+  top: 2px;
+  right: 2px;
+  border: 1px solid black;
+}
+#team-logo-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  clip-path: circle(17%);
+  background-color: white;
+  left: -90px;
+  top: 77px;
+  height: 70px;
+  width: auto;
+  z-index: 4;
+}
+#team-logo-img {
+  height: 100%;
+  width: auto;
+  object-fit: cover;
+  z-index: 4;
+}
+#player-name-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f15d5d;
+  color: rgb(238, 237, 228);
+  border: 2px solid black;
+  position: relative;
+  bottom: 80px;
+  left: 74px;
+  height: 10%;
+  width: 57%;
+  z-index: 4;
+}
+.permanent-marker-regular {
+  font-family: "Permanent Marker", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+.danfo {
+  font-family: "Danfo", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+  "ELSH" 0;
+}
+#company-logo {
+  position: relative;
+  left: 15px;
+  bottom: 31px;
+  font-size: small;
 }

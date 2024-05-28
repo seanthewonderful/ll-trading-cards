@@ -1,20 +1,28 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 const PlayerBasicInfo = () => {
 
   const [playerInfo, setPlayerInfo] = useState({
-    name: "",
-    teamName: "",
-    leagueName: "",
+    firstName: "",
+    lastName: "",
+    birthMonth: "",
+    homeTown: "",
+    recoveryEmail: "",
     bio: "",
     jerseyNumber: "",
     position1: "",
     position2: "",
   })
 
+  const dispatch = useDispatch()
+
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(playerInfo)
+
+    dispatch({ type: "SET_PLAYER_INFO", payload: playerInfo })
+
   }
 
   return (
@@ -27,20 +35,44 @@ const PlayerBasicInfo = () => {
         onChange={(e) => setPlayerInfo({ ...playerInfo, name: e.target.value })}
         />
 
-      <label htmlFor="team-name">Team Name</label>
+      <label htmlFor="last-name">Last Name</label>
       <input 
         type="text"
-        id="team-name" 
-        name="team-name" 
-        onChange={(e) => setPlayerInfo({ ...playerInfo, teamName: e.target.value })}
+        id="last-name" 
+        name="last-name" 
+        onChange={(e) => setPlayerInfo({ ...playerInfo, lastName: e.target.value })}
         />
 
-      <label htmlFor="league-name">League Name</label>
+      <label htmlFor="birth-month">Birth Month</label>
+      <select id='birth-month' name='birth-month' onChange={(e) => setPlayerInfo({ ...playerInfo, birthMonth: e.target.value })}>
+        <option value="1">January</option>
+        <option value="2">February</option>
+        <option value="3">March</option>
+        <option value="4">April</option>
+        <option value="5">May</option>
+        <option value="6">June</option>
+        <option value="7">July</option>
+        <option value="8">August</option>
+        <option value="9">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+      </select>
+
+      <label htmlFor="home-town">Home Town</label>
       <input 
         type="text"
-        id="league-name" 
-        name="league-name" 
-        onChange={(e) => setPlayerInfo({ ...playerInfo, leagueName: e.target.value })}
+        id="home-town" 
+        name="home-town" 
+        onChange={(e) => setPlayerInfo({ ...playerInfo, homeTown: e.target.value })}
+        />
+
+      <label htmlFor="recovery-email">Recovery Email</label>
+      <input 
+        type="email"
+        id="recovery-email" 
+        name="recovery-email" 
+        onChange={(e) => setPlayerInfo({ ...playerInfo, recoveryEmail: e.target.value })}
         />
 
       <label htmlFor="bio">Bio</label>

@@ -25,7 +25,7 @@ function Dugout() {
     <div className="dugout">
       <Navbar />
 
-      <button onClick={() => setCardDemo(!cardDemo)}>
+      <button style={{ zIndex: 10 }} onClick={() => setCardDemo(!cardDemo)}>
         {cardDemo ? "Show player input" : "Show baseball card"}
       </button>
 
