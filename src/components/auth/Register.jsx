@@ -50,7 +50,11 @@ const Register = ({ onClose }) => {
   }
 
   return (
-    <form onSubmit={handleRegister}>
+    <form 
+      className='auth-form'
+      id='register-form' 
+      onSubmit={handleRegister}
+      >
       
       <label htmlFor="email">Email</label>
       <input 

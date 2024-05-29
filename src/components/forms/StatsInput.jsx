@@ -9,10 +9,11 @@ function StatsInput() {
 
   return (
     <div id="stats-input-div">
-      <button onClick={() => setShowTeamStats(!showTeamStats)}>
+      {/* <button onClick={() => setShowTeamStats(!showTeamStats)}>
         {showTeamStats ? "Show Player Stats" : "Show Team Stats"}
       </button>
-      {showTeamStats ? <TeamStats /> : <PlayerStats />}
+      {showTeamStats ? <TeamStats /> : <PlayerStats />} */}
+      <PlayerStats />
     </div>
   )
 }

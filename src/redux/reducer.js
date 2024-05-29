@@ -1,8 +1,8 @@
 const initialState = {
   user: null,
   admin: null,
-  playerInfo: null,
-  stats: null
+  playerInfo: {},
+  playerStats: {}
 };
 
 const reducer = (state = initialState, action) => {
@@ -22,8 +22,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: null,
         admin: null,
-        playerInfo: null,
-        stats: null,
+        playerInfo: {},
+        playerStats: {},
       };
 
     case "UPDATE_PLAYER_INFO":
@@ -31,10 +31,10 @@ const reducer = (state = initialState, action) => {
         ...state,
         playerInfo: action.payload,
       };
-    case "UPDATE_STATS":
+    case "UPDATE_PLAYER_STATS":
       return {
         ...state,
-        stats: action.payload,
+        playerStats: action.payload,
       };
     default:
       return state;

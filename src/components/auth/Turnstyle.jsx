@@ -10,22 +10,25 @@ function Turnstyle({ isOpen, onClose, register, loginClick, registerClick }) {
 
   return (
     <div className='modal'>
-      Tickets, please
 
-      <button onClick={onClose}>Close</button>
+      <div id="modal-section">
 
-      {register ? 
-        <Register onClose={onClose} /> 
-        : 
-        <Login onClose={onClose} />
-      }
+        <button onClick={onClose}>Close</button>
 
-      <button 
-        onClick={register ? loginClick : registerClick}
-        >
-        {register ? "Login" : "Register"}
-      </button>
+        {register ? 
+          <Register onClose={onClose} /> 
+          : 
+          <Login onClose={onClose} />
+        }
+
+        <button 
+          onClick={register ? loginClick : registerClick}
+          >
+          {register ? "Login" : "Register"}
+        </button>
       
+      </div>
+
     </div>
   )
 }

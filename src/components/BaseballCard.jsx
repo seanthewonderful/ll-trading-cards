@@ -2,7 +2,7 @@ import "../styles/topps87.css"
 
 import angelsEmblem from "../assets/team_logos/LAA/los-angeles-angels-emblem.png"
 
-const BaseballCard = () => {
+const BaseballCard = ({ playerInfo, playerStats }) => {
 
 
   return (

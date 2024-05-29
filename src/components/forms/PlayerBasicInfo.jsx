@@ -6,7 +6,7 @@ const PlayerBasicInfo = () => {
   const [playerInfo, setPlayerInfo] = useState({
     firstName: "",
     lastName: "",
-    birthMonth: "",
+    birthMonth: "1",
     homeTown: "",
     recoveryEmail: "",
     bio: "",
@@ -21,18 +21,22 @@ const PlayerBasicInfo = () => {
     e.preventDefault()
     console.log(playerInfo)
 
-    dispatch({ type: "SET_PLAYER_INFO", payload: playerInfo })
+    dispatch({ 
+      type: "UPDATE_PLAYER_INFO",
+      payload: playerInfo,
+    })
 
   }
 
   return (
     <form id='player-basic-info' onSubmit={handleSubmit}>
-      <label htmlFor="player-name">Player Name</label>
+      <legend>Player Basic Info</legend>
+      <label htmlFor="player-name">First Name</label>
       <input 
         type="text"
         id="player-name" 
         name="player-name" 
-        onChange={(e) => setPlayerInfo({ ...playerInfo, name: e.target.value })}
+        onChange={(e) => setPlayerInfo({ ...playerInfo, firstName: e.target.value })}
         />
 
       <label htmlFor="last-name">Last Name</label>
@@ -44,7 +48,11 @@ const PlayerBasicInfo = () => {
         />
 
       <label htmlFor="birth-month">Birth Month</label>
-      <select id='birth-month' name='birth-month' onChange={(e) => setPlayerInfo({ ...playerInfo, birthMonth: e.target.value })}>
+      <select 
+        id='birth-month' 
+        name='birth-month' 
+        value={playerInfo.birthMonth}
+        onChange={(e) => setPlayerInfo({ ...playerInfo, birthMonth: e.target.value })}>
         <option value="1">January</option>
         <option value="2">February</option>
         <option value="3">March</option>

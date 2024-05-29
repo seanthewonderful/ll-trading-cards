@@ -7,6 +7,7 @@ import Footer from "./Footer"
 import ChooseTemplate from "./ChooseTemplate"
 import PlayerBasicInfo from "./forms/PlayerBasicInfo"
 import StatsInput from "./forms/StatsInput"
+import PlayerStats from "./forms/PlayerStats"
 
 import BaseballCard from "./BaseballCard"
 
@@ -15,6 +16,8 @@ function Dugout() {
   const [cardDemo, setCardDemo] = useState(false)
 
   const user = useSelector(state => state.user)
+  const playerInfo = useSelector(state => state.playerInfo)
+  const playerStats = useSelector(state => state.playerStats)
   const navigate = useNavigate()
 
   if (!user) {
@@ -30,14 +33,17 @@ function Dugout() {
       </button>
 
       {cardDemo ? 
-        <BaseballCard /> 
+        <BaseballCard 
+          playerInfo={playerInfo} 
+          playerStats={playerStats}
+          /> 
 
         :
 
         <div id="dugout-div">
 
           <div id="player-info-div">
-            <PlayerBasicInfo />
+            <PlayerBasicInfo playerInfo={playerInfo} />
           </div>
 
           <div id="choose-template-div">
@@ -45,7 +51,8 @@ function Dugout() {
           </div>
           
           <div id="player-stats-div">
-            <StatsInput />
+            {/* <StatsInput playerStats={playerStats} /> */}
+            <PlayerStats playerStats={playerStats} />
           </div>
 
         </div>
