@@ -60,7 +60,13 @@ function PlayerStats() {
       <InputNumber
         inputVal={playerStats.batting.AB}
         setInputVal={(ab) => {
-          setPlayerStats({ ...playerStats, batting: { ...playerStats.batting, AB: ab } })
+          setPlayerStats({ 
+            ...playerStats, 
+            batting: { 
+              ...playerStats.batting, 
+              AB: ab 
+            } 
+          })
         }}
         min={0}
         max={1000}

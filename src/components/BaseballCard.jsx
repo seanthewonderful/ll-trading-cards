@@ -27,8 +27,8 @@ const BaseballCard = ({ playerInfo, playerStats }) => {
       </span>
 
       <section id="player-name-box">
-        <p className="permanent-marker-regular">Sean</p>
-        <p className="permanent-marker-regular">Fagan</p>
+        <p className="permanent-marker-regular">{playerInfo.firstName}</p>
+        <p className="permanent-marker-regular">{playerInfo.lastName}</p>
       </section>
 
     </div>
