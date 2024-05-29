@@ -5,17 +5,27 @@
   justify-content: center;
   top: 0;
   left: 0;
-  background-color: rgba(0,0,0,0.3);
+  background-color: rgba(0,0,0,0.6);
   width:100vw;
   height: 100vh;
   z-Index: 1000
 }
-.modal-section {
-  width: 30vw;
-  height:40vh;
-  background-color: white;
+.auth-form {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+}
+#modal-section {
+  width: 60vw;
+  height: 68vh;
+  background: url('https://i.etsystatic.com/31715137/r/il/cf1d43/3826544379/il_fullxfull.3826544379_gvhi.jpg') no-repeat center;
+  background-size:cover;
+  clip-path: circle(45%);
+  /* border-radius: 50%; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -61,6 +71,7 @@ footer {
   align-items: start;
   width: auto;
   height: 90vh;
+  font-size: x-small;
 }
 
 #choose-template-div {

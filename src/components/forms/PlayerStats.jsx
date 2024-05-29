@@ -1,13 +1,14 @@
 import { useState } from 'react'
 
 import InputNumber from './InputNumber.jsx'
+import { useDispatch } from 'react-redux'
 
 function PlayerStats() {
 
   const [playerStats, setPlayerStats] = useState({
     batting: {
-      W: 0,
-      L: 0,
+      AB: 0,
+      PA: 0,
       AVG: 0,
       HR: 0,
       RBI: 0,
@@ -39,9 +40,14 @@ function PlayerStats() {
     }
   })
 
+  const dispatch = useDispatch()
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log("PLAYER STATS: ",playerStats)
+    dispatch({
+      type: "UPDATE_PLAYER_STATS",
+      payload: playerStats
+    })
   }
 
   return (
@@ -52,27 +58,33 @@ function PlayerStats() {
       <h3>Player Stats:</h3>
 
       <InputNumber
-        inputVal={playerStats.batting.W}
-        setInputVal={(w) => {
-          setPlayerStats({ ...playerStats, batting: { ...playerStats.batting, W: w } })
+        inputVal={playerStats.batting.AB}
+        setInputVal={(ab) => {
+          setPlayerStats({ 
+            ...playerStats, 
+            batting: { 
+              ...playerStats.batting, 
+              AB: ab 
+            } 
+          })
         }}
         min={0}
         max={1000}
-        formName={"w"}
-        className={"batting batting-w"}
-        labelName={"Wins"}
+        formName={"ab"}
+        className={"batting batting-ab"}
+        labelName={"At Bats"}
       />
 
       <InputNumber
-        inputVal={playerStats.batting.L}
-        setInputVal={(l) => {
-          setPlayerStats({ ...playerStats, batting: { ...playerStats.batting, L: l } })
+        inputVal={playerStats.batting.PA}
+        setInputVal={(pa) => {
+          setPlayerStats({ ...playerStats, batting: { ...playerStats.batting, PA: pa } })
         }}
         min={0}
         max={1000}
-        formName={"l"}
-        className={"batting batting-l"}
-        labelName={"Losses"}
+        formName={"pa"}
+        className={"batting batting-pa"}
+        labelName={"Plate Appearances"}
       />
 
       <InputNumber
@@ -168,7 +180,7 @@ function PlayerStats() {
         max={1000}
         formName={"ops"}
         className={"batting batting-ops"}
-        labelName={"Overall Percentage"}
+        labelName={"On-base Plus Slugging"}
       />
 
       <InputNumber

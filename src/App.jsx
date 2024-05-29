@@ -1,7 +1,6 @@
 import Dugout from "./components/Dugout.jsx"
 import Welcome from "./components/Welcome.jsx"
 import UserProfile from "./components/auth/UserProfile.jsx"
-import BaseballCard from "./components/BaseballCard.jsx"
 
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from "react-router-dom"
 
@@ -25,8 +24,6 @@ const router = createBrowserRouter(
 )
 
 function App() {
-  
-
   return RouterProvider({router})
 }
 

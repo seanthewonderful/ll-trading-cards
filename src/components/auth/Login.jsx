@@ -28,7 +28,11 @@ const Login = ({ onClose }) => {
   }
 
   return (
-    <form id='login-form' onSubmit={handleLogin}>
+    <form 
+      className='auth-form'
+      id='login-form' 
+      onSubmit={handleLogin}
+      >
 
       <label htmlFor="email">Email</label>
       <input 
