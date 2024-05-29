@@ -1,4 +1,4 @@
-import BaseballCard from "./BaseballCard"
+import BaseballCard from "./BaseballCardFront"
 import { useState } from "react"
 
 const ChooseTemplate = () => {

@@ -8,11 +8,14 @@ const PlayerBasicInfo = () => {
     lastName: "",
     birthMonth: "1",
     homeTown: "",
+    homeState: "AL",
     recoveryEmail: "",
     bio: "",
     jerseyNumber: "",
-    position1: "",
-    position2: "",
+    throws: "R",
+    bats: "R",
+    position1: "1",
+    position2: "2",
   })
 
   const dispatch = useDispatch()
@@ -75,6 +78,65 @@ const PlayerBasicInfo = () => {
         onChange={(e) => setPlayerInfo({ ...playerInfo, homeTown: e.target.value })}
         />
 
+      <label htmlFor="home-state">Home State</label>
+      <select 
+        id="home-state" 
+        name="home-state" 
+        value={playerInfo.homeState}
+        onChange={(e) => setPlayerInfo({ ...playerInfo, homeState: e.target.value })}
+        >
+          <option value="AL">Alabama</option>
+          <option value="AK">Alaska</option>
+          <option value="AZ">Arizona</option>
+          <option value="AR">Arkansas</option>
+          <option value="CA">California</option>
+          <option value="CO">Colorado</option>
+          <option value="CT">Connecticut</option>
+          <option value="DE">Delaware</option>
+          <option value="FL">Florida</option>
+          <option value="GA">Georgia</option>
+          <option value="HI">Hawaii</option>
+          <option value="ID">Idaho</option>
+          <option value="IL">Illinois</option>
+          <option value="IN">Indiana</option>
+          <option value="IA">Iowa</option>
+          <option value="KS">Kansas</option>
+          <option value="KY">Kentucky</option>
+          <option value="LA">Louisiana</option>
+          <option value="ME">Maine</option>
+          <option value="MD">Maryland</option>
+          <option value="MA">Massachusetts</option>
+          <option value="MI">Michigan</option>
+          <option value="MN">Minnesota</option>
+          <option value="MS">Mississippi</option>
+          <option value="MO">Missouri</option>
+          <option value="MT">Montana</option>
+          <option value="NE">Nebraska</option>
+          <option value="NV">Nevada</option>
+          <option value="NH">New Hampshire</option>
+          <option value="NJ">New Jersey</option>
+          <option value="NM">New Mexico</option>
+          <option value="NY">New York</option>
+          <option value="NC">North Carolina</option>
+          <option value="ND">North Dakota</option>
+          <option value="OH">Ohio</option>
+          <option value="OK">Oklahoma</option>
+          <option value="OR">Oregon</option>
+          <option value="PA">Pennsylvania</option>
+          <option value="RI">Rhode Island</option>
+          <option value="SC">South Carolina</option>
+          <option value="SD">South Dakota</option>
+          <option value="TN">Tennessee</option>
+          <option value="TX">Texas</option>
+          <option value="UT">Utah</option>
+          <option value="VT">Vermont</option>
+          <option value="VA">Virginia</option>
+          <option value="WA">Washington</option>
+          <option value="WV">West Virginia</option>
+          <option value="WI">Wisconsin</option>
+          <option value="WY">Wyoming</option>
+      </select>
+
       <label htmlFor="recovery-email">Recovery Email</label>
       <input 
         type="email"
@@ -98,10 +160,34 @@ const PlayerBasicInfo = () => {
         onChange={(e) => setPlayerInfo({ ...playerInfo, jerseyNumber: e.target.value })}
         />
 
+      <label htmlFor="throws">Throws</label>
+      <select 
+        id="throws" 
+        name="throws" 
+        value={playerInfo.throws}
+        onChange={(e) => setPlayerInfo({ ...playerInfo, throws: e.target.value })}
+        >
+          <option value="R">Right</option>
+          <option value="L">Left</option>
+      </select>
+
+      <label htmlFor="bats">Bats</label>
+      <select 
+        id="bats" 
+        name="bats" 
+        value={playerInfo.bats}
+        onChange={(e) => setPlayerInfo({ ...playerInfo, bats: e.target.value })}
+        >
+          <option value="R">Right</option>
+          <option value="L">Left</option>
+          <option value="S">Switch</option>
+      </select>
+
       <label htmlFor="position1">Position 1</label>
       <select 
         id="position1" 
         name="position1" 
+        value={playerInfo.position1}
         onChange={(e) => setPlayerInfo({ ...playerInfo, position1: e.target.value })}
         >
           <option value="1">Pitcher</option>
@@ -119,6 +205,7 @@ const PlayerBasicInfo = () => {
       <select 
         id="position2" 
         name="position2" 
+        value={playerInfo.position2}
         onChange={(e) => setPlayerInfo({ ...playerInfo, position2: e.target.value })}
         >
           <option value="1">Pitcher</option>

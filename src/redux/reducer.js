@@ -1,6 +1,7 @@
 const initialState = {
   user: null,
   admin: null,
+  players: [],
   playerInfo: {},
   playerStats: {}
 };

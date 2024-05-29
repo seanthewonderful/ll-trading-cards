@@ -1,17 +1,20 @@
+import { useSelector } from "react-redux"
 import "../styles/topps87.css"
 
 import angelsEmblem from "../assets/team_logos/LAA/los-angeles-angels-emblem.png"
 
-const BaseballCard = ({ playerInfo, playerStats }) => {
+const BaseballCardFront = () => {
 
+  const playerInfo = useSelector(state => state.playerInfo)
+  const playerStats = useSelector(state => state.playerStats)
 
   return (
-    <div id="card-container">
+    <div id="baseball-card-front">
 
       <section id="team-logo-section">
         <img id="team-logo-img" src={angelsEmblem} alt="angels logo" />
       </section>
-      <div id="baseball-card">
+      <div id="baseball-card-front-body">
         <div id="card-image-div-black">
           <div id="card-image-div-white">
 
@@ -36,4 +39,4 @@ const BaseballCard = ({ playerInfo, playerStats }) => {
   )
 }
 
-export default BaseballCard
+export default BaseballCardFront

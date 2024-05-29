@@ -9,11 +9,13 @@ import PlayerBasicInfo from "./forms/PlayerBasicInfo"
 import StatsInput from "./forms/StatsInput"
 import PlayerStats from "./forms/PlayerStats"
 
-import BaseballCard from "./BaseballCard"
+import BaseballCardFront from "./BaseballCardFront"
+import BaseballCardBack from "./BaseballCardBack"
 
 function Dugout() {
 
   const [cardDemo, setCardDemo] = useState(false)
+  const [showBack, setShowBack] = useState(false)
 
   const user = useSelector(state => state.user)
   const playerInfo = useSelector(state => state.playerInfo)
@@ -28,15 +30,30 @@ function Dugout() {
     <div className="dugout">
       <Navbar />
 
-      <button style={{ zIndex: 10 }} onClick={() => setCardDemo(!cardDemo)}>
+      <button 
+        style={{ zIndex: 10 }} 
+        onClick={() => setCardDemo(!cardDemo)}
+        >
         {cardDemo ? "Show player input" : "Show baseball card"}
       </button>
 
       {cardDemo ? 
-        <BaseballCard 
-          playerInfo={playerInfo} 
-          playerStats={playerStats}
-          /> 
+      <>
+        {showBack ? 
+          <BaseballCardBack /> 
+          : 
+          <BaseballCardFront 
+            playerInfo={playerInfo} 
+            playerStats={playerStats}
+            /> 
+        }
+        <button 
+          style={{ zIndex: 10 }}
+          onClick={() => setShowBack(!showBack)}
+          >
+            {showBack ? "Show front" : "Show back"}
+        </button>
+      </>
 
         :
 
