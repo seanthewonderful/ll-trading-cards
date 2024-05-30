@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "nodemon backend/server/server.js",
+    "dev": "nodemon backend/server/server.js -w backend/server/server.js -w src",
     "build": "vite build",
     "seed": "node backend/database/seed.js",
     "queries": "node backend/database/queries.js",

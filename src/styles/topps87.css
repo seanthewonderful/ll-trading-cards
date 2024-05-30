@@ -43,9 +43,9 @@
   position: relative;
   clip-path: polygon(0% 50%, 5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%);
   top: 15%;
-  left: 1.75%;
+  left: 3.5%;
   height: 10%;
-  width: 90%;
+  width: 87%;
   z-index: 2;
 }
 #baseball-card-back-table {
@@ -53,7 +53,7 @@
   background-color: #ffff3d;
   border-collapse: collapse;
   font-size: xx-small;
-  width: 90%;
+  width: 93%;
   height: 62%;
 }
 #head-categories {
@@ -73,9 +73,9 @@
   position: relative;
   clip-path: polygon(0% 50%, 5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%);
   top: -15%;
-  left: 1.75%;
+  left: 3.5%;
   height: 10%;
-  width: 90%;
+  width: 87%;
 }
 #baseball-card-back-info-plate-left {
   display: flex;
@@ -84,7 +84,7 @@
   align-items: center;
   font-size: x-small;
   background-color: #ffff3d;
-  clip-path: polygon(2% 50%, 7% 7%, 95% 7%, 100% 7%, 100% 93%, 7% 93%);
+  clip-path: polygon(1% 50%, 6% 4%, 95% 4%, 100% 4%, 100% 96%, 6% 96%);
   height: 95%;
   width: 85%;
 }

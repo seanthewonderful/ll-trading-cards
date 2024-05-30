@@ -3,7 +3,8 @@ const initialState = {
   admin: null,
   players: [],
   playerInfo: {},
-  playerStats: {}
+  playerStats: {},
+  userTeams: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -37,6 +38,13 @@ const reducer = (state = initialState, action) => {
         ...state,
         playerStats: action.payload,
       };
+
+    case "CREATE_TEAM":
+      return {
+        ...state,
+        userTeams: [...state.userTeams, action.payload],
+      };
+      
     default:
       return state;
   }
