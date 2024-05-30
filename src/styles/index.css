@@ -1,3 +1,5 @@
+
+/* AUTH MODALS */
 .modal {
   position: fixed;
   display: flex;
@@ -54,13 +56,13 @@ footer {
   background: linear-gradient(to top, #e6b980 0%, #eacda3 100%);
 }
 
+/* DUGOUT */
 .dugout {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-
 #dugout-div {
   display: flex;
   justify-content: space-evenly;
