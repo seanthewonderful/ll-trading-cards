@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
 
 
@@ -8,6 +8,7 @@ function Navbar() {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const user = useSelector(state => state.user)
 
   const logout = () => {
     axios.post('/api/logout')
@@ -23,22 +24,61 @@ function Navbar() {
   return (
     <nav id='navbar'>
 
-      <NavLink to="/">
-        <button>Home</button>
+    {user ? (
+      <>
+      <NavLink 
+        to="/teams"
+        className={({ isActive, isPending }) =>
+          isPending ? "navlink pending" : isActive ? "navlink active" : "navlink"
+        }
+        >
+          <button>Your Teams</button>
       </NavLink>
 
-      <NavLink to="/dugout">
-        <button>Dugout</button>
+      <NavLink 
+        to="/dugout"
+        className={({ isActive, isPending }) =>
+          isPending ? "navlink pending" : isActive ? "navlink active" : "navlink"
+        }
+        >
+          <button>Dugout</button>
       </NavLink>
 
-      <NavLink to="/profile">
-        <button>Profile</button>
+      <NavLink 
+        to="/profile"
+        className={({ isActive, isPending }) =>
+          isPending ? "navlink pending" : isActive ? "navlink active" : "navlink"
+        }
+        >
+          <button>Profile</button>
       </NavLink>
       
-      <NavLink onClick={logout}>
-        <button>Logout</button>
+      <NavLink 
+        onClick={logout}
+        >
+          <button>Logout</button>
       </NavLink>
-      
+      </>
+    ) : (
+      <>
+        <NavLink 
+          to="/about"
+          className={({ isActive, isPending }) =>
+            isPending ? "navlink pending" : isActive ? "navlink active" : "navlink"
+          }
+          >
+            <button>Learn More</button>
+        </NavLink>
+        {/* <NavLink 
+          to="/"
+          className={({ isActive, isPending }) =>
+            isPending ? "navlink pending" : isActive ? "navlink active" : "navlink"
+          }
+          >
+            <button>Login</button>
+        </NavLink> */}
+      </>
+    )}
     </nav>
   )
 }

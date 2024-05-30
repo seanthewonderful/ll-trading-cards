@@ -28,7 +28,7 @@ function Dugout() {
 
   return (
     <div className="dugout">
-      <Navbar />
+      {/* <Navbar /> */}
 
       <button 
         style={{ zIndex: 10 }} 
@@ -76,7 +76,7 @@ function Dugout() {
 
       }
       
-      <Footer />
+      {/* <Footer /> */}
     </div>
   )
 }
