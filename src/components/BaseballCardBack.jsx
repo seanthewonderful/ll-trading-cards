@@ -34,80 +34,80 @@ function BaseballCardBack() {
 
       <div id="baseball-card-back-body">
 
-            <table id="baseball-card-back-table">
-              <thead>
-                <tr>
-                  <th colSpan="16">COMPLETE BATTING RECORD</th>
-                </tr>
-                <tr id="head-categories">
-                  <th>YR</th>
-                  <th>Club</th>
-                  <th>G</th>
-                  <th>AB</th>
-                  <th>R</th>
-                  <th>H</th>
-                  <th>2B</th>
-                  <th>3B</th>
-                  <th>HR</th>
-                  <th>RBI</th>
-                  <th>BB</th>
-                  <th>SB</th>
-                  <th>OBP</th>
-                  <th>SLG</th>
-                  <th>OPS</th>
-                  <th>AVG</th>
-                </tr>
-              </thead>
-              <tbody>
+        <table id="baseball-card-back-table">
+          <thead>
+            <tr>
+              <th colSpan="16">COMPLETE BATTING RECORD</th>
+            </tr>
+            <tr id="head-categories">
+              <th>YR</th>
+              <th>Club</th>
+              <th>G</th>
+              <th>AB</th>
+              <th>R</th>
+              <th>H</th>
+              <th>2B</th>
+              <th>3B</th>
+              <th>HR</th>
+              <th>RBI</th>
+              <th>BB</th>
+              <th>SB</th>
+              <th>OBP</th>
+              <th>SLG</th>
+              <th>OPS</th>
+              <th>AVG</th>
+            </tr>
+          </thead>
+          <tbody>
 
-                {/* {playerStats.batting.map((stat) => (
-                  <tr>
-                    <td>{stat}</td>
-                  </tr>
-                ))} */}
-                <tr>
-                  <td>24</td>
-                  <td>DODGERS</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0.000</td>
-                  <td>0.000</td>
-                  <td>0.000</td>
-                  <td>0.000</td>
-                </tr>
-                <tr id="totals-row">
-                  <td colSpan="2">TOTALS</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0.000</td>
-                  <td>0.000</td>
-                  <td>0.000</td>
-                  <td>0.000</td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <th colSpan="16" align="right">©2024 PopCards Trading Inc.</th>
-                </tr>
-                
-              </tfoot>
-            </table>
+            {/* {playerStats.batting.map((stat) => (
+              <tr>
+                <td>{stat}</td>
+              </tr>
+            ))} */}
+            <tr>
+              <td>24</td>
+              <td>DODGERS</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0.000</td>
+              <td>0.000</td>
+              <td>0.000</td>
+              <td>0.000</td>
+            </tr>
+            <tr id="totals-row">
+              <td colSpan="2">TOTALS</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0.000</td>
+              <td>0.000</td>
+              <td>0.000</td>
+              <td>0.000</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th colSpan="16" align="right">©2024 PopCards Trading Inc.</th>
+            </tr>
+            
+          </tfoot>
+        </table>
 
       </div>
 

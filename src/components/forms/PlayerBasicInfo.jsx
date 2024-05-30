@@ -4,14 +4,14 @@ import { useDispatch } from 'react-redux'
 const PlayerBasicInfo = () => {
 
   const [playerInfo, setPlayerInfo] = useState({
-    firstName: "",
-    lastName: "",
+    firstName: "Jerry",
+    lastName: "Baseball",
     birthMonth: "1",
-    homeTown: "",
-    homeState: "AL",
+    homeTown: "Inglewood",
+    homeState: "CA",
     recoveryEmail: "",
     bio: "",
-    jerseyNumber: "",
+    jerseyNumber: "9",
     throws: "R",
     bats: "R",
     position1: "1",
@@ -33,12 +33,15 @@ const PlayerBasicInfo = () => {
 
   return (
     <form id='player-basic-info' onSubmit={handleSubmit}>
+
       <legend>Player Basic Info</legend>
-      <label htmlFor="player-name">First Name</label>
+
+      <label htmlFor="first-name">First Name</label>
       <input 
         type="text"
-        id="player-name" 
-        name="player-name" 
+        id="first-name" 
+        name="first-name" 
+        value={playerInfo.firstName}
         onChange={(e) => setPlayerInfo({ ...playerInfo, firstName: e.target.value })}
         />
 
@@ -47,6 +50,7 @@ const PlayerBasicInfo = () => {
         type="text"
         id="last-name" 
         name="last-name" 
+        value={playerInfo.lastName}
         onChange={(e) => setPlayerInfo({ ...playerInfo, lastName: e.target.value })}
         />
 
@@ -75,6 +79,7 @@ const PlayerBasicInfo = () => {
         type="text"
         id="home-town" 
         name="home-town" 
+        value={playerInfo.homeTown}
         onChange={(e) => setPlayerInfo({ ...playerInfo, homeTown: e.target.value })}
         />
 
@@ -142,6 +147,7 @@ const PlayerBasicInfo = () => {
         type="email"
         id="recovery-email" 
         name="recovery-email" 
+        value={playerInfo.recoveryEmail}
         onChange={(e) => setPlayerInfo({ ...playerInfo, recoveryEmail: e.target.value })}
         />
 
@@ -149,6 +155,7 @@ const PlayerBasicInfo = () => {
       <textarea 
         id="bio" 
         name="bio" 
+        value={playerInfo.bio}
         onChange={(e) => setPlayerInfo({ ...playerInfo, bio: e.target.value })}
         />
 
@@ -157,6 +164,7 @@ const PlayerBasicInfo = () => {
         type="number"
         id="jersey-number" 
         name="jersey-number" 
+        value={playerInfo.jerseyNumber}
         onChange={(e) => setPlayerInfo({ ...playerInfo, jerseyNumber: e.target.value })}
         />
 

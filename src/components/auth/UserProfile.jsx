@@ -1,8 +1,11 @@
-
+import Navbar from "../Navbar"
 
 function UserProfile() {
+  
   return (
-    <div>
+    <div id="user-profile">
+      {/* <Navbar /> */}
+
       <h1>UserProfile</h1>
       <h3>Past Baseball Cards</h3>
       <h3>Past Batting Stats</h3>
