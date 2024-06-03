@@ -9,3 +9,7 @@ NAMES:
   - Youisville Sluggers
   - Lowerdeck
   - 
+
+
+- Need req.session.teams = []
+- When user updates a team, update req.session?

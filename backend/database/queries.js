@@ -1,27 +1,12 @@
-import { db, User, Team, Player } from "./models.js"
+import { db, User, Team, TeamLogo, Player } from "./models.js";
 
-let user = await User.findOne()
-await Player.create({
-  firstName: "Cristiano",
-  lastName: "Ronaldo",
-  birthMonth: "December",
-  homeTown: "Manila",
-  recoveryEmail: "Lk6yA@example.com"
-})
-let player = await Player.findOne()
+let user = await User.findOne();
+let team = await Team.findByPk(1, { include: [TeamLogo] });
 
-// user = await user.createTeam({ name: "Milwaukee Brewers", year: "2024" })
+console.log(team);
 
-// await Team.create({
-//   name: "Milwaukee Brewers",
-//   year: "2024",
-//   userId: 1
-// })
+let logos = await TeamLogo.findAll();
 
-// console.log(await Team.findAll())
+console.log(logos);
 
-console.dir(player.__proto__)
-// console.dir(user.__proto__)
-
-
-await db.close()
+await db.close();
