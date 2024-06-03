@@ -13,6 +13,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+        userTeams: action.payload.userTeams || [],
       };
     case "SET_ADMIN":
       return {
@@ -44,7 +45,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         userTeams: [...state.userTeams, action.payload],
       };
-      
+
     default:
       return state;
   }

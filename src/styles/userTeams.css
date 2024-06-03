@@ -1,0 +1,35 @@
+#user-teams-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.team-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  width: 90vw;
+  height: 20vh;
+  border: 1px solid black;
+  transition: transform 0.2s;
+}
+.team-card:hover {
+  background-color: lightgray;
+  transform: scale(1.05);
+}
+.team-card-photo {
+  height: 90%;
+  width: auto;
+}
+
+.team-card-year {
+  margin-left: 1%;
+  font-size: large;
+}
+
+.team-card-name {
+  margin-left: 1%;
+  font-size: x-large;
+}
