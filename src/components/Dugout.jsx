@@ -1,30 +1,108 @@
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate, useLoaderData } from "react-router-dom";
+import { useEffect, useState } from "react";
+import store from "../redux/store.js";
 
 import ChooseTemplate from "./ChooseTemplate";
 import PlayerBasicInfo from "./forms/PlayerBasicInfo";
 import PlayerStats from "./forms/PlayerStats";
-
 import BaseballCardFront from "./BaseballCardFront";
 import BaseballCardBack from "./BaseballCardBack";
+import PlayerCard from "./PlayerCard.jsx";
+
+import axios from "axios";
 
 function Dugout() {
   const [cardDemo, setCardDemo] = useState(false);
   const [showBack, setShowBack] = useState(false);
 
   const user = useSelector((state) => state.user);
-  const playerInfo = useSelector((state) => state.playerInfo);
-  const playerStats = useSelector((state) => state.playerStats);
+  // const playerInfo = useSelector((state) => state.playerInfo);
+  // const playerStats = useSelector((state) => state.playerStats);
   const navigate = useNavigate();
 
-  if (!user) {
-    navigate("/");
+  // const teamData = useLoaderData();
+  const teamData = useSelector(state => state.team);
+  console.log(teamData)
+  const [players, setPlayers] = useState(teamData ? teamData.players : []);
+
+  const [playerData, setPlayerData] = useState({
+    firstName: "",
+    lastName: "",
+    birthMonth: "",
+    homeTown: "",
+    recoveryEmail: "",
+    teamId: teamData ? teamData.teamId : "",
+  });
+
+  const createPlayer = (e) => {
+    e.preventDefault();
+    console.log(playerData);
+    axios.post('/api/createPlayer', playerData)
+    .then((res) => {
+      setPlayers([...players, res.data.newPlayer])
+    })
+  }
+
+  useEffect(() => {
+    if (!user || !teamData) {
+      navigate("/teams");
+    }
+  }, []);
+
+  let playerCards = []
+  if (players) {
+    playerCards = players.map((player) => (
+      <PlayerCard player={player} key={player.playerId} />
+      
+    ));
   }
 
   return (
     <div className="dugout">
-      <button style={{ zIndex: 10 }} onClick={() => setCardDemo(!cardDemo)}>
+
+      <form onSubmit={createPlayer}>
+        <input 
+          type="text"
+          placeholder="First Name"
+          value={playerData.firstName}
+          onChange={(e) => setPlayerData({ ...playerData, firstName: e.target.value })}
+          />
+
+        <input 
+          type="text"
+          placeholder="Last Name"
+          value={playerData.lastName}
+          onChange={(e) => setPlayerData({ ...playerData, lastName: e.target.value })}
+          />
+
+        <input 
+          type="text"
+          placeholder="Birth Month"
+          value={playerData.birthMonth}
+          onChange={(e) => setPlayerData({ ...playerData, birthMonth: e.target.value })}
+          />
+
+        <input 
+          type="text"
+          placeholder="Home Town"
+          value={playerData.homeTown}
+          onChange={(e) => setPlayerData({ ...playerData, homeTown: e.target.value })}
+          />
+
+        <input 
+          type="text"
+          placeholder="Email"
+          value={playerData.recoveryEmail}
+          onChange={(e) => setPlayerData({ ...playerData, recoveryEmail: e.target.value })}
+          />
+
+        <input type="submit" />
+      </form>
+
+      {playerCards}
+      
+      {/* <button style={{ zIndex: 10 }} onClick={() => setCardDemo(!cardDemo)}>
         {cardDemo ? "Show player input" : "Show baseball card"}
       </button>
 
@@ -53,15 +131,19 @@ function Dugout() {
           </div>
 
           <div id="player-stats-div">
-            {/* <StatsInput playerStats={playerStats} /> */}
             <PlayerStats playerStats={playerStats} />
           </div>
         </div>
-      )}
+      )} */}
 
-      {/* <Footer /> */}
     </div>
   );
 }
 
 export default Dugout;
+
+// export const dugoutLoader = async () => {
+//   const teamId = store.getState().teamId;
+//   const { data } = await axios.get(`/api/team/${teamId}`);
+//   return data.team;
+// }

@@ -7,6 +7,7 @@ import texLogoIcon from "../assets/team_logos/TEX/texas-rangers-t-logo.png";
 import { useDispatch } from "react-redux";
 
 function TeamCreate({ closeModal }) {
+
   const dispatch = useDispatch();
   const [teamInfo, setTeamInfo] = useState({
     name: "",
@@ -52,8 +53,8 @@ function TeamCreate({ closeModal }) {
     axios.post("/api/newTeam", teamInfo).then((res) => {
       console.log(res.data);
       dispatch({
-        type: "CREATE_TEAM",
-        payload: res.data.newTeam,
+        type: "SET_USER",
+        payload: res.data.user,
       });
       closeModal();
     });

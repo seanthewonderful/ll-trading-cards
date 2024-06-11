@@ -23,6 +23,10 @@
   height: 90%;
   width: auto;
 }
+.team-card-logo {
+  height: 70%;
+  width: auto;
+}
 
 .team-card-year {
   margin-left: 1%;

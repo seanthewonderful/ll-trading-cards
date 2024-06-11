@@ -1,4 +1,4 @@
-import { User, MLBTeam, TeamLogo, Team } from "../../database/models.js";
+import { User, MLBTeam, TeamLogo, Team, Player } from "../../database/models.js";
 import bcryptjs from "bcryptjs";
 
 const userHandlers = {
@@ -25,10 +25,18 @@ const userHandlers = {
     });
 
     user = await User.findByPk(user.userId, {
-      include: {
-        model: Team,
-        include: [TeamLogo],
-      },
+      include: [
+        { 
+          model: MLBTeam 
+        },
+        {
+          model: Team,
+          include: [
+            { model: TeamLogo }, 
+            { model: Player }
+          ],
+        },
+    ],
     });
 
     req.session.user = user;
@@ -63,10 +71,18 @@ const userHandlers = {
 
     user = await User.findOne({
       where: { email },
-      include: {
-        model: Team,
-        include: [TeamLogo],
-      },
+      include: [
+        { 
+          model: MLBTeam 
+        },
+        {
+          model: Team,
+          include: [
+            { model: TeamLogo }, 
+            { model: Player },
+          ],
+        },
+      ]
     });
 
     req.session.user = user;

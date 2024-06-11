@@ -1,12 +1,16 @@
 import { db, User, Team, TeamLogo, Player } from "./models.js";
 
-let user = await User.findOne();
-let team = await Team.findByPk(1, { include: [TeamLogo] });
+let team = await Team.findByPk(4)
 
-console.log(team);
+await team.createPlayer({
+  firstName: "test",
+  lastName: "test",
+  birthMonth: "test",
+  homeTown: "test",
+  recoveryEmail: "test",
+  userId: 1
+})
 
-let logos = await TeamLogo.findAll();
-
-console.log(logos);
+console.log(await Team.findByPk(4, { include: [Player] }));
 
 await db.close();

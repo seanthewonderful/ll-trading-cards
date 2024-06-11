@@ -21,6 +21,13 @@ console.log("Users seeded");
 console.log("Seeding MLB Teams...");
 const mlbTeams = [
   {
+    location: "USA",
+    name: "MLB",
+    abbreviation: "MLB",
+    city: "New York",
+    state: "NY",
+  },
+  {
     location: "Arizona",
     name: "Diamondbacks",
     abbreviation: "ARI",

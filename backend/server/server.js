@@ -3,6 +3,7 @@ import session from 'express-session'
 import ViteExpress from 'vite-express'
 import userFunctions from './controllers/userController.js'
 import teamFunctions from './controllers/teamController.js'
+import playerFunctions from './controllers/playerController.js'
 import cors from 'cors'
 
 const app = express()
@@ -33,5 +34,6 @@ app.get('/api/sessionCheck', (userFunctions.sessionCheck))
 app.post('/api/newTeam', teamFunctions.addTeam)
 app.get('/api/team/:id', teamFunctions.findTeam)
 app.post('/api/newPlayer', teamFunctions.addPlayer)
+app.post('/api/createPlayer', playerFunctions.addPlayer)
 
 ViteExpress.listen(app, PORT, () => console.log(`Take me out to the http://localhost:${PORT} game`))

@@ -13,9 +13,9 @@ const teamFunctions = {
     const id = req.session.user.userId;
     const { name, year, teamPic, logoFull, logoIcon } = req.body;
 
-    const user = await User.findByPk(+id);
+    let user = await User.findByPk(+id);
 
-    const newTeam = await user.createUserTeam({
+    let newTeam = await user.createUserTeam({
       name: name,
       year: year,
     });
@@ -31,8 +31,19 @@ const teamFunctions = {
       })
     );
 
-    newTeam = await Team.findByPk(newTeam.teamId, {
-      include: [TeamLogo],
+    user = await User.findByPk(+id, {
+      include: [
+        { 
+          model: MLBTeam 
+        },
+        {
+          model: Team,
+          include: [
+            { model: TeamLogo },
+            { model: Player },
+          ],
+        },
+    ]
     });
 
     req.session.teamId = newTeam.teamId;
@@ -40,8 +51,9 @@ const teamFunctions = {
     res.status(200).send({
       success: true,
       message: "Team created",
-      newTeam: newTeam,
-      teamPhotos: teamPhotos,
+      user: user,
+      // newTeam: newTeam,
+      // teamPhotos: teamPhotos,
     });
 
     // POSTMAN SYNTAX
@@ -98,15 +110,30 @@ const teamFunctions = {
   findTeam: async (req, res) => {
     console.log(req.params);
 
-    const foundTeam = await Team.findByPk(req.params.id);
-    console.log("foundTeam", foundTeam);
+    try {
+      const foundTeam = await Team.findByPk(+req.params.id, {
+        include: [
+          { model: TeamLogo },
+          { model: Player },
+        ]
+      });
+      console.log("foundTeam", foundTeam);
 
-    req.session.teamId = foundTeam.teamId;
+      req.session.teamId = foundTeam.teamId;
 
-    res.status(200).send({
-      success: true,
-      message: "Team found!",
-    });
+      return res.status(200).send({
+        success: true,
+        message: "Team found!",
+        team: foundTeam
+      });
+
+    } catch (err) {
+      console.log(err);
+      return res.status(404).send({
+        success: false,
+        message: "Team not found",
+      })
+    }
   },
 
   addPlayer: async (req, res) => {

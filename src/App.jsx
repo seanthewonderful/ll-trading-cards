@@ -20,7 +20,11 @@ const router = createBrowserRouter(
 
         <Route path="teams" element={<UserTeams />} />
         <Route path="profile" element={<UserProfile />} />
-        <Route path="dugout" element={<Dugout />} />
+        <Route 
+          path="dugout" 
+          element={<Dugout />} 
+          // loader={dugoutLoader}
+          />
 
         <Route path="checkout" element={<Checkout />} />
 

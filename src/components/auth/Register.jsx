@@ -9,7 +9,7 @@ const Register = ({ onClose }) => {
     lastName: "",
     password: "",
     confirmPassword: false,
-    favTeam: "",
+    favTeam: "MLB",
   });
 
   const dispatch = useDispatch();
@@ -103,6 +103,8 @@ const Register = ({ onClose }) => {
       <label htmlFor="fav-team">Favorite Team</label>
       <select
         id="fav-team"
+        name="fav-team"
+        value={registerInfo.favTeam}
         onChange={(e) =>
           setRegisterInfo({ ...registerInfo, favTeam: e.target.value })
         }
