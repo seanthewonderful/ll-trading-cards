@@ -348,8 +348,8 @@ Player.belongsTo(User, { foreignKey: "userId" })
 User.hasMany(Team, { foreignKey: "userId" })
 Team.belongsTo(User, { foreignKey: "userId" })
 
-Player.belongsToMany(Team, { through: "PlayerTeam" })
-Team.belongsToMany(Player, { through: "PlayerTeam" })
+Team.hasMany(Player, { foreignKey: "teamId" })
+Player.belongsTo(Team, { foreignKey: "teamId" })
 
 Player.hasMany(PlayerImage, { foreignKey: "playerId" })
 PlayerImage.belongsTo(Player, { foreignKey: "playerId" })

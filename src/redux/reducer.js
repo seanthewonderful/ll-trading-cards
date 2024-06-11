@@ -29,7 +29,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         team: action.payload,
       }
-
+    case "CLEAR_TEAM":
+      return {
+        ...state,
+        team: null
+      }
+      
     default:
       return state;
   }

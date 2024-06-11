@@ -15,7 +15,7 @@ const playerFunctions = {
 
     const { firstName, lastName, birthMonth, homeTown, recoveryEmail, teamId } = req.body;
     
-    const team = await Team.findByPk(teamId);
+    let team = await Team.findByPk(teamId);
 
     if (!team) {
       return res.status(404).send({
@@ -56,11 +56,23 @@ const playerFunctions = {
     ]
     });
 
+    team = await Team.findByPk(teamId, {
+      include: [
+        {
+          model: TeamLogo
+        },
+        {
+          model: Player
+        }
+      ]
+    });
+
     return res.status(200).send({
       success: true,
       message: "Player added",
       newPlayer: newPlayer,
-      user: user
+      user: user,
+      team: team
     })
   }
 }

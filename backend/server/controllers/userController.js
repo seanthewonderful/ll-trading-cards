@@ -106,13 +106,27 @@ const userHandlers = {
     console.log("HIT SESSION CHECK");
 
     if (req.session.user) {
-      res.status(200).send({
+      const user = await User.findByPk(req.session.user.userId, {
+        include: [
+          { 
+            model: MLBTeam 
+          },
+          {
+            model: Team,
+            include: [
+              { model: TeamLogo }, 
+              { model: Player },
+            ],
+          },
+        ]
+      })
+      return res.status(200).send({
         success: true,
         message: "User logged in",
-        user: req.session.user,
+        user: user,
       });
     } else {
-      res.status(200).send({
+      return res.status(200).send({
         success: false,
         message: "No user logged in",
         user: null,

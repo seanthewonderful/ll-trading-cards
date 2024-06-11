@@ -9,9 +9,7 @@ const sessionCheck = async (dispatch) => {
       type: 'SET_USER',
       payload: res.data.user
     })
-  }
-  console.log(res.data)
-  
+  }  
 }
 
 export default sessionCheck

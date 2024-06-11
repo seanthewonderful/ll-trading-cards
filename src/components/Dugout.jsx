@@ -1,6 +1,6 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLoaderData } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useDebugValue, useEffect, useState } from "react";
 import store from "../redux/store.js";
 
 import ChooseTemplate from "./ChooseTemplate";
@@ -11,6 +11,7 @@ import BaseballCardBack from "./BaseballCardBack";
 import PlayerCard from "./PlayerCard.jsx";
 
 import axios from "axios";
+import PlayerCreate from "./PlayerCreate.jsx";
 
 function Dugout() {
   const [cardDemo, setCardDemo] = useState(false);
@@ -24,81 +25,23 @@ function Dugout() {
   // const teamData = useLoaderData();
   const teamData = useSelector(state => state.team);
   console.log(teamData)
-  const [players, setPlayers] = useState(teamData ? teamData.players : []);
+  let players = teamData ? teamData.players : [];
 
-  const [playerData, setPlayerData] = useState({
-    firstName: "",
-    lastName: "",
-    birthMonth: "",
-    homeTown: "",
-    recoveryEmail: "",
-    teamId: teamData ? teamData.teamId : "",
-  });
-
-  const createPlayer = (e) => {
-    e.preventDefault();
-    console.log(playerData);
-    axios.post('/api/createPlayer', playerData)
-    .then((res) => {
-      setPlayers([...players, res.data.newPlayer])
-    })
-  }
+  let playerCards = players.map((player) => (
+    <PlayerCard player={player} key={player.playerId} />
+  ));
 
   useEffect(() => {
+    console.log("HIT useEffect")
     if (!user || !teamData) {
       navigate("/teams");
     }
   }, []);
 
-  let playerCards = []
-  if (players) {
-    playerCards = players.map((player) => (
-      <PlayerCard player={player} key={player.playerId} />
-      
-    ));
-  }
-
   return (
     <div className="dugout">
 
-      <form onSubmit={createPlayer}>
-        <input 
-          type="text"
-          placeholder="First Name"
-          value={playerData.firstName}
-          onChange={(e) => setPlayerData({ ...playerData, firstName: e.target.value })}
-          />
-
-        <input 
-          type="text"
-          placeholder="Last Name"
-          value={playerData.lastName}
-          onChange={(e) => setPlayerData({ ...playerData, lastName: e.target.value })}
-          />
-
-        <input 
-          type="text"
-          placeholder="Birth Month"
-          value={playerData.birthMonth}
-          onChange={(e) => setPlayerData({ ...playerData, birthMonth: e.target.value })}
-          />
-
-        <input 
-          type="text"
-          placeholder="Home Town"
-          value={playerData.homeTown}
-          onChange={(e) => setPlayerData({ ...playerData, homeTown: e.target.value })}
-          />
-
-        <input 
-          type="text"
-          placeholder="Email"
-          value={playerData.recoveryEmail}
-          onChange={(e) => setPlayerData({ ...playerData, recoveryEmail: e.target.value })}
-          />
-
-        <input type="submit" />
-      </form>
+      <PlayerCreate teamId={teamData ? teamData.teamId : ""} />
 
       {playerCards}
       

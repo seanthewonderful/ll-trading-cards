@@ -10,6 +10,7 @@ import "../styles/userTeams.css";
 function UserTeams() {
 
   const user = useSelector((state) => state.user);
+  console.log(user)
   const navigate = useNavigate();
 
   let teamList;

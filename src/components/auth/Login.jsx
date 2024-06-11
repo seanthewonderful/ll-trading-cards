@@ -22,9 +22,9 @@ const Login = ({ onClose }) => {
     await axios
       .post("/api/login", body)
       .then((res) => {
-        console.log(res.data.user);
         onClose();
         dispatch({ type: "SET_USER", payload: res.data.user });
+        console.log(res.data.user);
       })
       .catch((err) => console.warn("LOGIN ERROR: ", err.response.data.message));
   };
