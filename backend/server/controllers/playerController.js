@@ -62,7 +62,15 @@ const playerFunctions = {
           model: TeamLogo
         },
         {
-          model: Player
+          model: Player,
+          include: [
+            {
+              model: PlayerImage
+            },
+            {
+              model: PlayerStats
+            }
+          ]
         }
       ]
     });

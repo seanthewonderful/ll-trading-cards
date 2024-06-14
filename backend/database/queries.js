@@ -1,6 +1,6 @@
-import { db, User, Team, TeamLogo, Player } from "./models.js";
+import { db, User, Team, TeamLogo, Player, PlayerImage } from "./models.js";
 
-let players = await Player.findAll({ include: Team })
+let players = await Player.findAll({ include: PlayerImage })
 
 players.forEach((player) => {
   console.log(player)

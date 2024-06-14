@@ -1,16 +1,16 @@
-import TeamCreate from "./TeamCreate";
-import TeamCard from "./TeamCard";
+import TeamCreate from "../TeamCreate";
+import TeamCard from "../TeamCard";
 
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import "../styles/userTeams.css";
+import "../../styles/userTeams.css";
 
 function UserTeams() {
 
   const user = useSelector((state) => state.user);
-  console.log(user)
+  // console.log(user)
   const navigate = useNavigate();
 
   let teamList;

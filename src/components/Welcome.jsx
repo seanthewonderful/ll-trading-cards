@@ -4,7 +4,6 @@ import sessionCheck from "../functions/sessionCheck.js";
 
 import Explanation from "./Explanation.jsx";
 import Turnstyle from "./auth/Turnstyle.jsx";
-import Dugout from "./Dugout.jsx";
 import { useNavigate } from "react-router-dom";
 
 function Welcome() {
@@ -34,7 +33,7 @@ function Welcome() {
 
   useEffect(() => {
     if (user) {
-      navigate("/teams");
+      navigate("/myteams");
     }
   }, [user]);
 

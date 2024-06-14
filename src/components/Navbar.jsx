@@ -9,6 +9,7 @@ function Navbar() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
+  console.log(user)
 
   const logout = () => {
     axios.post('/api/logout')
@@ -27,7 +28,7 @@ function Navbar() {
     {user ? (
       <>
       <NavLink 
-        to="/teams"
+        to="/myteams"
         className={({ isActive, isPending }) =>
           isPending ? "navlink pending" : isActive ? "navlink active" : "navlink"
         }

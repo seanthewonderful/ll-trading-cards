@@ -1,49 +1,65 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useLoaderData } from "react-router-dom";
-import { useDebugValue, useEffect, useState } from "react";
-import store from "../redux/store.js";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import store from "../../redux/store.js";
 
-import ChooseTemplate from "./ChooseTemplate";
-import PlayerBasicInfo from "./forms/PlayerBasicInfo";
-import PlayerStats from "./forms/PlayerStats";
-import BaseballCardFront from "./BaseballCardFront";
-import BaseballCardBack from "./BaseballCardBack";
-import PlayerCard from "./PlayerCard.jsx";
+import ChooseTemplate from "../ChooseTemplate.jsx";
+import PlayerBasicInfo from "../forms/PlayerBasicInfo.jsx";
+import PlayerStats from "../forms/PlayerStats.jsx";
+import BaseballCardFront from "../BaseballCardFront.jsx";
+import BaseballCardBack from "../BaseballCardBack.jsx";
+import PlayerCard from "../PlayerCard.jsx";
 
 import axios from "axios";
-import PlayerCreate from "./PlayerCreate.jsx";
+import PlayerCreate from "../PlayerCreate.jsx";
 
 function Dugout() {
   const [cardDemo, setCardDemo] = useState(false);
   const [showBack, setShowBack] = useState(false);
-
+  
   const user = useSelector((state) => state.user);
-  // const playerInfo = useSelector((state) => state.playerInfo);
-  // const playerStats = useSelector((state) => state.playerStats);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  // const teamData = useLoaderData();
   const teamData = useSelector(state => state.team);
   console.log(teamData)
   let players = teamData ? teamData.players : [];
 
   let playerCards = players.map((player) => (
-    <PlayerCard player={player} key={player.playerId} />
+    <PlayerCard 
+      player={player} 
+      key={player.playerId} 
+      />
   ));
 
   useEffect(() => {
-    console.log("HIT useEffect")
-    if (!user || !teamData) {
-      navigate("/teams");
+    if (!user) {
+      navigate("/");
+    }
+    if (!teamData) {
+      navigate("/myteams");
+    } else {
+      dispatch({
+        type: "SET_TEAM",
+        payload: teamData
+      })
+    }
+
+    return () => {
+      dispatch({
+        type: "CLEAR_TEAM"
+      })
     }
   }, []);
 
   return (
-    <div className="dugout">
+    <div id="dugout-div">
 
       <PlayerCreate teamId={teamData ? teamData.teamId : ""} />
 
-      {playerCards}
+      <div id="player-cards-div">
+        {playerCards}
+      </div>
       
       {/* <button style={{ zIndex: 10 }} onClick={() => setCardDemo(!cardDemo)}>
         {cardDemo ? "Show player input" : "Show baseball card"}

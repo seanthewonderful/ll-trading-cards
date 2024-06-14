@@ -11,5 +11,8 @@ NAMES:
   - 
 
 
-- Need req.session.teams = []
-- When user updates a team, update req.session?
+☐ Player card display = flex
+☐ Click on player card - input player info/stats
+  ☐ Here is where you determine which info will be used for the card too
+☐ Can click on any of card templates to instantly see player display
+
