@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import sessionCheck from "../functions/sessionCheck.js";
+import { useSelector } from "react-redux";
 
 import Explanation from "./Explanation.jsx";
 import Turnstyle from "./auth/Turnstyle.jsx";
@@ -8,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 
 function Welcome() {
   const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -26,10 +24,6 @@ function Welcome() {
     openModal();
     setRegister(true);
   };
-
-  useEffect(() => {
-    sessionCheck(dispatch);
-  }, []);
 
   useEffect(() => {
     if (user) {

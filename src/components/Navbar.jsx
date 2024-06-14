@@ -63,12 +63,12 @@ function Navbar() {
     ) : (
       <>
         <NavLink 
-          to="/about"
+          to="/"
           className={({ isActive, isPending }) =>
             isPending ? "navlink pending" : isActive ? "navlink active" : "navlink"
           }
           >
-            <button>Learn More</button>
+            <button>Home</button>
         </NavLink>
         {/* <NavLink 
           to="/"
