@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
+import '../../styles/playerBasicInfo.css'
+
 const PlayerBasicInfo = () => {
 
   const [playerInfo, setPlayerInfo] = useState({

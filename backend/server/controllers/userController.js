@@ -1,4 +1,4 @@
-import { User, MLBTeam, TeamLogo, Team, Player } from "../../database/models.js";
+import { User, MLBTeam, TeamLogo, Team, Player, PlayerStats, PlayerImage } from "../../database/models.js";
 import bcryptjs from "bcryptjs";
 
 const userHandlers = {
@@ -79,7 +79,12 @@ const userHandlers = {
           model: Team,
           include: [
             { model: TeamLogo }, 
-            { model: Player },
+            { model: Player,
+              include: [
+                { model: PlayerImage },
+                { model: PlayerStats }
+              ]
+            },
           ],
         },
       ]
@@ -115,7 +120,12 @@ const userHandlers = {
             model: Team,
             include: [
               { model: TeamLogo }, 
-              { model: Player },
+              { model: Player,
+                include: [
+                  { model: PlayerImage },
+                  { model: PlayerStats }
+                ]
+               },
             ],
           },
         ]

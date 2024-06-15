@@ -50,7 +50,12 @@ const playerFunctions = {
           model: Team,
           include: [
             { model: TeamLogo },
-            { model: Player },
+            { model: Player,
+              include: [
+                { model: PlayerImage },
+                { model: PlayerStats }
+              ]
+            },
           ],
         },
     ]
@@ -64,12 +69,8 @@ const playerFunctions = {
         {
           model: Player,
           include: [
-            {
-              model: PlayerImage
-            },
-            {
-              model: PlayerStats
-            }
+            { model: PlayerImage },
+            { model: PlayerStats }
           ]
         }
       ]

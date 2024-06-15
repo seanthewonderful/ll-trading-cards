@@ -1,16 +1,17 @@
 import { useState } from 'react'
 import axios from 'axios'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
-function PlayerCreate({ teamId }) {
+function PlayerCreate({ teamId, closeModal }) {
 
+  const [warning, setWarning] = useState(false);
   const [playerData, setPlayerData] = useState({
     firstName: "",
     lastName: "",
     birthMonth: "",
     homeTown: "",
     recoveryEmail: "",
+    imgUrl: "",
     teamId: teamId,
   });
 
@@ -18,10 +19,13 @@ function PlayerCreate({ teamId }) {
 
   const createPlayer = (e) => {
     e.preventDefault();
-    console.log(playerData);
+    
+    if (!playerData.firstName || !playerData.lastName) {
+      setWarning(true);
+      return
+    }
     axios.post('/api/createPlayer', playerData)
     .then((res) => {
-      // setPlayers([...players, res.data.newPlayer])
       setPlayerData({
         firstName: "",
         lastName: "",
@@ -42,46 +46,85 @@ function PlayerCreate({ teamId }) {
   }
 
   return (
-    <div id='player-create-div'>
+    <div className="modal">
 
-      <form onSubmit={createPlayer}>
-        <input 
-          type="text"
-          placeholder="First Name"
-          value={playerData.firstName}
-          onChange={(e) => setPlayerData({ ...playerData, firstName: e.target.value })}
-          />
+      <div id='player-create-div'>
 
-        <input 
-          type="text"
-          placeholder="Last Name"
-          value={playerData.lastName}
-          onChange={(e) => setPlayerData({ ...playerData, lastName: e.target.value })}
-          />
+        <h1>Create New Player</h1>
 
-        <input 
-          type="text"
-          placeholder="Birth Month"
-          value={playerData.birthMonth}
-          onChange={(e) => setPlayerData({ ...playerData, birthMonth: e.target.value })}
-          />
+        <form onSubmit={createPlayer}>
 
-        <input 
-          type="text"
-          placeholder="Home Town"
-          value={playerData.homeTown}
-          onChange={(e) => setPlayerData({ ...playerData, homeTown: e.target.value })}
-          />
+          <label htmlFor="player-create-first-name">
+            First Name
+          </label>
+          <input 
+            name='player-create-first-name'
+            type="text"
+            placeholder="First Name"
+            value={playerData.firstName}
+            onChange={(e) => {
+              setPlayerData({ ...playerData, firstName: e.target.value })
+              setWarning(false)
+            }}
+            />
 
-        <input 
-          type="text"
-          placeholder="Email"
-          value={playerData.recoveryEmail}
-          onChange={(e) => setPlayerData({ ...playerData, recoveryEmail: e.target.value })}
-          />
+          {warning && <p className="warning">Please enter a first and last name</p>}
 
-        <input type="submit" />
-      </form>
+          <label htmlFor="player-create-last-name">
+            Last Name
+          </label>
+          <input 
+            name='player-create-last-name'
+            type="text"
+            placeholder="Last Name"
+            value={playerData.lastName}
+            onChange={(e) => {
+              setPlayerData({ ...playerData, lastName: e.target.value })
+              setWarning(false)
+            }}
+            />
+
+          {warning && <p className="warning">Please enter a first and last name</p>}
+
+          <label htmlFor="player-create-birth-month">
+            Birth Month
+          </label>
+          <input 
+            name='player-create-birth-month'
+            type="text"
+            placeholder="Birth Month"
+            value={playerData.birthMonth}
+            onChange={(e) => setPlayerData({ ...playerData, birthMonth: e.target.value })}
+            />
+
+          <label htmlFor="player-create-home-town">
+            Home Town
+          </label>
+          <input 
+            name='player-create-home-town'
+            type="text"
+            placeholder="Home Town"
+            value={playerData.homeTown}
+            onChange={(e) => setPlayerData({ ...playerData, homeTown: e.target.value })}
+            />
+
+          <label htmlFor="player-create-recovery-email">
+            Recovery Email
+          </label>
+          <input 
+            name='player-create-recovery-email'
+            type="text"
+            placeholder="Email"
+            value={playerData.recoveryEmail}
+            onChange={(e) => setPlayerData({ ...playerData, recoveryEmail: e.target.value })}
+            />
+
+          <button type="submit" >Submit</button>
+          <button onClick={closeModal}>Cancel</button>
+        </form>
+        
+      </div>
+
     </div>
   )
 }

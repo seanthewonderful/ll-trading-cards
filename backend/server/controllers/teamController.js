@@ -40,7 +40,12 @@ const teamFunctions = {
           model: Team,
           include: [
             { model: TeamLogo },
-            { model: Player },
+            { model: Player,
+              include: [
+                { model: PlayerImage },
+                { model: PlayerStats }
+              ]
+            },
           ],
         },
     ]
@@ -114,7 +119,12 @@ const teamFunctions = {
       const foundTeam = await Team.findByPk(+req.params.id, {
         include: [
           { model: TeamLogo },
-          { model: Player },
+          { model: Player,
+            include: [
+              { model: PlayerImage },
+              { model: PlayerStats }
+            ]
+          },
         ]
       });
       console.log("foundTeam", foundTeam);
