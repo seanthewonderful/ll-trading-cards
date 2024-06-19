@@ -1,17 +1,18 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
+import axios from 'axios'
 import '../../styles/playerBasicInfo.css'
 
-const PlayerBasicInfo = () => {
+const PlayerBasicInfo = ({ player }) => {
 
   const [playerInfo, setPlayerInfo] = useState({
-    firstName: "Jerry",
-    lastName: "Baseball",
-    birthMonth: "1",
-    homeTown: "Inglewood",
+    firstName: player.firstName,
+    lastName: player.lastName,
+    birthMonth: player.birthMonth,
+    homeTown: player.hometown,
     homeState: "CA",
-    recoveryEmail: "",
+    recoveryEmail: player.email,
     bio: "",
     jerseyNumber: "9",
     throws: "R",
@@ -20,16 +21,12 @@ const PlayerBasicInfo = () => {
     position2: "2",
   })
 
-  const dispatch = useDispatch()
-
+  
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(playerInfo)
 
-    dispatch({ 
-      type: "UPDATE_PLAYER_INFO",
-      payload: playerInfo,
-    })
+    
 
   }
 

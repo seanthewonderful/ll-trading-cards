@@ -1,10 +1,10 @@
 #locker-room {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: start;
   align-items: center;
   height: 90vh;
-  width: 100vw;
+  min-width: 70vw;
 
 }
 

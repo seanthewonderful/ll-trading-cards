@@ -3,7 +3,9 @@ import { useState } from 'react'
 import InputNumber from './InputNumber.jsx'
 import { useDispatch } from 'react-redux'
 
-function PlayerStats() {
+function PlayerStats({ player }) {
+
+  console.log(player)
 
   const [playerStats, setPlayerStats] = useState({
     batting: {

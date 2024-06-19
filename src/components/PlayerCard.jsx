@@ -1,16 +1,29 @@
+import { useContext, useEffect } from 'react'
+
 import '../styles/playerCard.css'
+import { DugoutContext } from '../functions/contexts.js'
 
 import { IoIosBaseball } from 'react-icons/io'
 import rangersEmblem from '../assets/team_logos/TEX/texas-rangers-logo.png'
-import { useNavigate } from 'react-router-dom'
 
 function PlayerCard({ player }) {
 
-  const navigate = useNavigate()
+  const { playerSelected, setPlayerSelected } = useContext(DugoutContext)
 
   console.log(player)
   const handleClick = () => {
-    navigate('/lockerroom', { state: { player: player }})
+    if (playerSelected.selected) {
+      setPlayerSelected({
+        selected: false,
+        player: null
+      })
+    } else {
+      setPlayerSelected({
+        selected: true,
+        player: player
+      })
+    }
+    // navigate('/lockerroom', { state: { player: player }})
   }
 
   return (

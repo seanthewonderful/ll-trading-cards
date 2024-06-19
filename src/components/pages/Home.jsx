@@ -16,6 +16,7 @@ function Home() {
 
   return (
     <div id="home-container">
+      {/* <img src="../assets/pxfield.png" alt="" id="background-image"/> */}
       <Navbar />
       <Outlet />
       <Footer />

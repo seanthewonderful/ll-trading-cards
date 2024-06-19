@@ -1,11 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext, useContext } from "react";
 
 import "../../styles/dugout.css";
 
 import PlayerCard from "../PlayerCard.jsx";
 import PlayerCreate from "../PlayerCreate.jsx";
+import LockerRoom from "./LockerRoom.jsx";
+
+import { DugoutContext } from "../../functions/contexts.js";
 
 function Dugout() {
   
@@ -14,6 +17,10 @@ function Dugout() {
   const dispatch = useDispatch();
 
   const [modalOpen, setModalOpen] = useState(false);
+  const [playerSelected, setPlayerSelected] = useState({
+    selected: false,
+    player: null
+  });
 
   const teamData = useSelector(state => state.team);
   let players = teamData ? teamData.players : [];
@@ -46,14 +53,18 @@ function Dugout() {
   }, []);
 
   return (
-    <div id="dugout-div">
-      {modalOpen && 
-        <PlayerCreate 
-          teamId={teamData ? teamData.teamId : ""} 
-          modalOpen={modalOpen}
-          closeModal={() => setModalOpen(false)}
-          />
-      }
+    <DugoutContext.Provider 
+      value={{ playerSelected, setPlayerSelected }}
+      >
+
+      <div id="dugout-div">
+        {modalOpen && 
+          <PlayerCreate 
+            teamId={teamData ? teamData.teamId : ""} 
+            modalOpen={modalOpen}
+            closeModal={() => setModalOpen(false)}
+            />
+        }
 
         <button 
           onClick={() => setModalOpen(true)}
@@ -61,11 +72,23 @@ function Dugout() {
             Create New Player
         </button>
 
-      <div id="player-cards-div">
-        {playerCards}
+        <h1>Your {teamData ? teamData.year : ""} {teamData ? teamData.name : ""} Players</h1>
+
+       {playerSelected.selected ? 
+        <div id="player-selected-div">
+          {playerCards.filter((player) => player.props.player.playerId === playerSelected.player.playerId)}
+
+          <LockerRoom player={playerSelected.player} /> 
+        </div>
+        : 
+        <div id="player-cards-div">
+          {playerCards}
+        </div>
+        } 
+
       </div>
 
-    </div>
+    </DugoutContext.Provider>
   );
 }
 

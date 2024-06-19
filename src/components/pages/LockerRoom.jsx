@@ -6,18 +6,18 @@ import PlayerStats from "../forms/PlayerStats"
 
 import '../../styles/lockerRoom.css'
 
-function LockerRoom() {
+function LockerRoom({ player }) {
 
-  const { state } = useLocation()
-  console.log(state)
-
+  // const { state } = useLocation()
+  // const [playerInfo, setPlayerInfo] = useState(state.player)
+  const [playerInfo, setPlayerInfo] = useState(player)
   const [infoTab, setInfoTab] = useState(true)
 
   return (
     <div id="locker-room">
 
       <div id="locker-room-header">
-        <h1>{state.player.firstName} {state.player.lastName}'s Locker Room</h1>
+        <h1>{playerInfo.firstName} {playerInfo.lastName}'s Locker Room</h1>
         <h3>Edit player info</h3>
       </div>
 
@@ -35,12 +35,19 @@ function LockerRoom() {
       </div>
 
       <div id="locker-room-content">
-        {infoTab ? <PlayerBasicInfo state={state} /> : <PlayerStats state={state} />}
+        {infoTab ? 
+        <PlayerBasicInfo 
+          player={playerInfo}
+          setPlayerInfo={setPlayerInfo} 
+          /> 
+        : 
+        <PlayerStats 
+          player={playerInfo} 
+          setPlayerInfo={setPlayerInfo}
+          />
+        }
       </div>
 
-      <div>
-        {state.player.firstName} {state.player.lastName}
-      </div>
     </div>
   )
 }

@@ -6,6 +6,7 @@ import Turnstyle from "./auth/Turnstyle.jsx";
 import { useNavigate } from "react-router-dom";
 
 function Welcome() {
+  
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
 

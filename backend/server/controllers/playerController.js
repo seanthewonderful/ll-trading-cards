@@ -11,9 +11,18 @@ import {
 const playerFunctions = {
 
   addPlayer: async (req, res) => {
-    const id = req.session.user.userId;
+    const sessionUserId = req.session.user.userId;
 
-    const { firstName, lastName, birthMonth, homeTown, recoveryEmail, teamId } = req.body;
+    const { 
+      firstName, 
+      lastName, 
+      birthMonth, 
+      homeTown, 
+      homeCountry,
+      homeState,
+      recoveryEmail, 
+      teamId 
+    } = req.body;
     
     let team = await Team.findByPk(teamId);
 
@@ -23,7 +32,7 @@ const playerFunctions = {
         message: "Team not found",
       })
     }
-    if (team.userId !== id) {
+    if (team.userId !== sessionUserId) {
       return res.status(401).send({
         success: false,
         message: "Unauthorized",
@@ -33,15 +42,17 @@ const playerFunctions = {
     const newPlayer = await team.createPlayer({
       firstName,
       lastName,
-      birthMonth,
-      homeTown,
+      birthMonth: +birthMonth || null,
+      homeTown: homeTown || null,
+      homeCountry: homeCountry || null,
+      homeState: homeState || null,
       recoveryEmail: recoveryEmail || null,
-      userId: id
+      userId: sessionUserId
     });
     
     console.log(newPlayer);
 
-    const user = await User.findByPk(id, {
+    const user = await User.findByPk(sessionUserId, {
       include: [
         { 
           model: MLBTeam 
