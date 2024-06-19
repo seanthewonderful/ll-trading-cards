@@ -94,6 +94,29 @@ const playerFunctions = {
       user: user,
       team: team
     })
+  },
+
+  addPlayerImage: async (req, res) => {
+    const { playerId, imgUrl, year } = req.body;
+
+    const player = await Player.findByPk(playerId);
+    if (!player) {
+      return res.status(404).send({
+        success: false,
+        message: "Player not found",
+      })
+    }
+
+    const playerImage = await player.createPlayerImage({
+      url: imgUrl,
+      year: year
+    });
+
+    return res.status(200).send({
+      success: true,
+      message: "Player image added",
+      playerImage: playerImage
+    })
   }
 }
 

@@ -1,11 +1,12 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { useDispatch } from 'react-redux'
 
 import InputNumber from './InputNumber.jsx'
-import { useDispatch } from 'react-redux'
+import { DugoutContext } from '../../functions/contexts.js'
 
 function PlayerStats({ player }) {
 
-  console.log(player)
+  const { setPlayerSelected } = useContext(DugoutContext)
 
   const [playerStats, setPlayerStats] = useState({
     batting: {
@@ -49,6 +50,14 @@ function PlayerStats({ player }) {
     dispatch({
       type: "UPDATE_PLAYER_STATS",
       payload: playerStats
+    })
+  }
+
+  const handleCancel = (e) => {
+    e.preventDefault()
+    setPlayerSelected({
+      selected: false,
+      player: null
     })
   }
 
@@ -258,6 +267,7 @@ function PlayerStats({ player }) {
       />
 
       <button type='submit'>Submit</button>
+      <button onClick={handleCancel}>Cancel</button>
     </form>
   )
 }

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import s3 from '../../aws/config.js';
 import { v4 as uuidv4 } from 'uuid';
 
-const FileUpload = () => {
+const PlayerImgUpload = ({ playerId }) => {
+  
   const [file, setFile] = useState(null);
   const [message, setMessage] = useState('');
   const [imageUrl, setImageUrl] = useState('');
@@ -42,4 +43,4 @@ const FileUpload = () => {
   );
 };
 
-export default FileUpload;
+export default PlayerImgUpload;

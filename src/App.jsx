@@ -14,7 +14,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import FileUpload from "./components/FileUpload.jsx";
+import FileUpload from "./components/PlayerImgUpload.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -35,16 +35,10 @@ const router = createBrowserRouter(
           element={<UserTeams />} 
           errorElement={<UnknownError />}
           />
+
         <Route 
           path="dugout" 
           element={<Dugout />} 
-          // loader={dugoutLoader}
-          errorElement={<UnknownError />}
-          />
-
-        <Route
-          path="lockerroom"
-          element={<LockerRoom />}
           errorElement={<UnknownError />}
           />
 
