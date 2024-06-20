@@ -35,6 +35,7 @@ app.post('/api/newTeam', teamFunctions.addTeam)
 app.get('/api/team/:id', teamFunctions.findTeam)
 app.post('/api/newPlayer', teamFunctions.addPlayer)
 app.post('/api/createPlayer', playerFunctions.addPlayer)
-app.post('/api/createPlayerImage', playerFunctions.addPlayerImage)
+app.post('/api/createPlayerImageFront', playerFunctions.addPlayerImageFront)
+app.post('/api/createPlayerImageBack', playerFunctions.addPlayerImageBack)
 
 ViteExpress.listen(app, PORT, () => console.log(`Take me out to the http://localhost:${PORT} game`))

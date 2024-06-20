@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import s3 from '../../aws/config.js';
 import { v4 as uuidv4 } from 'uuid';
 
-const PlayerImgUpload = ({ playerId }) => {
+const PlayerImgUpload = ({ playerId}) => {
   
   const [file, setFile] = useState(null);
   const [message, setMessage] = useState('');
@@ -38,7 +38,7 @@ const PlayerImgUpload = ({ playerId }) => {
       <input type="file" onChange={handleFileChange} />
       <button onClick={handleUpload}>Upload</button>
       {message && <p>{message}</p>}
-      {imageUrl && <img src={imageUrl} alt="uploaded" />}
+      {imageUrl && <img style={{ maxWidth: '50px' }} src={imageUrl} alt="uploaded" />}
     </div>
   );
 };

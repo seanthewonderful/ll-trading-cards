@@ -115,6 +115,14 @@ Player.init(
       type: DataTypes.STRING(2),
       allowNull: true,
     },
+    bats: {
+      type: DataTypes.STRING(1),
+      allowNull: false,
+    },
+    throws: {
+      type: DataTypes.STRING(1),
+      allowNull: false,
+    },
     recoveryEmail: {
       type: DataTypes.STRING(60),
       allowNull: true,
@@ -127,14 +135,42 @@ Player.init(
   } 
 )
 
-export class PlayerImage extends Model {
+// export class PlayerImage extends Model {
+//   [util.inspect.custom]() {
+//     return this.toJSON()
+//   }
+// }
+// PlayerImage.init(
+//   {
+//     playerImageId: {
+//       type: DataTypes.INTEGER,
+//       primaryKey: true,
+//       autoIncrement: true,
+//     },
+//     url: {
+//       type: DataTypes.STRING,
+//       allowNull: false,
+//     },
+//     year: {
+//       type: DataTypes.STRING(4),
+//       allowNull: false,
+//     }
+//   },
+//   {
+//     sequelize: db,
+//     modelName: "playerImage",
+//     timestamps: false
+//   } 
+// )
+
+export class PlayerImageFront extends Model {
   [util.inspect.custom]() {
     return this.toJSON()
   }
 }
-PlayerImage.init(
+PlayerImageFront.init(
   {
-    playerImageId: {
+    playerImageFrontId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -143,14 +179,44 @@ PlayerImage.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    year: {
-      type: DataTypes.STRING(4),
+    playerId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
+      unique: true,
     }
   },
   {
     sequelize: db,
-    modelName: "playerImage",
+    modelName: "playerImageFront",
+    timestamps: false
+  } 
+)
+
+export class PlayerImageBack extends Model {
+  [util.inspect.custom]() {
+    return this.toJSON()
+  }
+}
+PlayerImageBack.init(
+  {
+    playerImageBackId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    url: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    playerId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      unique: true,
+    }
+  },
+  {
+    sequelize: db,
+    modelName: "playerImageBack", 
     timestamps: false
   } 
 )
@@ -186,14 +252,6 @@ PlayerStats.init(
     jerseyNumber: {
       type: DataTypes.INTEGER,
       allowNull: true,
-    },
-    bats: {
-      type: DataTypes.STRING(1),
-      allowNull: false,
-    },
-    throws: {
-      type: DataTypes.STRING(1),
-      allowNull: false,
     },
     G: {
       type: DataTypes.INTEGER,
@@ -287,6 +345,82 @@ Team.init(
   } 
 )
 
+export class TeamImageFront extends Model {
+  [util.inspect.custom]() {
+    return this.toJSON()
+  }
+}
+TeamImageFront.init(
+  {
+    teamImageFrontId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    url: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    sequelize: db,
+    modelName: "teamImageFront",
+    timestamps: false
+  } 
+)
+
+export class TeamImageBack extends Model {
+  [util.inspect.custom]() {
+    return this.toJSON()
+  }
+}
+TeamImageBack.init(
+  {
+    teamImageBackId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    url: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    sequelize: db,
+    modelName: "teamImageBack",
+    timestamps: false
+  } 
+)
+
+export class TeamLogo extends Model {
+  [util.inspect.custom]() {
+    return this.toJSON()
+  }
+}
+TeamLogo.init(
+  {
+    teamLogoId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    url: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    descriptor: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    }
+  },
+  {
+    sequelize: db,
+    modelName: "teamLogo",
+    timestamps: false
+  } 
+)
+
 export class MLBTeam extends Model {
   [util.inspect.custom]() {
     return this.toJSON()
@@ -327,34 +461,6 @@ MLBTeam.init(
   } 
 )
 
-export class TeamLogo extends Model {
-  [util.inspect.custom]() {
-    return this.toJSON()
-  }
-}
-TeamLogo.init(
-  {
-    teamLogoId: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
-    url: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    descriptor: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    }
-  },
-  {
-    sequelize: db,
-    modelName: "teamLogo",
-    timestamps: false
-  } 
-)
-
 
 
 User.belongsTo(MLBTeam, { foreignKey: "favTeam" })
@@ -369,8 +475,14 @@ Team.belongsTo(User, { foreignKey: "userId" })
 Team.hasMany(Player, { foreignKey: "teamId" })
 Player.belongsTo(Team, { foreignKey: "teamId" })
 
-Player.hasMany(PlayerImage, { foreignKey: "playerId" })
-PlayerImage.belongsTo(Player, { foreignKey: "playerId" })
+// Player.hasMany(PlayerImage, { foreignKey: "playerId" })
+// PlayerImage.belongsTo(Player, { foreignKey: "playerId" })
+
+Player.hasOne(PlayerImageFront, { foreignKey: "playerId" })
+PlayerImageFront.belongsTo(Player, { foreignKey: "playerId" })
+
+Player.hasOne(PlayerImageBack, { foreignKey: "playerId" })
+PlayerImageBack.belongsTo(Player, { foreignKey: "playerId" })
 
 Player.hasMany(PlayerStats, { foreignKey: "playerId" })
 PlayerStats.belongsTo(Player, { foreignKey: "playerId" })

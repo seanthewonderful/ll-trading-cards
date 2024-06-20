@@ -1,9 +1,49 @@
-import { db, User, Team, TeamLogo, Player, PlayerImage } from "./models.js";
+import { db, User, Team, TeamLogo, Player, PlayerImageFront, PlayerImageBack } from "./models.js";
 
-let players = await Player.findAll({ include: PlayerImage })
+let player = await Player.findOne()
 
-players.forEach((player) => {
-  console.log(player)
+// let playerImageBack = await player.createPlayerImageBack({
+//   url: "playerImageBack3",
+// })
+
+// await Player.create({
+//   name: "Player 1",
+//   userId: 1,
+//   firstName: "Player",
+//   lastName: "1",
+//   bats: "R",
+//   throws: "R",
+// })
+
+
+// await player.createPlayerImageBack({
+//   url: "playerImageBack3",
+// })
+
+// await PlayerImageFront.upsert({
+//   url: "playerImageFront2",
+//   playerId: 1
+// })
+
+player = await Player.findByPk(1, {
+  include: [
+    { model: PlayerImageFront },
+    { model: PlayerImageBack }
+  ]
 })
+console.log(player)
+
+// await PlayerImageBack.create({
+//   url: "playerImageBack2",
+//   playerId: 1
+// })
+
+// await PlayerImageBack.destroy({
+//   where: {
+//     playerId: 1
+//   }
+// })
+
+console.log(await PlayerImageFront.findAll())
 
 await db.close();

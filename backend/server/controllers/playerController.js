@@ -1,9 +1,12 @@
 import {
   User,
   Team,
+  TeamImageFront,
+  TeamImageBack,
   Player,
   PlayerStats,
-  PlayerImage,
+  PlayerImageFront,
+  PlayerImageBack,
   TeamLogo,
   MLBTeam,
 } from "../../database/models.js";
@@ -54,33 +57,36 @@ const playerFunctions = {
 
     const user = await User.findByPk(sessionUserId, {
       include: [
-        { 
-          model: MLBTeam 
-        },
+        { model: MLBTeam },
         {
           model: Team,
           include: [
             { model: TeamLogo },
-            { model: Player,
+            { model: TeamImageFront },
+            { model: TeamImageBack },
+            { 
+              model: Player,
               include: [
-                { model: PlayerImage },
+                { model: PlayerImageFront },
+                { model: PlayerImageBack },
                 { model: PlayerStats }
               ]
-            },
+            }
           ],
         },
-    ]
+      ],
     });
 
     team = await Team.findByPk(teamId, {
       include: [
-        {
-          model: TeamLogo
-        },
+        { model: TeamLogo },
+        { model: TeamImageFront },
+        { model: TeamImageBack },
         {
           model: Player,
           include: [
-            { model: PlayerImage },
+            { model: PlayerImageFront },
+            { model: PlayerImageBack },
             { model: PlayerStats }
           ]
         }
@@ -96,26 +102,65 @@ const playerFunctions = {
     })
   },
 
-  addPlayerImage: async (req, res) => {
-    const { playerId, imgUrl, year } = req.body;
+  addPlayerImageFront: async (req, res) => {
+    const { playerId, imgUrl } = req.body;
 
-    const player = await Player.findByPk(playerId);
-    if (!player) {
-      return res.status(404).send({
+    try {
+      await PlayerImageFront.upsert({
+        url: imgUrl,
+        playerId
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send({
         success: false,
-        message: "Player not found",
+        message: err,
       })
     }
 
-    const playerImage = await player.createPlayerImage({
-      url: imgUrl,
-      year: year
+    const player = await Player.findByPk(playerId, {
+      include: [
+        { model: PlayerImageFront },
+        { model: PlayerImageBack },
+        { model: PlayerStats }
+      ]
     });
 
     return res.status(200).send({
       success: true,
       message: "Player image added",
-      playerImage: playerImage
+      player: player
+    })
+  },
+
+  addPlayerImageBack: async (req, res) => {
+    const { playerId, imgUrl } = req.body;
+
+    try {
+      await PlayerImageBack.upsert({
+        url: imgUrl,
+        playerId
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send({
+        success: false,
+        message: err,
+      })
+    }
+
+    const player = await Player.findByPk(playerId, {
+      include: [
+        { model: PlayerImageBack },
+        { model: PlayerImageBack },
+        { model: PlayerStats }
+      ]
+    });
+
+    return res.status(200).send({
+      success: true,
+      message: "Player image added",
+      player: player
     })
   }
 }

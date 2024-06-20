@@ -3,9 +3,12 @@ import {
   Team,
   Player,
   PlayerStats,
-  PlayerImage,
+  PlayerImageFront,
+  PlayerImageBack,
   TeamLogo,
   MLBTeam,
+  TeamImageFront,
+  TeamImageBack,
 } from "../../database/models.js";
 
 const teamFunctions = {
@@ -20,16 +23,16 @@ const teamFunctions = {
       year: year,
     });
 
-    const teamPhotos = await Promise.all(
-      [teamPic, logoFull, logoIcon].map((el) => {
-        const newPhoto = newTeam.createTeamLogo({
-          url: el.url,
-          descriptor: el.descriptor,
-        });
+    // const teamPhotos = await Promise.all(
+    //   [teamPic, logoFull, logoIcon].map((el) => {
+    //     const newPhoto = newTeam.createTeamLogo({
+    //       url: el.url,
+    //       descriptor: el.descriptor,
+    //     });
 
-        return newPhoto;
-      })
-    );
+    //     return newPhoto;
+    //   })
+    // );
 
     user = await User.findByPk(+id, {
       include: [
@@ -40,9 +43,12 @@ const teamFunctions = {
           model: Team,
           include: [
             { model: TeamLogo },
+            { model: TeamImageFront },
+            { model: TeamImageBack },
             { model: Player,
               include: [
-                { model: PlayerImage },
+                { model: PlayerImageFront },
+                { model: PlayerImageBack },
                 { model: PlayerStats }
               ]
             },
@@ -119,9 +125,12 @@ const teamFunctions = {
       const foundTeam = await Team.findByPk(+req.params.id, {
         include: [
           { model: TeamLogo },
+          { model: TeamImageFront },
+          { model: TeamImageBack },
           { model: Player,
             include: [
-              { model: PlayerImage },
+              { model: PlayerImageFront },
+              { model: PlayerImageBack },
               { model: PlayerStats }
             ]
           },
@@ -165,16 +174,10 @@ const teamFunctions = {
       userId: req.session.user.userId,
     });
 
-    const playerImage = await newPlayer.createPlayerImage({
-      url: playerData.imgUrl,
-      year: playerData.year,
-    });
-
     res.status(200).send({
       success: true,
       message: "Player created!",
       newPlayer: newPlayer,
-      playerImage: playerImage,
     });
 
     // POSTMAN SYNTAX

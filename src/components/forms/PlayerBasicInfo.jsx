@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useReducer } from 'react'
 import { useDispatch } from 'react-redux'
 import { DugoutContext } from '../../functions/contexts'
 
@@ -9,9 +9,11 @@ import countries from '../../assets/countries.json'
 
 import PlayerImgUpload from '../PlayerImgUpload'
 
-const PlayerBasicInfo = ({ player }) => {
+function PlayerBasicInfo({ player }) {
 
-  const { setPlayerSelected } = useContext(DugoutContext)
+  const { playerSelected, setPlayerSelected } = useContext(DugoutContext)
+
+  console.log(playerSelected)
 
   const [playerInfo, setPlayerInfo] = useState({
     firstName: player.firstName,
@@ -28,12 +30,13 @@ const PlayerBasicInfo = ({ player }) => {
     position1: "1",
     position2: "2",
   })
-
+  const [imgUrl, setImgUrl] = useState(null);
+  const [playerImages, setPlayerImages] = useState(player.playerImages);
+  console.log(playerImages)
 
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(playerInfo)
-
   }
 
   const handleCancel = (e) => {
@@ -49,7 +52,10 @@ const PlayerBasicInfo = ({ player }) => {
 
       <legend>Player Basic Info</legend>
 
-      <PlayerImgUpload playerId={player.playerId} />
+      <PlayerImgUpload 
+        playerId={player.playerId} 
+
+        />
 
       <label htmlFor="first-name">First Name</label>
       <input

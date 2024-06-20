@@ -1,13 +1,34 @@
-import { User, MLBTeam, TeamLogo, Team, Player, PlayerStats, PlayerImage } from "../../database/models.js";
+import {
+  User,
+  MLBTeam,
+  TeamLogo,
+  Team,
+  TeamImageFront,
+  TeamImageBack,
+  Player,
+  PlayerStats,
+  PlayerImageFront,
+  PlayerImageBack
+} from "../../database/models.js";
 import bcryptjs from "bcryptjs";
 
 const userHandlers = {
   register: async (req, res) => {
     console.log("HIT");
     console.log(req.body);
-    const { email, firstName, lastName, password, favTeam } = req.body;
+    const {
+      email,
+      firstName,
+      lastName,
+      password,
+      favTeam
+    } = req.body;
 
-    if (await User.findOne({ where: { email } })) {
+    if (await User.findOne({
+        where: {
+          email
+        }
+      })) {
       res.status(409).send({
         success: false,
         message: "User already exists",
@@ -15,7 +36,11 @@ const userHandlers = {
       return;
     }
 
-    const mlbTeam = await MLBTeam.findOne({ where: { abbreviation: favTeam } });
+    const mlbTeam = await MLBTeam.findOne({
+      where: {
+        abbreviation: favTeam
+      }
+    });
 
     let user = await mlbTeam.createUser({
       email,
@@ -26,17 +51,24 @@ const userHandlers = {
 
     user = await User.findByPk(user.userId, {
       include: [
-        { 
-          model: MLBTeam 
-        },
+        { model: MLBTeam },
         {
           model: Team,
           include: [
-            { model: TeamLogo }, 
-            { model: Player }
+            { model: TeamLogo },
+            { model: TeamImageFront },
+            { model: TeamImageBack },
+            { 
+              model: Player,
+              include: [
+                { model: PlayerImageFront },
+                { model: PlayerImageBack },
+                { model: PlayerStats }
+              ]
+            }
           ],
         },
-    ],
+      ],
     });
 
     req.session.user = user;
@@ -49,9 +81,16 @@ const userHandlers = {
   },
 
   login: async (req, res) => {
-    const { email, password } = req.body;
+    const {
+      email,
+      password
+    } = req.body;
 
-    let user = await User.scope("withPassword").findOne({ where: { email } });
+    let user = await User.scope("withPassword").findOne({
+      where: {
+        email
+      }
+    });
 
     if (!user) {
       res.status(401).send({
@@ -70,24 +109,28 @@ const userHandlers = {
     }
 
     user = await User.findOne({
-      where: { email },
+      where: {
+        email
+      },
       include: [
-        { 
-          model: MLBTeam 
-        },
+        { model: MLBTeam },
         {
           model: Team,
           include: [
-            { model: TeamLogo }, 
-            { model: Player,
+            { model: TeamLogo },
+            { model: TeamImageFront },
+            { model: TeamImageBack },
+            { 
+              model: Player,
               include: [
-                { model: PlayerImage },
+                { model: PlayerImageFront },
+                { model: PlayerImageBack },
                 { model: PlayerStats }
               ]
-            },
+            }
           ],
         },
-      ]
+      ],
     });
 
     req.session.user = user;
@@ -113,23 +156,26 @@ const userHandlers = {
     if (req.session.user) {
       const user = await User.findByPk(req.session.user.userId, {
         include: [
-          { 
-            model: MLBTeam 
-          },
+          { model: MLBTeam },
           {
             model: Team,
             include: [
-              { model: TeamLogo }, 
-              { model: Player,
+              { model: TeamLogo },
+              { model: TeamImageFront },
+              { model: TeamImageBack },
+              { 
+                model: Player,
                 include: [
-                  { model: PlayerImage },
+                  { model: PlayerImageFront },
+                  { model: PlayerImageBack },
                   { model: PlayerStats }
                 ]
-               },
+              }
             ],
           },
-        ]
+        ],
       })
+
       return res.status(200).send({
         success: true,
         message: "User logged in",
