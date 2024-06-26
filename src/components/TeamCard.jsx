@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 function TeamCard({ team }) {
 
+  console.log(team)
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -22,8 +24,8 @@ function TeamCard({ team }) {
       onClick={handleTeamCardClick}
       >
       <img
-        src={team.teamLogos.filter(logo => logo.descriptor === "Team Picture")[0].url}
-        alt="Team Photo"
+        src={team.teamImageFront.url}
+        alt="Team Photo Front"
         className="team-card-photo"
         />
       <p className="team-card-name">{team.name}</p>

@@ -14,7 +14,7 @@ import {
 const teamFunctions = {
   addTeam: async (req, res) => {
     const id = req.session.user.userId;
-    const { name, year, teamPic, logoFull, logoIcon } = req.body;
+    const { name, year, teamPic, teamImgFront, teamImgBack, logoFull, logoIcon } = req.body;
 
     let user = await User.findByPk(+id);
 
@@ -23,16 +23,24 @@ const teamFunctions = {
       year: year,
     });
 
-    // const teamPhotos = await Promise.all(
-    //   [teamPic, logoFull, logoIcon].map((el) => {
-    //     const newPhoto = newTeam.createTeamLogo({
-    //       url: el.url,
-    //       descriptor: el.descriptor,
-    //     });
+    const teamPhotos = await Promise.all(
+      [teamPic, logoFull, logoIcon].map((el) => {
+        const newPhoto = newTeam.createTeamLogo({
+          url: el.url,
+          descriptor: el.descriptor,
+        });
 
-    //     return newPhoto;
-    //   })
-    // );
+        return newPhoto;
+      })
+    );
+
+    await newTeam.createTeamImageFront({
+      url: teamImgFront,
+    });
+
+    await newTeam.createTeamImageBack({
+      url: teamImgBack,
+    })
 
     user = await User.findByPk(+id, {
       include: [

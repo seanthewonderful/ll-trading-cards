@@ -19,6 +19,8 @@ const playerFunctions = {
     const { 
       firstName, 
       lastName, 
+      bats,
+      throws,
       birthMonth, 
       homeTown, 
       homeCountry,
@@ -45,6 +47,8 @@ const playerFunctions = {
     const newPlayer = await team.createPlayer({
       firstName,
       lastName,
+      bats,
+      throws,
       birthMonth: +birthMonth || null,
       homeTown: homeTown || null,
       homeCountry: homeCountry || null,

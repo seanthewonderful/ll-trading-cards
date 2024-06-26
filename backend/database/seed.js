@@ -1,4 +1,4 @@
-import { db, User, MLBTeam, TeamLogo, Player } from "./models.js";
+import { db, User, MLBTeam, Player, Team, TeamLogo } from "./models.js";
 
 await db.sync({ force: true });
 
@@ -6,7 +6,7 @@ console.log("Seeing users...");
 await User.create({
   email: "asdf",
   firstName: "Timmy",
-  lastName: "Two-Base",
+  lastName: "Triple",
   password: "asdf",
 });
 

@@ -16,6 +16,8 @@ function TeamCreate({ closeModal }) {
       url: "https://i.ytimg.com/vi/ynKateBMV1I/hq720.jpg",
       descriptor: "Team Picture",
     },
+    teamImgFront: "https://i.ytimg.com/vi/ynKateBMV1I/hq720.jpg",
+    teamImgBack: "",
     logoFull: {
       url: texLogoFull,
       descriptor: "Full Logo",
@@ -40,7 +42,12 @@ function TeamCreate({ closeModal }) {
     setTeamInfo({
       name: "",
       year: 2024,
-      teamPic: "https://i.ytimg.com/vi/ynKateBMV1I/hq720.jpg",
+      teamPic: {
+        url: "https://i.ytimg.com/vi/ynKateBMV1I/hq720.jpg",
+        descriptor: "Team Picture",
+      },
+      teamPicFront: "https://i.ytimg.com/vi/ynKateBMV1I/hq720.jpg",
+      teamPicBack: "",
       logoFull: texLogoFull,
       logoIcon: texLogoIcon,
     });

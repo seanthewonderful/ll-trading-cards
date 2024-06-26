@@ -475,8 +475,14 @@ Team.belongsTo(User, { foreignKey: "userId" })
 Team.hasMany(Player, { foreignKey: "teamId" })
 Player.belongsTo(Team, { foreignKey: "teamId" })
 
-// Player.hasMany(PlayerImage, { foreignKey: "playerId" })
-// PlayerImage.belongsTo(Player, { foreignKey: "playerId" })
+Team.hasMany(TeamLogo, { foreignKey: "teamId" })
+TeamLogo.belongsTo(Team, { foreignKey: "teamId" })
+
+Team.hasOne(TeamImageFront, { foreignKey: "teamId" })
+TeamImageFront.belongsTo(Team, { foreignKey: "teamId" })
+
+Team.hasOne(TeamImageBack, { foreignKey: "teamId" })
+TeamImageBack.belongsTo(Team, { foreignKey: "teamId" })
 
 Player.hasOne(PlayerImageFront, { foreignKey: "playerId" })
 PlayerImageFront.belongsTo(Player, { foreignKey: "playerId" })
@@ -486,6 +492,3 @@ PlayerImageBack.belongsTo(Player, { foreignKey: "playerId" })
 
 Player.hasMany(PlayerStats, { foreignKey: "playerId" })
 PlayerStats.belongsTo(Player, { foreignKey: "playerId" })
-
-Team.hasMany(TeamLogo, { foreignKey: "teamId" })
-TeamLogo.belongsTo(Team, { foreignKey: "teamId" })
