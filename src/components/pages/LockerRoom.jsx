@@ -1,4 +1,3 @@
-import { useLocation } from "react-router-dom"
 import { useState } from "react"
 
 import PlayerBasicInfo from "../forms/PlayerBasicInfo"
@@ -8,8 +7,8 @@ import '../../styles/lockerRoom.css'
 
 function LockerRoom({ player }) {
 
-  // const { state } = useLocation()
-  // const [playerInfo, setPlayerInfo] = useState(state.player)
+  // const { playerSelected, setPlayerSelected } = useContext(DugoutContext)
+
   const [playerInfo, setPlayerInfo] = useState(player)
   const [infoTab, setInfoTab] = useState(true)
 

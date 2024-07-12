@@ -115,13 +115,27 @@ Player.init(
       type: DataTypes.STRING(2),
       allowNull: true,
     },
+    jerseyNumber: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
     bats: {
       type: DataTypes.STRING(1),
       allowNull: false,
+      defaultValue: "R",
     },
     throws: {
       type: DataTypes.STRING(1),
       allowNull: false,
+      defaultValue: "R",
+    },
+    position1: {
+      type: DataTypes.STRING(2),
+      allowNull: true,
+    },
+    position2: {
+      type: DataTypes.STRING(2),
+      allowNull: true,
     },
     recoveryEmail: {
       type: DataTypes.STRING(60),
@@ -131,92 +145,6 @@ Player.init(
   {
     sequelize: db,
     modelName: "player",
-    timestamps: false
-  } 
-)
-
-// export class PlayerImage extends Model {
-//   [util.inspect.custom]() {
-//     return this.toJSON()
-//   }
-// }
-// PlayerImage.init(
-//   {
-//     playerImageId: {
-//       type: DataTypes.INTEGER,
-//       primaryKey: true,
-//       autoIncrement: true,
-//     },
-//     url: {
-//       type: DataTypes.STRING,
-//       allowNull: false,
-//     },
-//     year: {
-//       type: DataTypes.STRING(4),
-//       allowNull: false,
-//     }
-//   },
-//   {
-//     sequelize: db,
-//     modelName: "playerImage",
-//     timestamps: false
-//   } 
-// )
-
-export class PlayerImageFront extends Model {
-  [util.inspect.custom]() {
-    return this.toJSON()
-  }
-}
-PlayerImageFront.init(
-  {
-    playerImageFrontId: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
-    url: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    playerId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: true,
-    }
-  },
-  {
-    sequelize: db,
-    modelName: "playerImageFront",
-    timestamps: false
-  } 
-)
-
-export class PlayerImageBack extends Model {
-  [util.inspect.custom]() {
-    return this.toJSON()
-  }
-}
-PlayerImageBack.init(
-  {
-    playerImageBackId: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
-    url: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    playerId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: true,
-    }
-  },
-  {
-    sequelize: db,
-    modelName: "playerImageBack", 
     timestamps: false
   } 
 )
@@ -239,18 +167,6 @@ PlayerStats.init(
     },
     bio: {
       type: DataTypes.TEXT,
-      allowNull: true,
-    },
-    position1: {
-      type: DataTypes.STRING(2),
-      allowNull: false,
-    },
-    position2: {
-      type: DataTypes.STRING(2),
-      allowNull: true,
-    },
-    jerseyNumber: {
-      type: DataTypes.INTEGER,
       allowNull: true,
     },
     G: {
@@ -313,6 +229,64 @@ PlayerStats.init(
   {
     sequelize: db,
     modelName: "playerStats",
+    timestamps: false
+  } 
+)
+
+export class PlayerImageFront extends Model {
+  [util.inspect.custom]() {
+    return this.toJSON()
+  }
+}
+PlayerImageFront.init(
+  {
+    playerImageFrontId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    url: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    playerId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      unique: true,
+    }
+  },
+  {
+    sequelize: db,
+    modelName: "playerImageFront",
+    timestamps: false
+  } 
+)
+
+export class PlayerImageBack extends Model {
+  [util.inspect.custom]() {
+    return this.toJSON()
+  }
+}
+PlayerImageBack.init(
+  {
+    playerImageBackId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    url: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    playerId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      unique: true,
+    }
+  },
+  {
+    sequelize: db,
+    modelName: "playerImageBack", 
     timestamps: false
   } 
 )

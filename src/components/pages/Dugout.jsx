@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState, createContext, useContext } from "react";
+import { useEffect, useState, useReducer } from "react";
 
 import "../../styles/dugout.css";
 
@@ -66,15 +66,19 @@ function Dugout() {
             />
         }
 
+        {!playerSelected.selected &&
+        <>
         <button 
-          onClick={() => setModalOpen(true)}
-          >
+        onClick={() => setModalOpen(true)}
+        >
             Create New Player
         </button>
 
         <h1>Your {teamData ? teamData.year : ""} {teamData ? teamData.name : ""} Players</h1>
+        </>
+        }
 
-       {playerSelected.selected ? 
+        {playerSelected.selected ? 
         <div id="player-selected-div">
           {playerCards.filter((player) => player.props.player.playerId === playerSelected.player.playerId)}
 

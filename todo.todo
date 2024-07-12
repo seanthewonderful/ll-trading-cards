@@ -23,14 +23,14 @@ NAMES:
 ✔ PlayerBasicInfo component: needs a way to update the player info so that all other components can access the updated info @done (6/19/2024, 3:28:56 PM)
 
 ☐ Upload and create player image in playerBasicInfo/stats
-☐ DB restructure-
-  ☐ PlayerImageFront
-    ☐ Player has one
-  ☐ PlayerImageBack
-    ☐ Player has one
-  ☐ TeamImageFront
-    ☐ Team has one
-  ☐ TeamImageBack
-    ☐ Team has one
+✔ DB restructure- @done (7/11/2024, 9:28:13 PM)
+  ✔ PlayerImageFront @done (7/11/2024, 9:28:04 PM)
+    ✔ Player has one @done (7/11/2024, 9:28:07 PM)
+  ✔ PlayerImageBack @done (7/11/2024, 9:28:07 PM)
+    ✔ Player has one @done (7/11/2024, 9:28:08 PM)
+  ✔ TeamImageFront @done (7/11/2024, 9:28:08 PM)
+    ✔ Team has one @done (7/11/2024, 9:28:09 PM)
+  ✔ TeamImageBack @done (7/11/2024, 9:28:09 PM)
+    ✔ Team has one @done (7/11/2024, 9:28:10 PM)
 
 

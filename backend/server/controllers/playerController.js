@@ -19,8 +19,6 @@ const playerFunctions = {
     const { 
       firstName, 
       lastName, 
-      bats,
-      throws,
       birthMonth, 
       homeTown, 
       homeCountry,
@@ -47,8 +45,6 @@ const playerFunctions = {
     const newPlayer = await team.createPlayer({
       firstName,
       lastName,
-      bats,
-      throws,
       birthMonth: +birthMonth || null,
       homeTown: homeTown || null,
       homeCountry: homeCountry || null,
@@ -106,6 +102,51 @@ const playerFunctions = {
     })
   },
 
+  updatePlayer: async (req, res) => {
+    const { playerId, playerInfo } = req.body;
+    try {
+      const updatedPlayer = await Player.update(playerInfo, {
+        where: {
+          playerId
+        }
+      });
+      return res.status(200).send({
+        success: true,
+        message: "Player updated",
+        updatedPlayer
+      })
+    } catch(err) {
+      return res.status(500).send({
+        success: false,
+        message: err
+      })
+    }
+  },
+
+  addPlayerStats: async (req, res) => {
+    const { playerId, stats } = req.body;
+    const player = await Player.findByPk(playerId);
+    player.addPlayerStats(stats);
+
+    return res.status(200).send({
+      success: true,
+      message: "Player stats added",
+      player: player
+    })
+  },
+
+  updatePlayerStats: async (req, res) => {
+    const { playerId, stats } = req.body;
+    const player = await Player.findByPk(playerId);
+    player.updatePlayerStats(stats);
+
+    return res.status(200).send({
+      success: true,
+      message: "Player stats updated",
+      player: player
+    })
+  },
+
   addPlayerImageFront: async (req, res) => {
     const { playerId, imgUrl } = req.body;
 
@@ -137,6 +178,37 @@ const playerFunctions = {
     })
   },
 
+  updatePlayerImageFront: async (req, res) => {
+    const { playerId, imgUrl } = req.body;
+
+    try {
+      await PlayerImageFront.upsert({
+        url: imgUrl,
+        playerId
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send({
+        success: false,
+        message: err,
+      })
+    }
+
+    const player = await Player.findByPk(playerId, {
+      include: [
+        { model: PlayerImageFront },
+        { model: PlayerImageBack },
+        { model: PlayerStats }
+      ]
+    });
+
+    return res.status(200).send({
+      success: true,
+      message: "Player image updated",
+      player: player
+    })
+  },
+
   addPlayerImageBack: async (req, res) => {
     const { playerId, imgUrl } = req.body;
 
@@ -164,6 +236,37 @@ const playerFunctions = {
     return res.status(200).send({
       success: true,
       message: "Player image added",
+      player: player
+    })
+  }, 
+
+  updatePlayerImageBack: async (req, res) => {
+    const { playerId, imgUrl } = req.body;
+
+    try {
+      await PlayerImageBack.upsert({
+        url: imgUrl,
+        playerId
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send({
+        success: false,
+        message: err,
+      })
+    }
+
+    const player = await Player.findByPk(playerId, {
+      include: [
+        { model: PlayerImageBack },
+        { model: PlayerImageBack },
+        { model: PlayerStats }
+      ]
+    });
+
+    return res.status(200).send({
+      success: true,
+      message: "Player image updated",
       player: player
     })
   }

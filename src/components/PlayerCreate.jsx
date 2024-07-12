@@ -11,14 +11,11 @@ function PlayerCreate({ teamId, closeModal }) {
   const [playerData, setPlayerData] = useState({
     firstName: "",
     lastName: "",
-    bats: "R",
-    throws: "R",
     birthMonth: "",
     homeTown: "",
     homeCountry: "US",
     homeState: "",
     recoveryEmail: "",
-    imgUrl: "",
     teamId: teamId,
   });
 
@@ -38,8 +35,6 @@ function PlayerCreate({ teamId, closeModal }) {
         setPlayerData({
           firstName: "",
           lastName: "",
-          bats: "R",
-          throws: "R",
           birthMonth: "",
           homeTown: "",
           homeCountry: "US",

@@ -30,12 +30,24 @@ app.post('/api/login', (userFunctions.login))
 app.post('/api/logout', (userFunctions.logout))
 app.get('/api/sessionCheck', (userFunctions.sessionCheck))
 
-// USER ENDPOINTS
+// TEAM ENDPOINTS
 app.post('/api/newTeam', teamFunctions.addTeam)
 app.get('/api/team/:id', teamFunctions.findTeam)
+
+// PLAYER ENDPOINTS
 app.post('/api/newPlayer', teamFunctions.addPlayer)
 app.post('/api/createPlayer', playerFunctions.addPlayer)
+app.put('/api/updatePlayer', playerFunctions.updatePlayer)
+
+// PLAYER STATS ENDPOINTS
+app.post('/api/createPlayerStats', playerFunctions.addPlayerStats)
+app.put('/api/updatePlayerStats', playerFunctions.updatePlayerStats)
+
+// PLAYER IMAGE ENDPOINTS
 app.post('/api/createPlayerImageFront', playerFunctions.addPlayerImageFront)
 app.post('/api/createPlayerImageBack', playerFunctions.addPlayerImageBack)
+app.put('/api/updatePlayerImageFront', playerFunctions.updatePlayerImageFront)
+app.put('/api/updatePlayerImageBack', playerFunctions.updatePlayerImageBack)
+
 
 ViteExpress.listen(app, PORT, () => console.log(`Take me out to the http://localhost:${PORT} game`))

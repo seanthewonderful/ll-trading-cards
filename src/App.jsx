@@ -3,7 +3,6 @@ import Welcome from "./components/Welcome.jsx";
 import Dugout from "./components/pages/Dugout.jsx";
 import UserProfile from "./components/pages/UserProfile.jsx";
 import UserTeams from "./components/pages/UserTeams.jsx";
-import LockerRoom from "./components/pages/LockerRoom.jsx";
 import Checkout from "./components/pages/Checkout.jsx";
 import NotFound from "./components/pages/errors/NotFound.jsx";
 import UnknownError from "./components/pages/errors/UnknownError.jsx";

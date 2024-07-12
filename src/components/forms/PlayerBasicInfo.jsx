@@ -13,30 +13,41 @@ function PlayerBasicInfo({ player }) {
 
   const { playerSelected, setPlayerSelected } = useContext(DugoutContext)
 
-  console.log(playerSelected)
+  // console.log('playerSelected: ', playerSelected)
 
   const [playerInfo, setPlayerInfo] = useState({
     firstName: player.firstName,
     lastName: player.lastName,
-    birthMonth: player.birthMonth,
-    homeTown: player.hometown,
-    homeCountry: "US",
-    homeState: "",
-    recoveryEmail: player.email,
-    bio: "",
-    jerseyNumber: "9",
-    throws: "R",
-    bats: "R",
-    position1: "1",
-    position2: "2",
+    birthMonth: player.birthMonth || "",
+    homeTown: player.homeTown || "",
+    homeCountry: player.homeCountry || "US",
+    homeState: player.homeState || "",
+    bio: player.bio || "",
+    jerseyNumber: player.jerseyNumber || "",
+    throws: player.throws || "R",
+    bats: player.bats || "R",
+    position1: player.position1 || "1",
+    position2: player.position2 || "2",
+    recoveryEmail: player.recoveryEmail || "",
   })
-  const [imgUrl, setImgUrl] = useState(null);
-  const [playerImages, setPlayerImages] = useState(player.playerImages);
-  console.log(playerImages)
+
+  console.log('playerInfo: ', playerInfo)
 
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(playerInfo)
+    const bodyObj = {
+      playerId: player.playerId,
+      playerInfo
+    }
+    axios.put(`/api/updatePlayer`, bodyObj)
+    .then((res) => {
+      setPlayerSelected({
+        ...playerSelected,
+        player: res.data.updatedPlayer
+      })
+      console.log("Player updated successfully")
+    })
   }
 
   const handleCancel = (e) => {
@@ -172,7 +183,17 @@ function PlayerBasicInfo({ player }) {
         id="jersey-number"
         name="jersey-number"
         value={playerInfo.jerseyNumber}
-        onChange={(e) => setPlayerInfo({ ...playerInfo, jerseyNumber: e.target.value })}
+        min={0}
+        max={99}
+        onChange={(e) => {
+          // TODO: if number is out of range, set it to min/max range
+          if (e.target.value < 0) {
+            e.target.value = 0
+          } else if (e.target.value > 99) {
+            e.target.value = 99
+          }
+          setPlayerInfo({ ...playerInfo, jerseyNumber: e.target.value })
+        }}
       />
 
       <label htmlFor="throws">Throws</label>

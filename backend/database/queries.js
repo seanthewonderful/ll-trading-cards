@@ -31,7 +31,6 @@ player = await Player.findByPk(1, {
     { model: PlayerImageBack }
   ]
 })
-console.log(player)
 
 // await PlayerImageBack.create({
 //   url: "playerImageBack2",
