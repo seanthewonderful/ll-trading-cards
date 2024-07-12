@@ -80,9 +80,15 @@ function Dugout() {
 
         {playerSelected.selected ? 
         <div id="player-selected-div">
-          {playerCards.filter((player) => player.props.player.playerId === playerSelected.player.playerId)}
 
-          <LockerRoom player={playerSelected.player} /> 
+          <section id="player-selected-section">
+            {playerCards.filter((player) => player.props.player.playerId === playerSelected.player.playerId)}
+            <p>Click player to go back</p>
+          </section>
+
+          <section id="player-selected-lockerroom-section">
+            <LockerRoom player={playerSelected.player} /> 
+          </section>
         </div>
         : 
         <div id="player-cards-div">

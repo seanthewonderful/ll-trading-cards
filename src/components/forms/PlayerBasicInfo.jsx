@@ -1,19 +1,19 @@
 import { useState, useContext, useReducer } from 'react'
 import { useDispatch } from 'react-redux'
 import { DugoutContext } from '../../functions/contexts'
-
 import axios from 'axios'
+
 import '../../styles/playerBasicInfo.css'
 import states from '../../assets/states.json'
 import countries from '../../assets/countries.json'
+import notify from '../../functions/toasts.js'
 
 import PlayerImgUpload from '../PlayerImgUpload'
 
 function PlayerBasicInfo({ player }) {
 
   const { playerSelected, setPlayerSelected } = useContext(DugoutContext)
-
-  // console.log('playerSelected: ', playerSelected)
+  console.log('playerSelected: ', playerSelected)
 
   const [playerInfo, setPlayerInfo] = useState({
     firstName: player.firstName,
@@ -30,23 +30,25 @@ function PlayerBasicInfo({ player }) {
     position2: player.position2 || "2",
     recoveryEmail: player.recoveryEmail || "",
   })
+  console.log('playerInfo: ', player)
 
-  console.log('playerInfo: ', playerInfo)
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(playerInfo)
     const bodyObj = {
       playerId: player.playerId,
+      teamId: player.teamId,
       playerInfo
     }
     axios.put(`/api/updatePlayer`, bodyObj)
     .then((res) => {
-      setPlayerSelected({
-        ...playerSelected,
-        player: res.data.updatedPlayer
+      dispatch({
+        type: "SET_TEAM",
+        payload: res.data.team
       })
-      console.log("Player updated successfully")
+      notify('success', 'Basic Info Updated')
     })
   }
 

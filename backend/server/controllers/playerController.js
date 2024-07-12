@@ -103,24 +103,51 @@ const playerFunctions = {
   },
 
   updatePlayer: async (req, res) => {
-    const { playerId, playerInfo } = req.body;
+    const { playerId, teamId, playerInfo } = req.body;
+    let updatedPlayer;
+    let team;
     try {
-      const updatedPlayer = await Player.update(playerInfo, {
+      updatedPlayer = await Player.update(playerInfo, {
         where: {
           playerId
         }
       });
-      return res.status(200).send({
-        success: true,
-        message: "Player updated",
-        updatedPlayer
-      })
     } catch(err) {
       return res.status(500).send({
         success: false,
-        message: err
+        message: `Error grabbing player from db: ${err}`
       })
     }
+
+    try {
+      team = await Team.findByPk(teamId, {
+        include: [
+          { model: TeamLogo },
+          { model: TeamImageFront },
+          { model: TeamImageBack },
+          {
+            model: Player,
+            include: [
+              { model: PlayerImageFront },
+              { model: PlayerImageBack },
+              { model: PlayerStats }
+            ]
+          }
+        ]
+      });
+    } catch(err) {
+      return res.status(500).send({
+        success: false,
+        message: `Error grabbing team from db: ${err}`
+      })
+    }
+
+    return res.status(200).send({
+      success: true,
+      message: "Player updated",
+      updatedPlayer,
+      team
+    })
   },
 
   addPlayerStats: async (req, res) => {

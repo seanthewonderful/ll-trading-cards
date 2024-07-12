@@ -22,7 +22,6 @@ function PlayerCard({ player }) {
         player: player
       })
     }
-    // navigate('/lockerroom', { state: { player: player }})
   }
 
   return (

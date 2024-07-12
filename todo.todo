@@ -33,4 +33,6 @@ NAMES:
   ✔ TeamImageBack @done (7/11/2024, 9:28:09 PM)
     ✔ Team has one @done (7/11/2024, 9:28:10 PM)
 
-
+☐ Update player basic info works, but need to update dugout context to reflect new player info
+  ☐ Need to dispatch new team data, that should do it
+  
