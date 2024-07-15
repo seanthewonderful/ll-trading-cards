@@ -33,6 +33,13 @@ NAMES:
   ✔ TeamImageBack @done (7/11/2024, 9:28:09 PM)
     ✔ Team has one @done (7/11/2024, 9:28:10 PM)
 
-☐ Update player basic info works, but need to update dugout context to reflect new player info
-  ☐ Need to dispatch new team data, that should do it
-  
+✔ Update player basic info works, but need to update dugout context to reflect new player info @done (7/12/2024, 11:15:36 AM)
+  ✔ Need to dispatch new team data, that should do it @done (7/12/2024, 11:15:35 AM)
+
+☐ Update player stats:
+  ☐ Create functional endpoints to create/update player stats
+  ☐ PlayerStats component should dispatch new team data to Redux just like PlayerBasicInfo so that all components can access the new data
+☐ Player Stats DB restructure - each player should only have 1 PlayerStat relationship.
+  ☐ Should there even be a PlayerStat model? If it's 1-1 then all stats can live on Player?
+
+☐ Calculate BA, OBP, SLG, OPS from AB/hits on front end

@@ -6,7 +6,8 @@ import {
   TeamImageFront,
   TeamImageBack,
   Player,
-  PlayerStats,
+  PlayerBattingStats,
+  PlayerPitchingStats,
   PlayerImageFront,
   PlayerImageBack
 } from "../../database/models.js";
@@ -63,7 +64,8 @@ const userHandlers = {
               include: [
                 { model: PlayerImageFront },
                 { model: PlayerImageBack },
-                { model: PlayerStats }
+                { model: PlayerBattingStats },
+                { model: PlayerPitchingStats }
               ]
             }
           ],
@@ -125,7 +127,8 @@ const userHandlers = {
               include: [
                 { model: PlayerImageFront },
                 { model: PlayerImageBack },
-                { model: PlayerStats }
+                { model: PlayerBattingStats },
+                { model: PlayerPitchingStats }
               ]
             }
           ],
@@ -168,7 +171,8 @@ const userHandlers = {
                 include: [
                   { model: PlayerImageFront },
                   { model: PlayerImageBack },
-                  { model: PlayerStats }
+                  { model: PlayerBattingStats },
+                  { model: PlayerPitchingStats },
                 ]
               }
             ],

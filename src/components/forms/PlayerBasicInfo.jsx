@@ -13,7 +13,7 @@ import PlayerImgUpload from '../PlayerImgUpload'
 function PlayerBasicInfo({ player }) {
 
   const { playerSelected, setPlayerSelected } = useContext(DugoutContext)
-  console.log('playerSelected: ', playerSelected)
+  // console.log('playerSelected: ', playerSelected)
 
   const [playerInfo, setPlayerInfo] = useState({
     firstName: player.firstName,
@@ -30,7 +30,7 @@ function PlayerBasicInfo({ player }) {
     position2: player.position2 || "2",
     recoveryEmail: player.recoveryEmail || "",
   })
-  console.log('playerInfo: ', player)
+  // console.log('playerInfo: ', playerInfo)
 
   const dispatch = useDispatch();
 

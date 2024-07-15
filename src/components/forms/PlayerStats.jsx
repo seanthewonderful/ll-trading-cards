@@ -1,31 +1,36 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 
 import InputNumber from './InputNumber.jsx'
+import InputPercentage from './InputPercentage.jsx'
 import { DugoutContext } from '../../functions/contexts.js'
+import axios from 'axios'
 
 function PlayerStats({ player }) {
+
+  console.log("PlayerStats player: ", player)
 
   const { setPlayerSelected } = useContext(DugoutContext)
 
   const [playerStats, setPlayerStats] = useState({
     batting: {
-      AB: 0,
-      PA: 0,
-      AVG: 0,
-      HR: 0,
-      RBI: 0,
-      SB: 0,
-      R: 0,
-      OBP: 0,
-      SLG: 0,
-      OPS: 0,
-      H: 0,
-      '2B': 0,
-      '3B': 0,
-      BB: 0,
-      HBP: 0,
-      SO: 0,
+      G: player.playerBattingStat?.G || 0,
+      AB: player.playerBattingStat?.AB || 0,
+      PA: player.playerBattingStat?.PA || 0,
+      AVG: player.playerBattingStat?.AVG || "000",
+      HR: player.playerBattingStat?.HR || 0,
+      RBI: player.playerBattingStat?.RBI || 0,
+      SB: player.playerBattingStat?.SB || 0,
+      R: player.playerBattingStat?.R || 0,
+      OBP: player.playerBattingStat?.OBP || 0,
+      SLG: player.playerBattingStat?.SLG || 0,
+      OPS: player.playerBattingStat?.OPS || 0,
+      H: player.playerBattingStat?.H || 0,
+      '2B': player.playerBattingStat ? player.playerBattingStat['2B'] : 0,
+      '3B': player.playerBattingStat ? player.playerBattingStat['3B'] : 0,
+      BB: player.playerBattingStat?.BB || 0,
+      HBP: player.playerBattingStat?.HBP || 0,
+      SO: player.playerBattingStat?.SO || 0,
     },
     pitching: {
       ERA: 0,
@@ -42,14 +47,25 @@ function PlayerStats({ player }) {
       HBP: 0,
     }
   })
+  const [editMode, setEditMode] = useState({
+    AVG: false,
+  })
+  const inputRef = useRef(null)
+
+  console.log("PlayerStats: ", playerStats)
 
   const dispatch = useDispatch()
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    const bodyObj = {
+      playerId: player.playerId,
+      playerStats: playerStats.batting
+    }
+    axios.put('/api/editPlayerBattingStats', bodyObj)
     dispatch({
-      type: "UPDATE_PLAYER_STATS",
-      payload: playerStats
+      type: "SET_TEAM",
+      payload: res.data.team
     })
   }
 
@@ -98,17 +114,6 @@ function PlayerStats({ player }) {
         labelName={"Plate Appearances"}
       />
 
-      <InputNumber
-        inputVal={playerStats.batting.AVG}
-        setInputVal={(avg) => {
-          setPlayerStats({ ...playerStats, batting: { ...playerStats.batting, AVG: avg } })
-        }}
-        min={0}
-        max={1000}
-        formName={"avg"}
-        className={"batting batting-avg"}
-        labelName={"Batting Average"}
-      />
 
       <InputNumber
         inputVal={playerStats.batting.HR}
@@ -181,6 +186,47 @@ function PlayerStats({ player }) {
         className={"batting batting-slg"}
         labelName={"Slugging Percentage"}
       />
+
+      {/* BATTING AVERAGE */}
+      {editMode.AVG ? 
+      <input 
+        id="batting-avg-input" 
+        type="text" 
+        value={playerStats.batting.AVG}
+        onChange={(e) => {
+          if (/^\d{0,3}$/.test(e.target.value)) {
+            setPlayerStats({ 
+              ...playerStats, 
+              batting: { 
+                ...playerStats.batting, 
+                AVG: e.target.value 
+              } 
+            })
+          } else {
+            console.log('invalid Batting Average')
+          }
+        }}
+        onBlur={() => {
+          setPlayerStats({ 
+          ...playerStats, 
+            batting: { 
+              ...playerStats.batting, 
+              AVG: playerStats.batting.AVG.padStart(3, '0') 
+            } })
+            setEditMode({ ...editMode, AVG: false })
+          }}
+        onFocus={e => e.target.select()}
+        />
+      :
+      <input 
+        id="batting-avg-non-input"
+        type="text"
+        value={parseFloat(playerStats.batting.AVG) / 1000}
+        onFocus={() => setEditMode({ ...editMode, AVG: true })}
+        readOnly
+        />
+      }
+      <label htmlFor="batting-avg-input">Batting Average</label>
 
       <InputNumber
         inputVal={playerStats.batting.OPS}

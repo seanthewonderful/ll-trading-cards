@@ -4,7 +4,8 @@ import {
   TeamImageFront,
   TeamImageBack,
   Player,
-  PlayerStats,
+  PlayerBattingStats,
+  PlayerPitchingStats,
   PlayerImageFront,
   PlayerImageBack,
   TeamLogo,
@@ -69,7 +70,8 @@ const playerFunctions = {
               include: [
                 { model: PlayerImageFront },
                 { model: PlayerImageBack },
-                { model: PlayerStats }
+                { model: PlayerBattingStats },
+                { model: PlayerPitchingStats },
               ]
             }
           ],
@@ -87,7 +89,8 @@ const playerFunctions = {
           include: [
             { model: PlayerImageFront },
             { model: PlayerImageBack },
-            { model: PlayerStats }
+            { model: PlayerBattingStats },
+            { model: PlayerPitchingStats }
           ]
         }
       ]
@@ -130,7 +133,8 @@ const playerFunctions = {
             include: [
               { model: PlayerImageFront },
               { model: PlayerImageBack },
-              { model: PlayerStats }
+              { model: PlayerBattingStats },
+              { model: PlayerPitchingStats },
             ]
           }
         ]
@@ -150,27 +154,44 @@ const playerFunctions = {
     })
   },
 
-  addPlayerStats: async (req, res) => {
+  editPlayerBattingStats: async (req, res) => {
     const { playerId, stats } = req.body;
-    const player = await Player.findByPk(playerId);
-    player.addPlayerStats(stats);
-
-    return res.status(200).send({
-      success: true,
-      message: "Player stats added",
-      player: player
+    // query for PlayerBattingStats where playerId
+    let playerBattingStats = await PlayerBattingStats.findOne({
+      where: {
+        playerId
+      }
     })
-  },
+    // if exists, update
+    if (playerBattingStats) {
+      playerBattingStats = await playerBattingStats.update(stats);
+    } else {
+      // if not exists, create new PlayerBattingStats
+      playerBattingStats =await PlayerBattingStats.create(stats);
+    }
 
-  updatePlayerStats: async (req, res) => {
-    const { playerId, stats } = req.body;
-    const player = await Player.findByPk(playerId);
-    player.updatePlayerStats(stats);
+    const team = await Team.findByPk(stats.teamId, {
+      include: [
+        { model: TeamLogo },
+        { model: TeamImageFront },
+        { model: TeamImageBack },
+        {
+          model: Player,
+          include: [
+            { model: PlayerImageFront },
+            { model: PlayerImageBack },
+            { model: PlayerBattingStats },
+            { model: PlayerPitchingStats },
+          ]
+        }
+      ]
+    });
 
     return res.status(200).send({
       success: true,
-      message: "Player stats updated",
-      player: player
+      message: "Player batting stats added",
+      playerBattingStats,
+      team
     })
   },
 
@@ -194,7 +215,8 @@ const playerFunctions = {
       include: [
         { model: PlayerImageFront },
         { model: PlayerImageBack },
-        { model: PlayerStats }
+        { model: PlayerBattingStats },
+        { model: PlayerPitchingStats }
       ]
     });
 
@@ -225,7 +247,8 @@ const playerFunctions = {
       include: [
         { model: PlayerImageFront },
         { model: PlayerImageBack },
-        { model: PlayerStats }
+        { model: PlayerBattingStats },
+        { model: PlayerPitchingStats },
       ]
     });
 
@@ -256,7 +279,8 @@ const playerFunctions = {
       include: [
         { model: PlayerImageBack },
         { model: PlayerImageBack },
-        { model: PlayerStats }
+        { model: PlayerBattingStats },
+        { model: PlayerPitchingStats },
       ]
     });
 
@@ -287,7 +311,8 @@ const playerFunctions = {
       include: [
         { model: PlayerImageBack },
         { model: PlayerImageBack },
-        { model: PlayerStats }
+        { model: PlayerBattingStats },
+        { model: PlayerPitchingStats },
       ]
     });
 

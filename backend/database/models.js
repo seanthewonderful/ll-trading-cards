@@ -115,6 +115,10 @@ Player.init(
       type: DataTypes.STRING(2),
       allowNull: true,
     },
+    bio: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
     jerseyNumber: {
       type: DataTypes.INTEGER,
       allowNull: true,
@@ -149,27 +153,23 @@ Player.init(
   } 
 )
 
-export class PlayerStats extends Model {
+export class PlayerBattingStats extends Model {
   [util.inspect.custom]() {
     return this.toJSON()
   }
 }
-PlayerStats.init(
+PlayerBattingStats.init(
   {
-    playerStatsId: {
+    playerBattingStatsId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    year: {
-      type: DataTypes.STRING(4),
-      allowNull: false,
-    },
-    bio: {
-      type: DataTypes.TEXT,
+    G: {
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
-    G: {
+    PA: {
       type: DataTypes.INTEGER,
       allowNull: true,
     },
@@ -228,7 +228,71 @@ PlayerStats.init(
   },
   {
     sequelize: db,
-    modelName: "playerStats",
+    modelName: "playerBattingStats",
+    timestamps: false
+  } 
+)
+
+export class PlayerPitchingStats extends Model {
+  [util.inspect.custom]() {
+    return this.toJSON()
+  }
+}
+PlayerPitchingStats.init(
+  {
+    playerPitchingStatsId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    W: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    L: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    S: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    IP: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    H: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    R: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    ER: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    BB: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    HBP: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    K: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    ERA: {
+      type: DataTypes.DECIMAL(5, 3),
+      allowNull: true,
+    }
+  },
+  {
+    sequelize: db,
+    modelName: "playerPitchingStats",
     timestamps: false
   } 
 )
@@ -464,5 +528,8 @@ PlayerImageFront.belongsTo(Player, { foreignKey: "playerId" })
 Player.hasOne(PlayerImageBack, { foreignKey: "playerId" })
 PlayerImageBack.belongsTo(Player, { foreignKey: "playerId" })
 
-Player.hasMany(PlayerStats, { foreignKey: "playerId" })
-PlayerStats.belongsTo(Player, { foreignKey: "playerId" })
+Player.hasOne(PlayerBattingStats, { foreignKey: "playerId" })
+PlayerBattingStats.belongsTo(Player, { foreignKey: "playerId" })
+
+Player.hasOne(PlayerPitchingStats, { foreignKey: "playerId" })
+PlayerPitchingStats.belongsTo(Player, { foreignKey: "playerId" })

@@ -5,13 +5,14 @@ import userFunctions from './controllers/userController.js'
 import teamFunctions from './controllers/teamController.js'
 import playerFunctions from './controllers/playerController.js'
 import cors from 'cors'
+import morgan from 'morgan'
 
 const app = express()
 const PORT = 8411
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
-
+app.use(morgan("dev"));
 app.use(cors())
 
 const sessionMiddleware = session({
@@ -40,8 +41,8 @@ app.post('/api/createPlayer', playerFunctions.addPlayer)
 app.put('/api/updatePlayer', playerFunctions.updatePlayer)
 
 // PLAYER STATS ENDPOINTS
-app.post('/api/createPlayerStats', playerFunctions.addPlayerStats)
-app.put('/api/updatePlayerStats', playerFunctions.updatePlayerStats)
+app.post('/api/editPlayerBattingStats', playerFunctions.editPlayerBattingStats)
+// app.put('/api/updatePlayerStats', playerFunctions.updatePlayerStats)
 
 // PLAYER IMAGE ENDPOINTS
 app.post('/api/createPlayerImageFront', playerFunctions.addPlayerImageFront)

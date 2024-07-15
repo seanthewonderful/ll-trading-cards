@@ -18,6 +18,34 @@ await User.create({
 // });
 console.log("Users seeded");
 
+console.log("Seeding Teams...");
+const team = await Team.create({
+  userId: 1,
+  name: "Rangers",
+  year: "2024"
+})
+await team.createTeamLogo({
+  url: "https://i.ytimg.com/vi/ynKateBMV1I/hq720.jpg",
+  descriptor: "Full Logo"
+})
+await team.createTeamImageFront({
+  url: "https://i.ytimg.com/vi/ynKateBMV1I/hq720.jpg"
+})
+console.log("Teams seeded");
+
+console.log("Seeding Players...");
+await Player.create({
+  firstName: "Billy",
+  lastName: "Base-on-Balls",
+  birthMonth: 7,
+  homeTown: "Lehi",
+  homeCountry: "USA",
+  homeState: "UT",
+  recoveryEmail: "b@b.com",
+  teamId: 1,
+})
+console.log("Players seeded");
+
 console.log("Seeding MLB Teams...");
 const mlbTeams = [
   {

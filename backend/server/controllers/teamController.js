@@ -2,7 +2,8 @@ import {
   User,
   Team,
   Player,
-  PlayerStats,
+  PlayerBattingStats,
+  PlayerPitchingStats,
   PlayerImageFront,
   PlayerImageBack,
   TeamLogo,
@@ -57,7 +58,8 @@ const teamFunctions = {
               include: [
                 { model: PlayerImageFront },
                 { model: PlayerImageBack },
-                { model: PlayerStats }
+                { model: PlayerBattingStats },
+                { model: PlayerPitchingStats }
               ]
             },
           ],
@@ -139,7 +141,8 @@ const teamFunctions = {
             include: [
               { model: PlayerImageFront },
               { model: PlayerImageBack },
-              { model: PlayerStats }
+              { model: PlayerBattingStats },
+              { model: PlayerPitchingStats }
             ]
           },
         ]
