@@ -1,8 +1,7 @@
-import { useState, useContext, useRef } from 'react'
+import { useState, useContext, useRef, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
 import InputNumber from './InputNumber.jsx'
-import InputPercentage from './InputPercentage.jsx'
 import { DugoutContext } from '../../functions/contexts.js'
 import axios from 'axios'
 
@@ -76,6 +75,13 @@ function PlayerStats({ player }) {
       player: null
     })
   }
+
+  useEffect(() => {
+    if (editMode.AVG && inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.select();
+    }
+  }, [editMode]);
 
   return (
     <form 
@@ -191,6 +197,7 @@ function PlayerStats({ player }) {
       {editMode.AVG ? 
       <input 
         id="batting-avg-input" 
+        ref={inputRef}
         type="text" 
         value={playerStats.batting.AVG}
         onChange={(e) => {
@@ -215,7 +222,6 @@ function PlayerStats({ player }) {
             } })
             setEditMode({ ...editMode, AVG: false })
           }}
-        onFocus={e => e.target.select()}
         />
       :
       <input 
