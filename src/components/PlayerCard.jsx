@@ -8,6 +8,8 @@ import rangersEmblem from '../assets/team_logos/TEX/texas-rangers-logo.png'
 
 function PlayerCard({ player }) {
 
+  console.log("PlayerCard player: ", player)
+
   const { playerSelected, setPlayerSelected } = useContext(DugoutContext)
   
   const handleClick = () => {

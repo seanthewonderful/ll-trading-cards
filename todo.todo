@@ -37,9 +37,14 @@ NAMES:
   ✔ Need to dispatch new team data, that should do it @done (7/12/2024, 11:15:35 AM)
 
 ☐ Update player stats:
-  ☐ Create functional endpoints to create/update player stats
-  ☐ PlayerStats component should dispatch new team data to Redux just like PlayerBasicInfo so that all components can access the new data
-☐ Player Stats DB restructure - each player should only have 1 PlayerStat relationship.
-  ☐ Should there even be a PlayerStat model? If it's 1-1 then all stats can live on Player?
+  ✔ Create functional endpoints to create/update player stats @done (7/15/2024, 4:35:08 PM)
+  ✔ PlayerStats component should dispatch new team data to Redux just like PlayerBasicInfo so that all components can access the new data @done (7/15/2024, 4:35:11 PM)
+✔ Player Stats DB restructure - each player should only have 1 PlayerStat relationship. @done (7/15/2024, 4:35:13 PM)
+  ✔ Change to DB model for player stat AVG, OBP, SLG, OPS to be STRING(3) instead of DECIMAL @done (7/15/2024, 4:35:29 PM)
 
 ☐ Calculate BA, OBP, SLG, OPS from AB/hits on front end
+
+
+BUGS: 
+  ✔ On PlayerStats, if submitted all is working properly except if you navigate to PlayerInfo, then back to PlayerStats. Seems to be correct otherwise. @done (7/17/2024, 2:58:48 PM)
+  ☐ 

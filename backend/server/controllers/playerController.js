@@ -146,6 +146,15 @@ const playerFunctions = {
       })
     }
 
+    updatedPlayer = await Player.findByPk(playerId, {
+      include: [
+        { model: PlayerImageFront },
+        { model: PlayerImageBack },
+        { model: PlayerBattingStats },
+        { model: PlayerPitchingStats },
+      ]
+    })
+
     return res.status(200).send({
       success: true,
       message: "Player updated",
@@ -155,22 +164,33 @@ const playerFunctions = {
   },
 
   editPlayerBattingStats: async (req, res) => {
-    const { playerId, stats } = req.body;
+    const { playerId, teamId, stats } = req.body;
+    console.log("STATS: ", stats)
     // query for PlayerBattingStats where playerId
     let playerBattingStats = await PlayerBattingStats.findOne({
       where: {
         playerId
       }
     })
+    console.log("playerBattingStats: ", playerBattingStats)
     // if exists, update
     if (playerBattingStats) {
-      playerBattingStats = await playerBattingStats.update(stats);
+      playerBattingStats = await playerBattingStats.update({...stats, playerId});
     } else {
       // if not exists, create new PlayerBattingStats
-      playerBattingStats =await PlayerBattingStats.create(stats);
+      playerBattingStats = await PlayerBattingStats.create({...stats, playerId});
     }
 
-    const team = await Team.findByPk(stats.teamId, {
+    const updatedPlayer = await Player.findByPk(playerId, {
+      include: [
+        { model: PlayerImageFront },
+        { model: PlayerImageBack },
+        { model: PlayerBattingStats },
+        { model: PlayerPitchingStats },
+      ]
+    })
+
+    const team = await Team.findByPk(teamId, {
       include: [
         { model: TeamLogo },
         { model: TeamImageFront },
@@ -190,7 +210,7 @@ const playerFunctions = {
     return res.status(200).send({
       success: true,
       message: "Player batting stats added",
-      playerBattingStats,
+      player: updatedPlayer,
       team
     })
   },

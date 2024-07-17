@@ -25,6 +25,7 @@ function Dugout() {
   const teamData = useSelector(state => state.team);
   let players = teamData ? teamData.players : [];
 
+  console.log("players: ", players);
   let playerCards = players.map((player) => (
     <PlayerCard 
       player={player} 

@@ -210,19 +210,23 @@ PlayerBattingStats.init(
       allowNull: true,
     },
     SLG: {
-      type: DataTypes.DECIMAL(5, 3),
+      // type: DataTypes.DECIMAL(5, 3),
+      type: DataTypes.STRING(3),
       allowNull: true,
     },
     OBP: {
-      type: DataTypes.DECIMAL(5, 3),
+      // type: DataTypes.DECIMAL(5, 3),
+      type: DataTypes.STRING(3),
       allowNull: true,
     },
     OPS: {
-      type: DataTypes.DECIMAL(5, 3),
+      // type: DataTypes.DECIMAL(5, 3),
+      type: DataTypes.STRING(3),
       allowNull: true,
     },
     AVG: {
-      type: DataTypes.DECIMAL(5, 3),
+      // type: DataTypes.DECIMAL(5, 3),
+      type: DataTypes.STRING(3),
       allowNull: true,
     },
   },

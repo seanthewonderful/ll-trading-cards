@@ -12,7 +12,7 @@ import PlayerImgUpload from '../PlayerImgUpload'
 
 function PlayerBasicInfo({ player }) {
 
-  const { playerSelected, setPlayerSelected } = useContext(DugoutContext)
+  const { setPlayerSelected } = useContext(DugoutContext)
   // console.log('playerSelected: ', playerSelected)
 
   const [playerInfo, setPlayerInfo] = useState({
@@ -48,6 +48,11 @@ function PlayerBasicInfo({ player }) {
         type: "SET_TEAM",
         payload: res.data.team
       })
+      console.log(res.data.updatedPlayer)
+      setPlayerSelected({
+        selected: true,
+        player: res.data.updatedPlayer
+      })
       notify('success', 'Basic Info Updated')
     })
   }
@@ -64,11 +69,6 @@ function PlayerBasicInfo({ player }) {
     <form id='player-basic-info' onSubmit={handleSubmit}>
 
       <legend>Player Basic Info</legend>
-
-      <PlayerImgUpload 
-        playerId={player.playerId} 
-
-        />
 
       <label htmlFor="first-name">First Name</label>
       <input

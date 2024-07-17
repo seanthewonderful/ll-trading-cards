@@ -34,7 +34,7 @@ await team.createTeamImageFront({
 console.log("Teams seeded");
 
 console.log("Seeding Players...");
-await Player.create({
+const player = await Player.create({
   firstName: "Billy",
   lastName: "Base-on-Balls",
   birthMonth: 7,
@@ -43,6 +43,25 @@ await Player.create({
   homeState: "UT",
   recoveryEmail: "b@b.com",
   teamId: 1,
+})
+await player.createPlayerBattingStat({
+  G: 10,
+  AB: 50,
+  PA: 55,
+  HR: 1,
+  RBI: 9,
+  SB: 2,
+  R: 8,
+  AVG: "300",
+  OBP: "360",
+  SLG: "000",
+  OPS: "000",
+  H: 15,
+  '2B': 2,
+  '3B': 0,
+  BB: 5,
+  HBP: 0,
+  SO: 4,
 })
 console.log("Players seeded");
 

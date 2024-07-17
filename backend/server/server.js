@@ -41,7 +41,7 @@ app.post('/api/createPlayer', playerFunctions.addPlayer)
 app.put('/api/updatePlayer', playerFunctions.updatePlayer)
 
 // PLAYER STATS ENDPOINTS
-app.post('/api/editPlayerBattingStats', playerFunctions.editPlayerBattingStats)
+app.put('/api/editPlayerBattingStats', playerFunctions.editPlayerBattingStats)
 // app.put('/api/updatePlayerStats', playerFunctions.updatePlayerStats)
 
 // PLAYER IMAGE ENDPOINTS
