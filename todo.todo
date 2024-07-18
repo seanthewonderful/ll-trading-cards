@@ -43,6 +43,8 @@ NAMES:
   ✔ Change to DB model for player stat AVG, OBP, SLG, OPS to be STRING(3) instead of DECIMAL @done (7/15/2024, 4:35:29 PM)
 
 ☐ Calculate BA, OBP, SLG, OPS from AB/hits on front end
+☐ PlayerImageBack upload to S3 and update player object
+☐ PlayerImageFront upload to S3 and update player object
 
 
 BUGS: 

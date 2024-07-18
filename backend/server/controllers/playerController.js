@@ -11,6 +11,7 @@ import {
   TeamLogo,
   MLBTeam,
 } from "../../database/models.js";
+import { upsertPlayerImgFront, upsertPlayerImgBack } from "../../database/upserts.js";
 
 const playerFunctions = {
 
@@ -105,7 +106,7 @@ const playerFunctions = {
     })
   },
 
-  updatePlayer: async (req, res) => {
+  editPlayerBasicInfo: async (req, res) => {
     const { playerId, teamId, playerInfo } = req.body;
     let updatedPlayer;
     let team;
@@ -219,50 +220,14 @@ const playerFunctions = {
     const { playerId, imgUrl } = req.body;
 
     try {
-      await PlayerImageFront.upsert({
-        url: imgUrl,
-        playerId
-      });
+      await upsertPlayerImgFront(imgUrl, playerId);
     } catch (err) {
-      console.log(err);
       return res.status(500).send({
         success: false,
-        message: err,
+        message: "Error adding player image front: " + err,
       })
     }
-
-    const player = await Player.findByPk(playerId, {
-      include: [
-        { model: PlayerImageFront },
-        { model: PlayerImageBack },
-        { model: PlayerBattingStats },
-        { model: PlayerPitchingStats }
-      ]
-    });
-
-    return res.status(200).send({
-      success: true,
-      message: "Player image added",
-      player: player
-    })
-  },
-
-  updatePlayerImageFront: async (req, res) => {
-    const { playerId, imgUrl } = req.body;
-
-    try {
-      await PlayerImageFront.upsert({
-        url: imgUrl,
-        playerId
-      });
-    } catch (err) {
-      console.log(err);
-      return res.status(500).send({
-        success: false,
-        message: err,
-      })
-    }
-
+    
     const player = await Player.findByPk(playerId, {
       include: [
         { model: PlayerImageFront },
@@ -272,10 +237,28 @@ const playerFunctions = {
       ]
     });
 
+    const team = await Team.findByPk(player.teamId, {
+      include: [
+        { model: TeamLogo },
+        { model: TeamImageFront },
+        { model: TeamImageBack },
+        {
+          model: Player,
+          include: [
+            { model: PlayerImageFront },
+            { model: PlayerImageBack },
+            { model: PlayerBattingStats },
+            { model: PlayerPitchingStats },
+          ]
+        }
+      ]
+    });
+
     return res.status(200).send({
       success: true,
-      message: "Player image updated",
-      player: player
+      message: "Player image front added",
+      player,
+      team
     })
   },
 
@@ -283,65 +266,48 @@ const playerFunctions = {
     const { playerId, imgUrl } = req.body;
 
     try {
-      await PlayerImageBack.upsert({
-        url: imgUrl,
-        playerId
-      });
+      await upsertPlayerImgBack(imgUrl, playerId);
     } catch (err) {
-      console.log(err);
       return res.status(500).send({
         success: false,
-        message: err,
+        message: "Error adding player image back: " + err,
       })
     }
-
+    
     const player = await Player.findByPk(playerId, {
       include: [
         { model: PlayerImageBack },
         { model: PlayerImageBack },
         { model: PlayerBattingStats },
         { model: PlayerPitchingStats },
+      ]
+    });
+
+    const team = await Team.findByPk(player.teamId, {
+      include: [
+        { model: TeamLogo },
+        { model: TeamImageFront },
+        { model: TeamImageBack },
+        {
+          model: Player,
+          include: [
+            { model: PlayerImageFront },
+            { model: PlayerImageBack },
+            { model: PlayerBattingStats },
+            { model: PlayerPitchingStats },
+          ]
+        }
       ]
     });
 
     return res.status(200).send({
       success: true,
       message: "Player image added",
-      player: player
+      team,
+      player
     })
   }, 
 
-  updatePlayerImageBack: async (req, res) => {
-    const { playerId, imgUrl } = req.body;
-
-    try {
-      await PlayerImageBack.upsert({
-        url: imgUrl,
-        playerId
-      });
-    } catch (err) {
-      console.log(err);
-      return res.status(500).send({
-        success: false,
-        message: err,
-      })
-    }
-
-    const player = await Player.findByPk(playerId, {
-      include: [
-        { model: PlayerImageBack },
-        { model: PlayerImageBack },
-        { model: PlayerBattingStats },
-        { model: PlayerPitchingStats },
-      ]
-    });
-
-    return res.status(200).send({
-      success: true,
-      message: "Player image updated",
-      player: player
-    })
-  }
 }
 
 export default playerFunctions

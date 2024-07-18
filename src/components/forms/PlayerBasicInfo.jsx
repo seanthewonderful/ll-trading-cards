@@ -42,7 +42,7 @@ function PlayerBasicInfo({ player }) {
       teamId: player.teamId,
       playerInfo
     }
-    axios.put(`/api/updatePlayer`, bodyObj)
+    axios.put(`/api/editPlayerBasicInfo`, bodyObj)
     .then((res) => {
       dispatch({
         type: "SET_TEAM",

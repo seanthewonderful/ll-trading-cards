@@ -38,17 +38,14 @@ app.get('/api/team/:id', teamFunctions.findTeam)
 // PLAYER ENDPOINTS
 app.post('/api/newPlayer', teamFunctions.addPlayer)
 app.post('/api/createPlayer', playerFunctions.addPlayer)
-app.put('/api/updatePlayer', playerFunctions.updatePlayer)
+app.put('/api/editPlayerBasicInfo', playerFunctions.editPlayerBasicInfo)
 
 // PLAYER STATS ENDPOINTS
 app.put('/api/editPlayerBattingStats', playerFunctions.editPlayerBattingStats)
-// app.put('/api/updatePlayerStats', playerFunctions.updatePlayerStats)
 
 // PLAYER IMAGE ENDPOINTS
 app.post('/api/createPlayerImageFront', playerFunctions.addPlayerImageFront)
 app.post('/api/createPlayerImageBack', playerFunctions.addPlayerImageBack)
-app.put('/api/updatePlayerImageFront', playerFunctions.updatePlayerImageFront)
-app.put('/api/updatePlayerImageBack', playerFunctions.updatePlayerImageBack)
 
 
 ViteExpress.listen(app, PORT, () => console.log(`Take me out to the http://localhost:${PORT} game`))
