@@ -5,8 +5,8 @@ import angelsEmblem from "../assets/team_logos/LAA/los-angeles-angels-emblem.png
 
 const BaseballCardFront = () => {
 
-  const playerInfo = useSelector(state => state.playerInfo)
-  const playerStats = useSelector(state => state.playerStats)
+  // const playerInfo = useSelector(state => state.playerInfo)
+  // const playerStats = useSelector(state => state.playerStats)
 
   return (
     <div id="baseball-card-front">
@@ -30,8 +30,8 @@ const BaseballCardFront = () => {
       </span>
 
       <section id="player-name-box">
-        <p className="permanent-marker-regular">{playerInfo.firstName}</p>
-        <p className="permanent-marker-regular">{playerInfo.lastName}</p>
+        {/* <p className="permanent-marker-regular">{playerInfo.firstName}</p>
+        <p className="permanent-marker-regular">{playerInfo.lastName}</p> */}
       </section>
 
     </div>

@@ -1,0 +1,12 @@
+#locker-room {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  height: 90vh;
+  min-width: 70vw;
+}
+
+#locker-room-header {
+  margin: 2%;
+}

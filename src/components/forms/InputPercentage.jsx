@@ -1,6 +1,14 @@
 
 
-function InputPercentage({ inputVal, setInputVal, min, max, formName, className, labelName, decimals }) {
+function InputPercentage({ 
+  inputVal, 
+  setInputVal, 
+  min=0, 
+  max=1, 
+  formName, 
+  className, 
+  labelName }) {
+    
   return (
     <>
     <label htmlFor={formName}>{labelName}</label>
@@ -10,7 +18,7 @@ function InputPercentage({ inputVal, setInputVal, min, max, formName, className,
       name={formName}
       min={min}
       max={max}
-      step={decimals}
+      step={0.001}
       value={inputVal}
       onChange={(e) => setInputVal(e.target.value)}
       className={className}

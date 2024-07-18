@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Pitcher",
+    "abbreviation": "P",
+    "number": 1
+  },
+  {
+    "name": "Catcher",
+    "abbreviation": "C",
+    "number": 2
+  },
+  {
+    "name": "First Base",
+    "abbreviation": "1B",
+    "number": 3
+  },
+  {
+    "name": "Second Base",
+    "abbreviation": "2B",
+    "number": 4
+  },
+  {
+    "name": "Third Base",
+    "abbreviation": "3B",
+    "number": 5
+  },
+  {
+    "name": "Shortstop",
+    "abbreviation": "SS",
+    "number": 6
+  },
+  {
+    "name": "Left Field",
+    "abbreviation": "LF",
+    "number": 7
+  },
+  {
+    "name": "Center Field",
+    "abbreviation": "CF",
+    "number": 8
+  },
+  {
+    "name": "Right Field",
+    "abbreviation": "RF",
+    "number": 9
+  }
+]

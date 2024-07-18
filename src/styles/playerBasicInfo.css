@@ -1,0 +1,9 @@
+#player-basic-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  width: auto;
+  /* height: 80vh; */
+  font-size: x-small;
+}

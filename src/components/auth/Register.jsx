@@ -1,26 +1,25 @@
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import axios from 'axios'
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import axios from "axios";
 
 const Register = ({ onClose }) => {
-
   const [registerInfo, setRegisterInfo] = useState({
     email: "",
     firstName: "",
     lastName: "",
     password: "",
     confirmPassword: false,
-    favTeam: "",
-  })
+    favTeam: "MLB",
+  });
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleRegister = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!registerInfo.confirmPassword) {
-      console.log("Passwords do not match")
-      return
+      console.log("Passwords do not match");
+      return;
     }
 
     const body = {
@@ -28,80 +27,88 @@ const Register = ({ onClose }) => {
       firstName: registerInfo.firstName,
       lastName: registerInfo.lastName,
       password: registerInfo.password,
-      favTeam: registerInfo.favTeam
-    }
+      favTeam: registerInfo.favTeam,
+    };
 
-    await axios.post('/api/register', body)
-    .then(res => {
-      onClose()
-      dispatch({ type: "SET_USER", payload: res.data.user })
-    })
-    .catch(err => {
-      console.warn("REGISTER ERROR: ", err)
-    })
-  }
+    await axios
+      .post("/api/register", body)
+      .then((res) => {
+        onClose();
+        dispatch({ type: "SET_USER", payload: res.data.user });
+      })
+      .catch((err) => {
+        console.warn("REGISTER ERROR: ", err);
+      });
+  };
 
   const confirmPassword = (e) => {
     if (registerInfo.password === e.target.value) {
-      setRegisterInfo({ ...registerInfo, confirmPassword: true })
+      setRegisterInfo({ ...registerInfo, confirmPassword: true });
     } else {
-      setRegisterInfo({ ...registerInfo, confirmPassword: false })
+      setRegisterInfo({ ...registerInfo, confirmPassword: false });
     }
-  }
+  };
 
   return (
-    <form 
-      className='auth-form'
-      id='register-form' 
-      onSubmit={handleRegister}
-      >
-      
+    <form className="modal-form" id="register-form" onSubmit={handleRegister}>
       <label htmlFor="email">Email</label>
-      <input 
+      <input
         type="text"
-        id="email" 
-        name="email" 
+        id="email"
+        name="email"
         autoFocus
-        onChange={(e) => setRegisterInfo({ ...registerInfo, email: e.target.value })}
-        />
+        onChange={(e) =>
+          setRegisterInfo({ ...registerInfo, email: e.target.value })
+        }
+      />
 
       <label htmlFor="first-name">First Name</label>
-      <input 
+      <input
         type="text"
-        id="first-name" 
-        name="first-name" 
-        onChange={(e) => setRegisterInfo({ ...registerInfo, firstName: e.target.value })}
-        />
+        id="first-name"
+        name="first-name"
+        onChange={(e) =>
+          setRegisterInfo({ ...registerInfo, firstName: e.target.value })
+        }
+      />
 
       <label htmlFor="last-name">Last Name</label>
-      <input 
+      <input
         type="text"
-        id="last-name" 
-        name="last-name" 
-        onChange={(e) => setRegisterInfo({ ...registerInfo, lastName: e.target.value })}
-        />
+        id="last-name"
+        name="last-name"
+        onChange={(e) =>
+          setRegisterInfo({ ...registerInfo, lastName: e.target.value })
+        }
+      />
 
       <label htmlFor="password">Password</label>
-      <input 
+      <input
         type="password"
-        id="password" 
-        name="password" 
-        onChange={(e) => setRegisterInfo({ ...registerInfo, password: e.target.value })}
-        />
+        id="password"
+        name="password"
+        onChange={(e) =>
+          setRegisterInfo({ ...registerInfo, password: e.target.value })
+        }
+      />
 
       <label htmlFor="confirm-password">Confirm Password</label>
-      <input 
+      <input
         type="password"
-        id="confirm-password" 
-        name="confirm-password" 
+        id="confirm-password"
+        name="confirm-password"
         onChange={confirmPassword}
-        />
+      />
 
       <label htmlFor="fav-team">Favorite Team</label>
-      <select 
+      <select
         id="fav-team"
-        onChange={(e) => setRegisterInfo({ ...registerInfo, favTeam: e.target.value })}
-        >
+        name="fav-team"
+        value={registerInfo.favTeam}
+        onChange={(e) =>
+          setRegisterInfo({ ...registerInfo, favTeam: e.target.value })
+        }
+      >
         <option value="MLB">MLB</option>
         <option value="AL">American League</option>
         <option value="NL">National League</option>
@@ -138,9 +145,8 @@ const Register = ({ onClose }) => {
       </select>
 
       <button type="submit">Register</button>
-
     </form>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;

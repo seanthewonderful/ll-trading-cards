@@ -1,4 +1,15 @@
 
+body {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  /* background: url("../assets/pxfield.png") no-repeat center;
+  opacity: 0.9; */
+}
+button {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+}
+
 /* AUTH MODALS */
 .modal {
   position: fixed;
@@ -7,12 +18,12 @@
   justify-content: center;
   top: 0;
   left: 0;
-  background-color: rgba(0,0,0,0.6);
-  width:100vw;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100vw;
   height: 100vh;
-  z-Index: 1000
+  z-index: 1000;
 }
-.auth-form {
+.modal-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -21,8 +32,9 @@
 #modal-section {
   width: 60vw;
   height: 68vh;
-  background: url('https://i.etsystatic.com/31715137/r/il/cf1d43/3826544379/il_fullxfull.3826544379_gvhi.jpg') no-repeat center;
-  background-size:cover;
+  background: url("https://i.etsystatic.com/31715137/r/il/cf1d43/3826544379/il_fullxfull.3826544379_gvhi.jpg")
+    no-repeat center;
+  background-size: cover;
   clip-path: circle(45%);
   /* border-radius: 50%; */
   display: flex;
@@ -56,43 +68,3 @@ footer {
   background: linear-gradient(to top, #e6b980 0%, #eacda3 100%);
 }
 
-/* DUGOUT */
-.dugout {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-#dugout-div {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 100vw;
-  height: 90vh;
-}
-
-#player-basic-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: start;
-  width: auto;
-  height: 90vh;
-  font-size: x-small;
-}
-
-#choose-template-div {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: auto;
-  height: 90vh;
-}
-
-#choose-template-buttons {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}

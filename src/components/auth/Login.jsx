@@ -1,60 +1,60 @@
-import { useState } from 'react'
-import axios from 'axios'
-import { useDispatch } from 'react-redux'
+import { useState } from "react";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Login = ({ onClose }) => {
-
-  const dispatch = useDispatch()
+  
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
-  })
+  });
 
   const handleLogin = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     const body = {
       email: loginInfo.email,
-      password: loginInfo.password
-    }
+      password: loginInfo.password,
+    };
 
-    await axios.post('/api/login', body)
-    .then(res => {
-      onClose()
-      dispatch({ type: "SET_USER", payload: res.data.user })
-    })
-    .catch(err => console.warn("LOGIN ERROR: ", err.response.data.message))
-  }
+    await axios
+      .post("/api/login", body)
+      .then((res) => {
+        onClose();
+        dispatch({ type: "SET_USER", payload: res.data.user });
+        console.log(res.data.user);
+      })
+      .catch((err) => console.warn("LOGIN ERROR: ", err.response.data.message));
+  };
 
   return (
-    <form 
-      className='auth-form'
-      id='login-form' 
-      onSubmit={handleLogin}
-      >
-
+    <form className="modal-form" id="login-form" onSubmit={handleLogin}>
       <label htmlFor="email">Email</label>
-      <input 
+      <input
         type="text"
-        id="email" 
-        name="email" 
+        id="email"
+        name="email"
         autoFocus
         onChange={(e) => setLoginInfo({ ...loginInfo, email: e.target.value })}
-        />
+      />
 
       <label htmlFor="password">Password</label>
-      <input 
+      <input
         type="password"
-        id="password" 
-        name="password" 
-        onChange={(e) => setLoginInfo({ ...loginInfo, password: e.target.value })}
-        />
+        id="password"
+        name="password"
+        onChange={(e) =>
+          setLoginInfo({ ...loginInfo, password: e.target.value })
+        }
+      />
 
       <button type="submit">Login</button>
-
     </form>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

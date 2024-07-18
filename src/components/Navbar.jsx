@@ -3,7 +3,6 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
 
-
 function Navbar() {
 
   const navigate = useNavigate()
@@ -27,7 +26,7 @@ function Navbar() {
     {user ? (
       <>
       <NavLink 
-        to="/teams"
+        to="/myteams"
         className={({ isActive, isPending }) =>
           isPending ? "navlink pending" : isActive ? "navlink active" : "navlink"
         }
@@ -62,12 +61,12 @@ function Navbar() {
     ) : (
       <>
         <NavLink 
-          to="/about"
+          to="/"
           className={({ isActive, isPending }) =>
             isPending ? "navlink pending" : isActive ? "navlink active" : "navlink"
           }
           >
-            <button>Learn More</button>
+            <button>Home</button>
         </NavLink>
         {/* <NavLink 
           to="/"

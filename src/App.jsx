@@ -1,54 +1,74 @@
-import Home from "./components/Home.jsx"
-import Welcome from "./components/Welcome.jsx"
-import Dugout from "./components/Dugout.jsx"
-import UserProfile from "./components/auth/UserProfile.jsx"
-import UserTeams from "./components/UserTeams.jsx"
-import Checkout from "./components/Checkout.jsx"
+import Home from "./components/pages/Home.jsx";
+import Welcome from "./components/Welcome.jsx";
+import Dugout from "./components/pages/Dugout.jsx";
+import UserProfile from "./components/pages/UserProfile.jsx";
+import UserTeams from "./components/pages/UserTeams.jsx";
+import Checkout from "./components/pages/Checkout.jsx";
+import NotFound from "./components/pages/errors/NotFound.jsx";
+import UnknownError from "./components/pages/errors/UnknownError.jsx";
 
-import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from "react-router-dom"
+import {
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from "react-router-dom";
+import FileUpload from "./components/PlayerImgUpload.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-    <Route 
-      path="/" 
-      element={<Home />}
-      >
       <Route 
-        index
-        element={<Welcome />}
-        />
+        path="/" 
+        element={<Home />}
+        errorElement={<UnknownError />}
+        >
+        <Route 
+          index 
+          element={<Welcome />} 
+          errorElement={<UnknownError />}
+          />
 
-      <Route 
-        path="teams" 
-        element={<UserTeams />} 
-        />
-      <Route 
-        path="profile" 
-        element={<UserProfile />} 
-        />
-      <Route 
-        path="dugout" 
-        element={<Dugout />} 
-        />
+        <Route 
+          path="myteams" 
+          element={<UserTeams />} 
+          errorElement={<UnknownError />}
+          />
 
-      <Route
-        path="checkout"
-        element={<Checkout />}
-        />
+        <Route 
+          path="dugout" 
+          element={<Dugout />} 
+          errorElement={<UnknownError />}
+          />
 
-      <Route 
-        path="*" 
-        element={<h1>404 Page not found</h1>} 
-        />
+        <Route 
+          path="profile" 
+          element={<UserProfile />} 
+          errorElement={<UnknownError />}
+          />
 
-    </Route>
+        <Route 
+          path="checkout" 
+          element={<Checkout />} 
+          errorElement={<UnknownError />}
+          />
+
+        <Route
+          path="upload"
+          element={<FileUpload />}
+          />
+
+        <Route 
+          path="*" 
+          element={<NotFound />} 
+          />
+      </Route>
     </>
   )
-)
+);
 
 function App() {
-  return RouterProvider({router})
+  return RouterProvider({ router });
 }
 
-export default App
+export default App;

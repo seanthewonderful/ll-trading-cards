@@ -1,10 +1,7 @@
 const initialState = {
   user: null,
   admin: null,
-  players: [],
-  playerInfo: {},
-  playerStats: {},
-  userTeams: [],
+  team: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -24,26 +21,19 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: null,
         admin: null,
-        playerInfo: {},
-        playerStats: {},
+        team: null,
       };
-
-    case "UPDATE_PLAYER_INFO":
+    
+    case "SET_TEAM":
       return {
         ...state,
-        playerInfo: action.payload,
-      };
-    case "UPDATE_PLAYER_STATS":
+        team: action.payload,
+      }
+    case "CLEAR_TEAM":
       return {
         ...state,
-        playerStats: action.payload,
-      };
-
-    case "CREATE_TEAM":
-      return {
-        ...state,
-        userTeams: [...state.userTeams, action.payload],
-      };
+        team: null
+      }
       
     default:
       return state;

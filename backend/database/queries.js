@@ -1,27 +1,45 @@
-import { db, User, Team, Player } from "./models.js"
+import { db, User, Team, TeamLogo, TeamImageBack, TeamImageFront, Player, PlayerImageFront, PlayerImageBack, PlayerBattingStats, PlayerPitchingStats } from "./models.js";
 
-let user = await User.findOne()
-await Player.create({
-  firstName: "Cristiano",
-  lastName: "Ronaldo",
-  birthMonth: "December",
-  homeTown: "Manila",
-  recoveryEmail: "Lk6yA@example.com"
-})
-let player = await Player.findOne()
 
-// user = await user.createTeam({ name: "Milwaukee Brewers", year: "2024" })
+let images = await PlayerImageBack.findAll()
+let frimages = await PlayerImageFront.findAll()
 
-// await Team.create({
-//   name: "Milwaukee Brewers",
-//   year: "2024",
-//   userId: 1
+console.log("images: ", images)
+console.log("frimages: ", frimages)
+
+// let playerImageBack = await player.createPlayerImageBack({
+//   url: "playerImageBack3",
 // })
 
-// console.log(await Team.findAll())
+// await Player.create({
+//   name: "Player 1",
+//   userId: 1,
+//   firstName: "Player",
+//   lastName: "1",
+//   bats: "R",
+//   throws: "R",
+// })
 
-console.dir(player.__proto__)
-// console.dir(user.__proto__)
+
+// await player.createPlayerImageBack({
+//   url: "playerImageBack3",
+// })
+
+// await PlayerImageFront.upsert({
+//   url: "playerImageFront2",
+//   playerId: 1
+// })
+
+// await PlayerImageBack.create({
+//   url: "playerImageBack2",
+//   playerId: 1
+// })
+
+// await PlayerImageBack.destroy({
+//   where: {
+//     playerId: 1
+//   }
+// })
 
 
-await db.close()
+await db.close();
