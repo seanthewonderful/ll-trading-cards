@@ -276,7 +276,7 @@ const playerFunctions = {
     
     const player = await Player.findByPk(playerId, {
       include: [
-        { model: PlayerImageBack },
+        { model: PlayerImageFront },
         { model: PlayerImageBack },
         { model: PlayerBattingStats },
         { model: PlayerPitchingStats },

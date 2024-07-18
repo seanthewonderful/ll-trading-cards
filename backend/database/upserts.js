@@ -10,9 +10,6 @@ export async function upsertPlayerImgFront(imgUrl, playerId) {
       }
     })
     .then((playerImageFront) => {
-      // console.log(`imgUrl: ${imgUrl}`)
-      // console.log(`playerId: ${playerId}`)
-      console.log(`playerImageFront: ${playerImageFront}`)
       if (playerImageFront) {
         return playerImageFront.update({
           url: imgUrl
@@ -36,11 +33,11 @@ export async function upsertPlayerImgBack(imgUrl, playerId) {
     .then((playerImageBack) => {
       if (playerImageBack) {
         return playerImageBack.update({
-          imgUrl
+          url: imgUrl
         })
       } else {
         return PlayerImageBack.create({
-          imgUrl,
+          url: imgUrl,
           playerId
         })
       }

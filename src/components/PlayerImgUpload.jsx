@@ -8,6 +8,8 @@ import { DugoutContext } from '../functions/contexts.js';
 
 const PlayerImgUpload = ({ player }) => {
 
+  console.log(`PlayerImgUpload player: `, player)
+
   /*
   1. Get player images from player object and set them in state
   2. When image is uploaded successfully, update team object, update player object, and update local state
@@ -120,7 +122,7 @@ const PlayerImgUpload = ({ player }) => {
       });
       axios.post('/api/createPlayerImageBack', { 
         playerId: player.playerId, 
-        url: data.Location 
+        imgUrl: data.Location 
       })
       .then(res => {
         console.log(`res: `, res)

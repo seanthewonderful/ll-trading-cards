@@ -1,31 +1,11 @@
 import { db, User, Team, TeamLogo, TeamImageBack, TeamImageFront, Player, PlayerImageFront, PlayerImageBack, PlayerBattingStats, PlayerPitchingStats } from "./models.js";
 
-async function upsertPlayerImgBack(url, id) {
-  return await PlayerImageBack
-    .findOne({
-      where: {
-        playerId: id
-      }
-    })
-    .then((playerImageBack) => {
-      if (playerImageBack) {
-        return playerImageBack.update({
-          url
-        })
-      } else {
-        return PlayerImageBack.create({
-          url,
-          playerId: id
-        })
-      }
-    })
-}
-
-const i1 = await upsertPlayerImgBack("url.here.com", 1)
 
 let images = await PlayerImageBack.findAll()
+let frimages = await PlayerImageFront.findAll()
 
-console.log(images)
+console.log("images: ", images)
+console.log("frimages: ", frimages)
 
 // let playerImageBack = await player.createPlayerImageBack({
 //   url: "playerImageBack3",
