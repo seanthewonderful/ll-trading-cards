@@ -21,10 +21,6 @@ function PlayerStats({ player }) {
       RBI: player.playerBattingStat?.RBI || 0,
       SB: player.playerBattingStat?.SB || 0,
       R: player.playerBattingStat?.R || 0,
-      AVG: player.playerBattingStat?.AVG || "000",
-      OBP: player.playerBattingStat?.OBP || "000",
-      SLG: player.playerBattingStat?.SLG || "000",
-      OPS: player.playerBattingStat?.OPS || "000",
       H: player.playerBattingStat?.H || 0,
       '2B': player.playerBattingStat ? player.playerBattingStat['2B'] : 0,
       '3B': player.playerBattingStat ? player.playerBattingStat['3B'] : 0,
@@ -47,15 +43,45 @@ function PlayerStats({ player }) {
       HBP: 0,
     }
   })
-  const [editMode, setEditMode] = useState({
-    AVG: false,
-    OBP: false,
-    SLG: false,
-    OPS: false,
-  })
+
   const inputRef = useRef(null)
 
   // console.log("PlayerStats: ", playerStats)
+
+  let battingAverage = (
+    playerStats.batting.H
+    / playerStats.batting.AB
+  ).toFixed(3)
+
+  let onBasePercentage = (
+    (parseFloat(playerStats.batting.H)
+      +
+      parseFloat(playerStats.batting.BB)
+      +
+      parseFloat(playerStats.batting.HBP))
+    /
+    parseFloat(playerStats.batting.PA)
+  ).toFixed(3)
+
+
+  let sluggingPercentage = (
+    // how many singles
+    ((playerStats.batting.H - playerStats.batting['2B'] - playerStats.batting['3B'] - playerStats.batting.HR)
+      +
+      // how many doubles and triples
+      (playerStats.batting['2B'] * 2) + (playerStats.batting['3B'] * 3)
+      +
+      // how many home runs
+      (playerStats.batting.HR * 4))
+    /
+    // average
+    playerStats.batting.AB
+  ).toFixed(3)
+
+  let onBasePlusSlugging = (
+    parseFloat(sluggingPercentage)
+    + parseFloat(onBasePercentage)
+  ).toFixed(3)
 
   const dispatch = useDispatch()
 
@@ -67,24 +93,24 @@ function PlayerStats({ player }) {
       stats: playerStats.batting,
     }
     axios.put('/api/editPlayerBattingStats', bodyObj)
-    .then(res => {
-      console.log("Response:",res.data)
-      dispatch({
-        type: "SET_TEAM",
-        payload: res.data.team
+      .then(res => {
+        console.log("Response:", res.data)
+        dispatch({
+          type: "SET_TEAM",
+          payload: res.data.team
+        })
+        dispatch({
+          type: "SET_USER",
+          payload: res.data.user
+        })
+        setPlayerSelected({
+          selected: true,
+          player: res.data.player
+        })
+        notify('success', 'Batting Stats Updated')
+        inputRef.current = null
       })
-      dispatch({
-        type: "SET_USER",
-        payload: res.data.user
-      })
-      setPlayerSelected({
-        selected: true, 
-        player: res.data.player
-      })
-      notify('success', 'Batting Stats Updated')
-      inputRef.current = null
-    })
-    .catch(err => console.log(err))
+      .catch(err => console.log(err))
   }
 
   const handleCancel = (e) => {
@@ -95,22 +121,6 @@ function PlayerStats({ player }) {
     })
   }
 
-  const calculatePercentages = () => {
-    let avg = (playerStats.batting.H / playerStats.batting.AB * 1000).toFixed(0)
-    let obp = (playerStats.batting.H + playerStats.batting.BB + playerStats.batting.HBP) / (playerStats.batting.AB + playerStats.batting.BB + playerStats.batting.HBP + playerStats.batting.SF) * 1000
-    let slg = ((playerStats.batting['2B'] * 2) + (playerStats.batting['3B'] * 3) + playerStats.batting.HR) / playerStats.batting.AB * 1000
-    let ops = obp + slg
-    setPlayerStats({
-      ...playerStats,
-      batting: {
-        ...playerStats.batting,
-        AVG: avg,
-        OBP: obp,
-        SLG: slg,
-        OPS: ops,
-      }
-    })
-  }
 
   useEffect(() => {
     if (inputRef.current) {
@@ -120,21 +130,21 @@ function PlayerStats({ player }) {
   }, [editMode]);
 
   return (
-    <form 
+    <form
       id='player-stats-batting'
       onSubmit={handleSubmit}
-      >
+    >
       <h3>Player Stats:</h3>
 
       <InputNumber
         inputVal={playerStats.batting.AB}
         setInputVal={(ab) => {
-          setPlayerStats({ 
-            ...playerStats, 
-            batting: { 
-              ...playerStats.batting, 
-              AB: ab 
-            } 
+          setPlayerStats({
+            ...playerStats,
+            batting: {
+              ...playerStats.batting,
+              AB: ab
+            }
           })
         }}
         min={0}
@@ -206,163 +216,52 @@ function PlayerStats({ player }) {
 
       {/* BATTING AVERAGE */}
       <section id='input-number'>
-      {editMode.AVG ? 
-      <input 
-        id="batting-avg-input" 
-        className="batting batting-avg"
-        name='avg'
-        ref={inputRef}
-        type="text" 
-        value={playerStats.batting.AVG}
-        onChange={(e) => {
-          if (/^\d{0,3}$/.test(e.target.value)) {
-            setPlayerStats({ 
-              ...playerStats, 
-              batting: { 
-                ...playerStats.batting, 
-                AVG: e.target.value 
-              } 
-            })
-          } else {
-            console.log('invalid Batting Average')
-          }
-        }}
-        onBlur={() => {
-            setEditMode({ ...editMode, AVG: false })
-          }}
+        <input
+          id="batting-avg-non-input"
+          className="batting batting-avg"
+          name='avg'
+          type="text"
+          value={battingAverage}
+          readOnly
         />
-      :
-      <input 
-        id="batting-avg-non-input"
-        className="batting batting-avg"
-        name='avg'
-        type="text"
-        value={(parseFloat(playerStats.batting.AVG) / 1000).toFixed(3)}
-        onFocus={() => setEditMode({ ...editMode, AVG: true })}
-        readOnly
-        />
-      }
-      <label htmlFor="batting-avg-input">Batting Average</label>
+
+        <label htmlFor="batting-avg-input">Batting Average</label>
       </section>
 
       {/* ON-BASE PERCENTAGE */}
       <section id='input-number'>
-      {editMode.OBP ? 
-      <input 
-        id="on-base-percentage-input" 
-        className='batting batting-obp'
-        name='obp'
-        ref={inputRef}
-        type="text" 
-        value={playerStats.batting.OBP}
-        onChange={(e) => {
-          if (/^\d{0,3}$/.test(e.target.value)) {
-            setPlayerStats({ 
-              ...playerStats, 
-              batting: { 
-                ...playerStats.batting, 
-                OBP: e.target.value 
-              } 
-            })
-          } else {
-            console.log('invalid On-Base Percentage')
-          }
-        }}
-        onBlur={() => {
-            setEditMode({ ...editMode, OBP: false })
-          }}
+        <input
+          id="on-base-percentage-non-input"
+          className='batting batting-obp'
+          type="text"
+          value={onBasePercentage}
+          readOnly
         />
-      :
-      <input 
-        id="on-base-percentage-non-input"
-        className='batting batting-obp'
-        type="text"
-        value={(parseFloat(playerStats.batting.OBP) / 1000).toFixed(3)}
-        onFocus={() => setEditMode({ ...editMode, OBP: true })}
-        readOnly
-        />
-      }
-      <label htmlFor="on-base-percentage-input">On Base %</label>
+        <label htmlFor="on-base-percentage-input">On Base %</label>
       </section>
 
       {/* SLUGGING PERCENTAGE */}
       <section id='input-number'>
-      {editMode.SLG ? 
-      <input 
-        id="slugging-percentage-input" 
-        className='batting batting-slg'
-        name='slg'
-        ref={inputRef}
-        type="text" 
-        value={playerStats.batting.SLG}
-        onChange={(e) => {
-          if (/^\d{0,3}$/.test(e.target.value)) {
-            setPlayerStats({ 
-              ...playerStats, 
-              batting: { 
-                ...playerStats.batting, 
-                SLG: e.target.value 
-              } 
-            })
-          } else {
-            console.log('invalid Slugging Percentage')
-          }
-        }}
-        onBlur={() => {
-            setEditMode({ ...editMode, SLG: false })
-          }}
+        <input
+          id="slugging-percentage-non-input"
+          className='batting batting-slg'
+          type="text"
+          value={sluggingPercentage}
+          readOnly
         />
-      :
-      <input 
-        id="slugging-percentage-non-input"
-        className='batting batting-slg'
-        type="text"
-        value={(parseFloat(playerStats.batting.SLG) / 1000).toFixed(3)}
-        onFocus={() => setEditMode({ ...editMode, SLG: true })}
-        readOnly
-        />
-      }
-      <label htmlFor="slugging-percentage-input">Slugging %</label>
+        <label htmlFor="slugging-percentage-input">Slugging %</label>
       </section>
 
       {/* ON-BASE PLUS SLUGGING */}
       <section id='input-number'>
-      {editMode.OPS ? 
-      <input 
-        id="on-base-slugging-input" 
-        className='batting batting-ops'
-        name='ops'
-        ref={inputRef}
-        type="text" 
-        value={playerStats.batting.OPS}
-        onChange={(e) => {
-          if (/^\d{0,3}$/.test(e.target.value)) {
-            setPlayerStats({ 
-              ...playerStats, 
-              batting: { 
-                ...playerStats.batting, 
-                OPS: e.target.value 
-              } 
-            })
-          } else {
-            console.log('invalid OPS')
-          }
-        }}
-        onBlur={() => {
-            setEditMode({ ...editMode, OPS: false })
-          }}
+        <input
+          id="on-base-slugging-non-input"
+          className='batting batting-ops'
+          type="text"
+          value={onBasePlusSlugging}
+          readOnly
         />
-      :
-      <input 
-        id="on-base-slugging-non-input"
-        className='batting batting-ops'
-        type="text"
-        value={(parseFloat(playerStats.batting.OPS) / 1000).toFixed(3)}
-        onFocus={() => setEditMode({ ...editMode, OPS: true })}
-        readOnly
-        />
-      }
-      <label htmlFor="on-base-percentage-input">On Base + Slugging</label>
+        <label htmlFor="on-base-percentage-input">On Base + Slugging</label>
       </section>
 
       {/* HITS */}
