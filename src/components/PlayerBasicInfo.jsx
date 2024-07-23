@@ -1,14 +1,12 @@
-import { useState, useContext, useReducer } from 'react'
+import { useState, useContext } from 'react'
 import { useDispatch } from 'react-redux'
-import { DugoutContext } from '../../functions/contexts'
 import axios from 'axios'
 
-import '../../styles/playerBasicInfo.css'
-import states from '../../assets/states.json'
-import countries from '../../assets/countries.json'
-import notify from '../../functions/toasts.js'
-
-import PlayerImgUpload from '../PlayerImgUpload'
+import '../styles/playerBasicInfo.css'
+import states from '../assets/states.json'
+import countries from '../assets/countries.json'
+import notify from '../functions/toasts.js'
+import { DugoutContext } from '../functions/contexts.js'
 
 function PlayerBasicInfo({ player }) {
 

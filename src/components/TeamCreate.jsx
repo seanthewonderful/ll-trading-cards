@@ -11,7 +11,7 @@ function TeamCreate({ closeModal }) {
   const dispatch = useDispatch();
   const [teamInfo, setTeamInfo] = useState({
     name: "",
-    year: 2024,
+    year: new Date().getFullYear(),
     teamPic: {
       url: "https://i.ytimg.com/vi/ynKateBMV1I/hq720.jpg",
       descriptor: "Team Picture",
@@ -27,6 +27,8 @@ function TeamCreate({ closeModal }) {
       descriptor: "Hat Logo",
     },
   });
+
+  console.log("teamInfo: ", teamInfo);
 
   const uploadImage = (imgFile) => {
     const reader = new FileReader();
@@ -57,14 +59,18 @@ function TeamCreate({ closeModal }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Team Info: ", teamInfo);
-    axios.post("/api/newTeam", teamInfo).then((res) => {
+    axios.post("/api/newTeam", teamInfo)
+    .then((res) => {
       console.log(res.data);
       dispatch({
         type: "SET_USER",
         payload: res.data.user,
       });
       closeModal();
-    });
+    })
+    .catch((err) => {
+      console.log(err)
+    })
   };
 
   return (
@@ -93,7 +99,7 @@ function TeamCreate({ closeModal }) {
             id="team-year-input"
             name="team-year"
             min={2000}
-            max={2050}
+            max={new Date().getFullYear() + 1}
             value={teamInfo.year}
             onChange={(e) => setTeamInfo({ ...teamInfo, year: e.target.value })}
           />
@@ -103,7 +109,6 @@ function TeamCreate({ closeModal }) {
             type="file"
             id="team-pic-input"
             name="team-pic"
-            disabled
             onChange={(e) => {
               let imgFile = e.target.files[0];
               uploadImage(imgFile);

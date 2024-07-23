@@ -1,5 +1,5 @@
-import TeamCreate from "../TeamCreate";
-import TeamCard from "../TeamCard";
+import TeamCreate from "../TeamCreate.jsx";
+import TeamCard from "../TeamCard.jsx";
 
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";

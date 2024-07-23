@@ -43,3 +43,45 @@ export async function upsertPlayerImgBack(imgUrl, playerId) {
       }
     })
 }
+
+export async function upsertTeamImgFront(imgUrl, teamId) {
+  return await TeamImageFront
+    .findOne({
+      where: {
+        teamId
+      }
+    })
+    .then((teamImageFront) => {
+      if (teamImageFront) {
+        return teamImageFront.update({
+          url: imgUrl
+        })
+      } else {
+        return TeamImageFront.create({
+          url: imgUrl,
+          teamId
+        })
+      }
+    })
+}
+
+export async function upsertTeamImgBack(imgUrl, teamId) {
+  return await TeamImageBack
+    .findOne({
+      where: {
+        teamId
+      }
+    })
+    .then((teamImageBack) => {
+      if (teamImageBack) {
+        return teamImageBack.update({
+          url: imgUrl
+        })
+      } else {
+        return TeamImageBack.create({
+          url: imgUrl,
+          teamId
+        })
+      }
+    })
+}

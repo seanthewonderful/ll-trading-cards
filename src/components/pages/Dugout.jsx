@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState, useReducer } from "react";
+import { useEffect, useState } from "react";
 
 import "../../styles/dugout.css";
 

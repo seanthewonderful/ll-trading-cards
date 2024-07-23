@@ -317,11 +317,11 @@ PlayerImageFront.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    playerId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: true,
-    }
+    // playerId: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: false,
+    //   unique: true,
+    // }
   },
   {
     sequelize: db,
@@ -346,11 +346,11 @@ PlayerImageBack.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    playerId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: true,
-    }
+    // playerId: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: false,
+    //   unique: true,
+    // }
   },
   {
     sequelize: db,

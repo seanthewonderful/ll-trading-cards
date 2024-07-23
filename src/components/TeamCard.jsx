@@ -3,14 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 function TeamCard({ team }) {
 
-  console.log(team)
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleTeamCardClick = () => {
 
-    console.log(team.teamId)
     dispatch({
       type: "SET_TEAM",
       payload: team

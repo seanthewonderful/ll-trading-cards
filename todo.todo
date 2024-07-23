@@ -11,7 +11,7 @@ NAMES:
   - 
 
 
-☐ Player card display = flex
+✔ Player card display = flex @done (7/22/2024, 9:00:58 PM)
 ✔ Click on player card - input player info/stats @done (6/17/2024, 9:24:47 PM)
   ✔ Here is where you determine which info will be used for the card too @done (6/19/2024, 3:29:20 PM)
 ☐ Can click on any of card templates to instantly see player display
@@ -22,7 +22,7 @@ NAMES:
 ✔ PlayerBasicInfo component receive player data and adjust input values @done (6/17/2024, 7:15:20 PM)
 ✔ PlayerBasicInfo component: needs a way to update the player info so that all other components can access the updated info @done (6/19/2024, 3:28:56 PM)
 
-☐ Upload and create player image in playerBasicInfo/stats
+✔ Upload and create player image in playerBasicInfo/stats @done (7/22/2024, 9:00:50 PM)
 ✔ DB restructure- @done (7/11/2024, 9:28:13 PM)
   ✔ PlayerImageFront @done (7/11/2024, 9:28:04 PM)
     ✔ Player has one @done (7/11/2024, 9:28:07 PM)
@@ -36,7 +36,7 @@ NAMES:
 ✔ Update player basic info works, but need to update dugout context to reflect new player info @done (7/12/2024, 11:15:36 AM)
   ✔ Need to dispatch new team data, that should do it @done (7/12/2024, 11:15:35 AM)
 
-☐ Update player stats:
+✔ Update player stats: @done (7/22/2024, 9:00:45 PM)
   ✔ Create functional endpoints to create/update player stats @done (7/15/2024, 4:35:08 PM)
   ✔ PlayerStats component should dispatch new team data to Redux just like PlayerBasicInfo so that all components can access the new data @done (7/15/2024, 4:35:11 PM)
 ✔ Player Stats DB restructure - each player should only have 1 PlayerStat relationship. @done (7/15/2024, 4:35:13 PM)
@@ -45,12 +45,21 @@ NAMES:
 ☐ Calculate BA, OBP, SLG, OPS from AB/hits on front end
 ✔ PlayerImageBack upload to S3 and update player object @done (7/18/2024, 3:40:04 PM)
 ✔ PlayerImageFront upload to S3 and update player object @done (7/18/2024, 3:40:05 PM)
+✔ Display player image on player card @done (7/18/2024, 3:48:24 PM)
 ☐ If a player already has an image, find a way to delete previous image from S3
   ☐ Replace the file with the same key 
-✔ Display player image on player card @done (7/18/2024, 3:48:24 PM)
 
+☐ Upload Team TeamImageFront to S3 and update team object
+☐ Upload Team TeamImageBack to S3 and update team object
+☐ Upload Team Logos to S3 and update team object
+  ☐ Consider model for team logos with relationship
+  ☐ Upsert function needed? 
+  ☐ 3 descriptors? Force the issue so users cannot upload duplicate images
+  ☐ Duplicates on S3?
+☐ Visually - on Team Page need to display Team Info and make editable
 
 BUGS: 
-  ✔ On PlayerStats, if submitted all is working properly except if you navigate to PlayerInfo, then back to PlayerStats. Seems to be correct otherwise. @done (7/17/2024, 2:58:48 PM)
-  ☐ Update player info, click on 'Your Teams', navigate back to player and info is not updated
-    ☐ This is happening because player teams are generated from the user object in Redux and the team info is specific to the team that was chosen. 
+✔ On PlayerStats, if submitted all is working properly except if you navigate to PlayerInfo, then back to PlayerStats. Seems to be correct otherwise. @done (7/17/2024, 2:58:48 PM)
+✔ Update player info, click on 'Your Teams', navigate back to player and info is not updated @done (7/22/2024, 9:00:14 PM)
+  ✔ This is happening because player teams are generated from the user object in Redux and the team info is specific to the team that was chosen. @done (7/22/2024, 9:00:16 PM)
+
