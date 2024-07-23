@@ -4,8 +4,8 @@ import Dugout from "./components/pages/Dugout.jsx";
 import UserProfile from "./components/pages/UserProfile.jsx";
 import UserTeams from "./components/pages/UserTeams.jsx";
 import Checkout from "./components/pages/Checkout.jsx";
-import NotFound from "./components/pages/errors/NotFound.jsx";
-import UnknownError from "./components/pages/errors/UnknownError.jsx";
+import NotFound from "./components/errors/NotFound.jsx";
+import UnknownError from "./components/errors/UnknownError.jsx";
 
 import {
   Route,
@@ -13,7 +13,6 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import FileUpload from "./components/PlayerImgUpload.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -51,11 +50,6 @@ const router = createBrowserRouter(
           path="checkout" 
           element={<Checkout />} 
           errorElement={<UnknownError />}
-          />
-
-        <Route
-          path="upload"
-          element={<FileUpload />}
           />
 
         <Route 

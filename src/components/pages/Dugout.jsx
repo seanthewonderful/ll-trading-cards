@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState, useReducer } from "react";
+import { useEffect, useState } from "react";
 
 import "../../styles/dugout.css";
 
@@ -25,7 +25,6 @@ function Dugout() {
   const teamData = useSelector(state => state.team);
   let players = teamData ? teamData.players : [];
 
-  console.log("players: ", players);
   let playerCards = players.map((player) => (
     <PlayerCard 
       player={player} 

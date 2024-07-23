@@ -1,10 +1,10 @@
 import { useState } from "react"
 
-import PlayerBasicInfo from "../forms/PlayerBasicInfo"
-import PlayerStats from "../forms/PlayerStats"
+import PlayerBasicInfo from "../PlayerBasicInfo.jsx"
+import PlayerStats from "../PlayerStats.jsx"
+import PlayerImgUpload from "../PlayerImgUpload.jsx"
 
 import '../../styles/lockerRoom.css'
-import PlayerImgUpload from "../PlayerImgUpload"
 
 function LockerRoom({ player }) {
 

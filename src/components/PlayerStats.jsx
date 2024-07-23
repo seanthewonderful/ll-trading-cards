@@ -1,9 +1,9 @@
 import { useState, useContext, useRef, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
-import InputNumber from './InputNumber.jsx'
-import notify from '../../functions/toasts.js'
-import { DugoutContext } from '../../functions/contexts.js'
+import InputNumber from './forms/InputNumber.jsx'
+import notify from '../functions/toasts.js'
+import { DugoutContext } from '../functions/contexts.js'
 import axios from 'axios'
 
 function PlayerStats({ player }) {
@@ -72,6 +72,10 @@ function PlayerStats({ player }) {
       dispatch({
         type: "SET_TEAM",
         payload: res.data.team
+      })
+      dispatch({
+        type: "SET_USER",
+        payload: res.data.user
       })
       setPlayerSelected({
         selected: true, 
@@ -358,7 +362,7 @@ function PlayerStats({ player }) {
         readOnly
         />
       }
-      <label htmlFor="on-base-percentage-input">On Base %</label>
+      <label htmlFor="on-base-percentage-input">On Base + Slugging</label>
       </section>
 
       {/* HITS */}

@@ -11,6 +11,10 @@ import {
   TeamImageFront,
   TeamImageBack,
 } from "../../database/models.js";
+import { 
+  upsertTeamImgFront, 
+  upsertTeamImgBack 
+} from "../../database/upserts.js";
 
 const teamFunctions = {
   addTeam: async (req, res) => {
@@ -64,7 +68,7 @@ const teamFunctions = {
             },
           ],
         },
-    ]
+      ]
     });
 
     req.session.teamId = newTeam.teamId;
@@ -223,6 +227,144 @@ const teamFunctions = {
     //     }
     // }
   },
+
+  addTeamImageFront: async (req, res) => {
+    // Function creates TeamImage object
+
+    const { imgUrl, teamId } = req.body;
+    // Check if user is logged in
+    if (!await User.findByPk(req.session.user.userId)) {
+      return res.status(401).send({
+        success: false,
+        message: "You must be logged in to add a team image",
+      })
+    }
+
+    try {
+      await upsertTeamImgFront(imgUrl, teamId);
+    } catch (err) {
+      return res.status(500).send({
+        success: false,
+        message: "Error adding team image front: " + err,
+      })
+    }
+
+    const team = await Team.findByPk(teamId, {
+      include: [
+        { model: TeamLogo },
+        { model: TeamImageFront },
+        { model: TeamImageBack },
+        { model: Player,
+          include: [
+            { model: PlayerImageFront },
+            { model: PlayerImageBack },
+            { model: PlayerBattingStats },
+            { model: PlayerPitchingStats }
+          ]
+        },
+      ],
+    });
+
+    const user = await User.findByPk(req.session.user.userId, {
+      include: [
+        { 
+          model: MLBTeam 
+        },
+        {
+          model: Team,
+          include: [
+            { model: TeamLogo },
+            { model: TeamImageFront },
+            { model: TeamImageBack },
+            { model: Player,
+              include: [
+                { model: PlayerImageFront },
+                { model: PlayerImageBack },
+                { model: PlayerBattingStats },
+                { model: PlayerPitchingStats }
+              ]
+            },
+          ],
+        },
+      ]
+    });
+
+    return res.status(200).send({
+      success: true,
+      message: "Team image front added!",
+      team: team,
+      user: user
+    });
+  },
+
+  addTeamImageBack: async (req, res) => {
+    // Function creates TeamImage object 
+
+    const { imgUrl, teamId } = req.body;
+    // Check if user is logged in
+    if (!await User.findByPk(req.session.user.userId)) {
+      return res.status(401).send({
+        success: false,
+        message: "You must be logged in to add a team image",
+      })
+    }
+
+    try {
+      await upsertTeamImgBack(imgUrl, teamId);
+    } catch (err) {
+      return res.status(500).send({
+        success: false,
+        message: "Error adding team image back: " + err,
+      })
+    }
+
+    const team = await Team.findByPk(teamId, {
+      include: [
+        { model: TeamLogo },
+        { model: TeamImageFront },
+        { model: TeamImageBack },
+        { model: Player,
+          include: [
+            { model: PlayerImageFront },
+            { model: PlayerImageBack },
+            { model: PlayerBattingStats },
+            { model: PlayerPitchingStats }
+          ]
+        },
+      ],
+    });
+
+    const user = await User.findByPk(req.session.user.userId, {
+      include: [
+        { 
+          model: MLBTeam 
+        },
+        {
+          model: Team,
+          include: [
+            { model: TeamLogo },
+            { model: TeamImageFront },
+            { model: TeamImageBack },
+            { model: Player,
+              include: [
+                { model: PlayerImageFront },
+                { model: PlayerImageBack },
+                { model: PlayerBattingStats },
+                { model: PlayerPitchingStats }
+              ]
+            },
+          ],
+        },
+      ]
+    });
+
+    return res.status(200).send({
+      success: true,
+      message: "Team image back added!",
+      team: team,
+      user: user
+    });
+  }
 };
 
 export default teamFunctions;

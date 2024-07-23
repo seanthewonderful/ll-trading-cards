@@ -5,10 +5,9 @@ import { DugoutContext } from '../functions/contexts.js'
 
 import { IoIosBaseball } from 'react-icons/io'
 import rangersEmblem from '../assets/team_logos/TEX/texas-rangers-logo.png'
+import defaultImage from '../assets/defaultPlayer.png'
 
 function PlayerCard({ player }) {
-
-  console.log("PlayerCard player: ", player)
 
   const { playerSelected, setPlayerSelected } = useContext(DugoutContext)
   
@@ -44,8 +43,8 @@ function PlayerCard({ player }) {
 
             <img 
               className="player-card-image" 
-              src="../assets/sf.png"
-              alt="player-card-img" 
+              src={player.playerImageFront?.url || defaultImage}
+              alt={defaultImage} 
               />
 
           </div>

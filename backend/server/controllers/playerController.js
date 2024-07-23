@@ -110,6 +110,15 @@ const playerFunctions = {
     const { playerId, teamId, playerInfo } = req.body;
     let updatedPlayer;
     let team;
+
+    // Check if user is logged in
+    if (!await User.findByPk(req.session.user.userId)) {
+      return res.status(404).send({
+        success: false,
+        message: "Must be logged in to edit player",
+      })
+    }
+
     try {
       updatedPlayer = await Player.update(playerInfo, {
         where: {
@@ -156,17 +165,49 @@ const playerFunctions = {
       ]
     })
 
+    const user = await User.findByPk(req.session.user.userId, {
+      include: [
+        { model: MLBTeam },
+        {
+          model: Team,
+          include: [
+            { model: TeamLogo },
+            { model: TeamImageFront },
+            { model: TeamImageBack },
+            { 
+              model: Player,
+              include: [
+                { model: PlayerImageFront },
+                { model: PlayerImageBack },
+                { model: PlayerBattingStats },
+                { model: PlayerPitchingStats },
+              ]
+            }
+          ],
+        },
+      ],
+    });
+
     return res.status(200).send({
       success: true,
       message: "Player updated",
       updatedPlayer,
+      user,
       team
     })
   },
 
   editPlayerBattingStats: async (req, res) => {
     const { playerId, teamId, stats } = req.body;
-    console.log("STATS: ", stats)
+    
+    // Check if user is logged in
+    if (!await User.findByPk(req.session.user.userId)) {
+      return res.status(404).send({
+        success: false,
+        message: "Must be logged in to edit player",
+      })
+    }
+
     // query for PlayerBattingStats where playerId
     let playerBattingStats = await PlayerBattingStats.findOne({
       where: {
@@ -208,16 +249,48 @@ const playerFunctions = {
       ]
     });
 
+    const user = await User.findByPk(req.session.user.userId, {
+      include: [
+        { model: MLBTeam },
+        {
+          model: Team,
+          include: [
+            { model: TeamLogo },
+            { model: TeamImageFront },
+            { model: TeamImageBack },
+            { 
+              model: Player,
+              include: [
+                { model: PlayerImageFront },
+                { model: PlayerImageBack },
+                { model: PlayerBattingStats },
+                { model: PlayerPitchingStats },
+              ]
+            }
+          ],
+        },
+      ],
+    });
+
     return res.status(200).send({
       success: true,
       message: "Player batting stats added",
       player: updatedPlayer,
+      user,
       team
     })
   },
 
   addPlayerImageFront: async (req, res) => {
     const { playerId, imgUrl } = req.body;
+
+    // Check if user is logged in
+    if (!await User.findByPk(req.session.user.userId)) {
+      return res.status(404).send({
+        success: false,
+        message: "Must be logged in to add player image front",
+      })
+    }
 
     try {
       await upsertPlayerImgFront(imgUrl, playerId);
@@ -254,16 +327,48 @@ const playerFunctions = {
       ]
     });
 
+    const user = await User.findByPk(req.session.user.userId, {
+      include: [
+        { model: MLBTeam },
+        {
+          model: Team,
+          include: [
+            { model: TeamLogo },
+            { model: TeamImageFront },
+            { model: TeamImageBack },
+            { 
+              model: Player,
+              include: [
+                { model: PlayerImageFront },
+                { model: PlayerImageBack },
+                { model: PlayerBattingStats },
+                { model: PlayerPitchingStats },
+              ]
+            }
+          ],
+        },
+      ],
+    });
+
     return res.status(200).send({
       success: true,
       message: "Player image front added",
       player,
+      user,
       team
     })
   },
 
   addPlayerImageBack: async (req, res) => {
     const { playerId, imgUrl } = req.body;
+
+    // Check if user is logged in
+    if (!await User.findByPk(req.session.user.userId)) {
+      return res.status(404).send({
+        success: false,
+        message: "Must be logged in to add player image back",
+      })
+    }
 
     try {
       await upsertPlayerImgBack(imgUrl, playerId);
@@ -300,10 +405,34 @@ const playerFunctions = {
       ]
     });
 
+    const user = await User.findByPk(req.session.user.userId, {
+      include: [
+        { model: MLBTeam },
+        {
+          model: Team,
+          include: [
+            { model: TeamLogo },
+            { model: TeamImageFront },
+            { model: TeamImageBack },
+            { 
+              model: Player,
+              include: [
+                { model: PlayerImageFront },
+                { model: PlayerImageBack },
+                { model: PlayerBattingStats },
+                { model: PlayerPitchingStats },
+              ]
+            }
+          ],
+        },
+      ],
+    });
+
     return res.status(200).send({
       success: true,
       message: "Player image added",
       team,
+      user,
       player
     })
   }, 
