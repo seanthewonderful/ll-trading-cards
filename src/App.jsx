@@ -13,7 +13,6 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import FileUpload from "./components/PlayerImgUpload.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -51,11 +50,6 @@ const router = createBrowserRouter(
           path="checkout" 
           element={<Checkout />} 
           errorElement={<UnknownError />}
-          />
-
-        <Route
-          path="upload"
-          element={<FileUpload />}
           />
 
         <Route 

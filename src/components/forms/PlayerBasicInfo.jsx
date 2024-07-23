@@ -48,7 +48,10 @@ function PlayerBasicInfo({ player }) {
         type: "SET_TEAM",
         payload: res.data.team
       })
-      console.log(res.data.updatedPlayer)
+      dispatch({
+        type: "SET_USER",
+        payload: res.data.user
+      })      
       setPlayerSelected({
         selected: true,
         player: res.data.updatedPlayer

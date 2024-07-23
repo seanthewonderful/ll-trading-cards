@@ -73,6 +73,10 @@ function PlayerStats({ player }) {
         type: "SET_TEAM",
         payload: res.data.team
       })
+      dispatch({
+        type: "SET_USER",
+        payload: res.data.user
+      })
       setPlayerSelected({
         selected: true, 
         player: res.data.player

@@ -43,10 +43,14 @@ NAMES:
   ✔ Change to DB model for player stat AVG, OBP, SLG, OPS to be STRING(3) instead of DECIMAL @done (7/15/2024, 4:35:29 PM)
 
 ☐ Calculate BA, OBP, SLG, OPS from AB/hits on front end
-☐ PlayerImageBack upload to S3 and update player object
-☐ PlayerImageFront upload to S3 and update player object
+✔ PlayerImageBack upload to S3 and update player object @done (7/18/2024, 3:40:04 PM)
+✔ PlayerImageFront upload to S3 and update player object @done (7/18/2024, 3:40:05 PM)
+☐ If a player already has an image, find a way to delete previous image from S3
+  ☐ Replace the file with the same key 
+✔ Display player image on player card @done (7/18/2024, 3:48:24 PM)
 
 
 BUGS: 
   ✔ On PlayerStats, if submitted all is working properly except if you navigate to PlayerInfo, then back to PlayerStats. Seems to be correct otherwise. @done (7/17/2024, 2:58:48 PM)
-  ☐ 
+  ☐ Update player info, click on 'Your Teams', navigate back to player and info is not updated
+    ☐ This is happening because player teams are generated from the user object in Redux and the team info is specific to the team that was chosen. 

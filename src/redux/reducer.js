@@ -1,6 +1,5 @@
 const initialState = {
   user: null,
-  admin: null,
   team: null,
 };
 
@@ -11,16 +10,10 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: action.payload,
       };
-    case "SET_ADMIN":
-      return {
-        ...state,
-        admin: action.payload,
-      };
     case "LOGOUT":
       return {
         ...state,
         user: null,
-        admin: null,
         team: null,
       };
     

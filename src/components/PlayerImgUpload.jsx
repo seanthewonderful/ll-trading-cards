@@ -9,12 +9,6 @@ import { DugoutContext } from '../functions/contexts.js';
 const PlayerImgUpload = ({ player }) => {
 
   console.log(`PlayerImgUpload player: `, player)
-
-  /*
-  1. Get player images from player object and set them in state
-  2. When image is uploaded successfully, update team object, update player object, and update local state
-  3. If an image is replacing an existing image, delete the old image from S3
-  */
   
   const [file, setFile] = useState({
     imgFront: null,
@@ -80,6 +74,10 @@ const PlayerImgUpload = ({ player }) => {
           type: "SET_TEAM",
           payload: res.data.team
         })
+        dispatch({ 
+          type: "SET_USER",
+          payload: res.data.user
+        })
         setPlayerSelected({
           selected: true,
           player: res.data.player
@@ -129,6 +127,10 @@ const PlayerImgUpload = ({ player }) => {
         dispatch({
           type: "SET_TEAM",
           payload: res.data.team
+        })
+        dispatch({ 
+          type: "SET_USER",
+          payload: res.data.user
         })
         setPlayerSelected({
           selected: true,
