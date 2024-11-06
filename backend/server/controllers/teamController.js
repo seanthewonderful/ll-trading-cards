@@ -6,7 +6,6 @@ import {
   PlayerPitchingStats,
   PlayerImageFront,
   PlayerImageBack,
-  TeamLogo,
   MLBTeam,
   TeamImage,
   TeamLogoFull,
@@ -14,7 +13,6 @@ import {
 } from "../../database/models.js";
 import {
   upsertTeamImage,
-  upsertTeamImgBack,
   upsertTeamLogoFull,
   upsertTeamLogoIcon
 } from "../../database/upserts.js";
@@ -26,10 +24,9 @@ const teamFunctions = {
       name,
       year,
       teamPic,
-      teamImgFront,
-      teamImgBack,
-      logoFull,
-      logoIcon
+      teamImage,
+      teamLogoFull,
+      teamLogoIcon,
     } = req.body;
 
     let user = await User.findByPk(+id);
@@ -38,17 +35,6 @@ const teamFunctions = {
       name: name,
       year: year,
     });
-
-    const teamPhotos = await Promise.all(
-      [teamPic, logoFull, logoIcon].map((el) => {
-        const newPhoto = newTeam.createTeamLogo({
-          url: el.url,
-          descriptor: el.descriptor,
-        });
-
-        return newPhoto;
-      })
-    );
 
     await upsertTeamImage(teamImgFront, newTeam.teamId)
     await upsertTeamLogoFull(logoFull, newTeam.teamId)
@@ -99,56 +85,6 @@ const teamFunctions = {
       // newTeam: newTeam,
       // teamPhotos: teamPhotos,
     });
-
-    // POSTMAN SYNTAX
-    // {
-    //     "name":"Baughs Burgers",
-    //     "year": "2024",
-    //     "teamPic": {
-    //         "url":"teamPic.jpg",
-    //         "descriptor": "Team Picture"
-    //     },
-    //     "logoFull": {
-    //     "url":"fullLogo.jpg",
-    //     "descriptor": "Full Logo"
-    //     },
-    //     "logoIcon": {
-    //     "url":"teamIcon.jpg",
-    //     "descriptor": "Team Picture"
-    //     }
-    // }
-
-    // JSON RESPONSE
-    // {
-    //     "success": true,
-    //     "message": "Team created",
-    //     "newTeam": {
-    //         "teamId": 3,
-    //         "name": "Baughs Burgers",
-    //         "year": "2024",
-    //         "userId": 1
-    //     },
-    //     "teamPhotos": [
-    //         {
-    //             "teamLogoId": 31,
-    //             "url": "teamPic.jpg",
-    //             "descriptor": "Team Picture",
-    //             "teamId": 3
-    //         },
-    //         {
-    //             "teamLogoId": 32,
-    //             "url": "fullLogo.jpg",
-    //             "descriptor": "Full Logo",
-    //             "teamId": 3
-    //         },
-    //         {
-    //             "teamLogoId": 33,
-    //             "url": "teamIcon.jpg",
-    //             "descriptor": "Team Picture",
-    //             "teamId": 3
-    //         }
-    //     ]
-    // }
   },
 
   findTeam: async (req, res) => {

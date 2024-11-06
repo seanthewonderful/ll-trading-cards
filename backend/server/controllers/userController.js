@@ -1,10 +1,10 @@
 import {
   User,
   MLBTeam,
-  TeamLogo,
   Team,
-  TeamImageFront,
-  TeamImageBack,
+  TeamImage,
+  TeamLogoFull,
+  TeamLogoIcon,
   Player,
   PlayerBattingStats,
   PlayerPitchingStats,
@@ -51,21 +51,34 @@ const userHandlers = {
     });
 
     user = await User.findByPk(user.userId, {
-      include: [
-        { model: MLBTeam },
+      include: [{
+          model: MLBTeam
+        },
         {
           model: Team,
-          include: [
-            { model: TeamLogo },
-            { model: TeamImageFront },
-            { model: TeamImageBack },
-            { 
+          include: [{
+              model: TeamImage
+            },
+            {
+              model: TeamLogoFull
+            },
+            {
+              model: TeamLogoIcon
+            },
+            {
               model: Player,
-              include: [
-                { model: PlayerImageFront },
-                { model: PlayerImageBack },
-                { model: PlayerBattingStats },
-                { model: PlayerPitchingStats }
+              include: [{
+                  model: PlayerImageFront
+                },
+                {
+                  model: PlayerImageBack
+                },
+                {
+                  model: PlayerBattingStats
+                },
+                {
+                  model: PlayerPitchingStats
+                }
               ]
             }
           ],
@@ -114,21 +127,34 @@ const userHandlers = {
       where: {
         email
       },
-      include: [
-        { model: MLBTeam },
+      include: [{
+          model: MLBTeam
+        },
         {
           model: Team,
-          include: [
-            { model: TeamLogo },
-            { model: TeamImageFront },
-            { model: TeamImageBack },
-            { 
+          include: [{
+              model: TeamImage
+            },
+            {
+              model: TeamLogoFull
+            },
+            {
+              model: TeamLogoIcon
+            },
+            {
               model: Player,
-              include: [
-                { model: PlayerImageFront },
-                { model: PlayerImageBack },
-                { model: PlayerBattingStats },
-                { model: PlayerPitchingStats }
+              include: [{
+                  model: PlayerImageFront
+                },
+                {
+                  model: PlayerImageBack
+                },
+                {
+                  model: PlayerBattingStats
+                },
+                {
+                  model: PlayerPitchingStats
+                }
               ]
             }
           ],
@@ -158,21 +184,34 @@ const userHandlers = {
 
     if (req.session.user) {
       const user = await User.findByPk(req.session.user.userId, {
-        include: [
-          { model: MLBTeam },
+        include: [{
+            model: MLBTeam
+          },
           {
             model: Team,
-            include: [
-              { model: TeamLogo },
-              { model: TeamImageFront },
-              { model: TeamImageBack },
-              { 
+            include: [{
+                model: TeamImage
+              },
+              {
+                model: TeamLogoFull
+              },
+              {
+                model: TeamLogoIcon
+              },
+              {
                 model: Player,
-                include: [
-                  { model: PlayerImageFront },
-                  { model: PlayerImageBack },
-                  { model: PlayerBattingStats },
-                  { model: PlayerPitchingStats },
+                include: [{
+                    model: PlayerImageFront
+                  },
+                  {
+                    model: PlayerImageBack
+                  },
+                  {
+                    model: PlayerBattingStats
+                  },
+                  {
+                    model: PlayerPitchingStats
+                  },
                 ]
               }
             ],

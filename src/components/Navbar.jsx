@@ -11,64 +11,64 @@ function Navbar() {
 
   const logout = () => {
     axios.post('/api/logout')
-    .then(res => {
-      dispatch({ type: "SET_USER", payload: null })
-      dispatch({ type: "SET_ADMIN", payload: null })
-      console.log(res.data)
-      navigate('/')
-    })
-    .catch(err => console.warn("UNEXPECTED LOGOUT ERROR: ", err))
+      .then(res => {
+        dispatch({ type: "SET_USER", payload: null })
+        dispatch({ type: "SET_ADMIN", payload: null })
+        console.log(res.data)
+        navigate('/')
+      })
+      .catch(err => console.warn("UNEXPECTED LOGOUT ERROR: ", err))
   }
 
   return (
     <nav id='navbar'>
 
-    {user ? (
-      <>
-      <NavLink 
-        to="/myteams"
-        className={({ isActive, isPending }) =>
-          isPending ? "navlink pending" : isActive ? "navlink active" : "navlink"
-        }
-        >
-          <button>Your Teams</button>
-      </NavLink>
+      {user ? (
+        <>
+          <NavLink
+            to="/myteams"
+            className={({ isActive, isPending }) =>
+              isPending ? "navlink pending" : isActive ? "navlink active" : "navlink"
+            }
+          >
+            <button>Your Teams</button>
+          </NavLink>
 
-      <NavLink 
-        to="/dugout"
-        className={({ isActive, isPending }) =>
-          isPending ? "navlink pending" : isActive ? "navlink active" : "navlink"
-        }
-        >
-          <button>Dugout</button>
-      </NavLink>
+          <NavLink
+            to="/dugout"
+            className={({ isActive, isPending }) =>
+              isPending ? "navlink pending" : isActive ? "navlink active" : "navlink"
+            }
+          >
+            <button>Dugout</button>
+          </NavLink>
 
-      <NavLink 
-        to="/profile"
-        className={({ isActive, isPending }) =>
-          isPending ? "navlink pending" : isActive ? "navlink active" : "navlink"
-        }
-        >
-          <button>Profile</button>
-      </NavLink>
-      
-      <NavLink 
-        onClick={logout}
-        >
-          <button>Logout</button>
-      </NavLink>
-      </>
-    ) : (
-      <>
-        <NavLink 
-          to="/"
-          className={({ isActive, isPending }) =>
-            isPending ? "navlink pending" : isActive ? "navlink active" : "navlink"
-          }
+          <NavLink
+            to="/profile"
+            className={({ isActive, isPending }) =>
+              isPending ? "navlink pending" : isActive ? "navlink active" : "navlink"
+            }
+          >
+            <button>Profile</button>
+          </NavLink>
+
+          <NavLink
+            onClick={logout}
+          >
+            <button>Logout</button>
+          </NavLink>
+        </>
+      ) : (
+        <>
+          <NavLink
+            to="/"
+            className={({ isActive, isPending }) =>
+              isPending ? "navlink pending" : isActive ? "navlink active" : "navlink"
+            }
           >
             <button>Home</button>
-        </NavLink>
-        {/* <NavLink 
+          </NavLink>
+          {/* <NavLink 
           to="/"
           className={({ isActive, isPending }) =>
             isPending ? "navlink pending" : isActive ? "navlink active" : "navlink"
@@ -76,8 +76,8 @@ function Navbar() {
           >
             <button>Login</button>
         </NavLink> */}
-      </>
-    )}
+        </>
+      )}
     </nav>
   )
 }

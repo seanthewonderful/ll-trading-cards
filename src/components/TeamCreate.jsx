@@ -5,9 +5,9 @@ import s3 from "../../aws/config.js";
 import { v4 as uuidv4 } from "uuid";
 
 import { MdClose } from "react-icons/md";
-import texLogoFull from "../assets/team_logos/TEX/texas-rangers-logo.png";
-import texLogoIcon from "../assets/team_logos/TEX/texas-rangers-t-logo.png";
-import dodgerLogoIcon from "../assets/team_logos/LAD/LAD-logo.png"
+import teamPhoto from "../assets/sandlot_cartoon.jpg";
+import mlbLogo from "../assets/league_logos/MLB/mlb-logo.png";
+import baseballIcon from "../assets/baseball_icon.png";
 
 import "../styles/teamCreate.css";
 
@@ -24,81 +24,155 @@ function TeamCreate({ closeModal }) {
   const [teamInfo, setTeamInfo] = useState({
     name: "",
     year: new Date().getFullYear(),
-    teamPic: {
-      url: "https://i.ytimg.com/vi/ynKateBMV1I/hq720.jpg",
-      descriptor: "Team Picture",
-    },
-    teamImgFront: "https://i.ytimg.com/vi/ynKateBMV1I/hq720.jpg",
-    teamImgBack: "",
-    logoFull: {
-      url: texLogoFull,
-      descriptor: "Full Logo",
-    },
-    logoIcon: {
-      url: texLogoIcon,
-      descriptor: "Hat Logo",
-    },
+    teamImageURL: teamPhoto,
+    teamLogoFullURL: mlbLogo,
+    teamLogoIconURL: baseballIcon,
   });
   const [teamPhotos, setTeamPhotos] = useState({
-    teamPic: null,
-    logoFull: null,
-    logoIcon: null,
+    teamImage: null,
+    teamLogoFull: null,
+    teamLogoIcon: null,
   });
   const [fileLoading, setFileLoading] = useState({
-    teamPic: false,
-    logoFull: false,
-    logoIcon: false,
+    teamImage: false,
+    teamLogoFull: false,
+    teamLogoIcon: false,
   })
   const [imgMessages, setImgMessages] = useState({
-    teamPic: "",
-    logoFull: "",
-    logoIcon: "",
+    teamImage: "",
+    teamLogoFull: "",
+    teamLogoIcon: "",
   })
 
   console.log("teamPhotos: ", teamPhotos);
 
   const handleFileChange = (e, imgType) => {
-    if (imgType === "teamPic") {
-      setTeamPhotos({ ...teamPhotos, teamPic: e.target.files[0] });
-    } else if (imgType === "logoFull") {
-      setTeamPhotos({ ...teamPhotos, logoFull: e.target.files[0] });
-    } else if (imgType === "logoIcon") {
-      setTeamPhotos({ ...teamPhotos, logoIcon: e.target.files[0] });
+    if (imgType === "teamImage") {
+      setTeamPhotos({ ...teamPhotos, teamImage: e.target.files[0] });
+    } else if (imgType === "teamLogoFull") {
+      setTeamPhotos({ ...teamPhotos, teamLogoFull: e.target.files[0] });
+    } else if (imgType === "teamLogoIcon") {
+      setTeamPhotos({ ...teamPhotos, teamLogoIcon: e.target.files[0] });
     }
   }
 
-  const handleUploadTeamPic = async () => {
-    if (!teamPhotos.teamPic) {
+  const handleUploadTeamImage = async () => {
+    if (!teamPhotos.teamImage) {
       setImgMessages({
         ...imgMessages,
-        teamPic: "Please select a file to upload."
+        teamImage: "Please select a file to upload."
       });
       return;
     }
     setFileLoading({
       ...fileLoading,
-      teamPic: true
+      teamImage: true
     });
     const params = {
       Bucket: import.meta.env.VITE_REACT_APP_AWS_BUCKET_NAME,
-      Key: `${uuidv4()}-${teamPhotos.teamPic.name}`,
-      Body: teamPhotos.teamPic,
+      Key: `${uuidv4()}-${teamPhotos.teamImage.name}`,
+      Body: teamPhotos.teamImage,
     };
     try {
       const data = await s3.upload(params).promise()
       setImgMessages({
         ...imgMessages,
-        teamPic: `File uploaded successfully. File URL: ${data.Location}`,
+        teamImage: `File uploaded successfully. File URL: ${data.Location}`,
       })
       setFileLoading({
         ...fileLoading,
-        teamPic: false
-      })
-      axios.post('/api/createTeamPic', {
-        url: data.Location
+        teamImage: false
       })
     } catch (err) {
       console.log(err);
+      setImgMessages({
+        ...imgMessages,
+        teamImage: "Error uploading file. Please try again."
+      })
+      setFileLoading({
+        ...fileLoading,
+        teamImage: false
+      })
+    }
+  };
+
+  const handleUploadLogoFull = async () => {
+    if (!teamPhotos.teamLogoFull) {
+      setImgMessages({
+        ...imgMessages,
+        teamLogoFull: "Please select a file to upload."
+      });
+      return;
+    }
+    setFileLoading({
+      ...fileLoading,
+      teamLogoFull: true
+    });
+    const params = {
+      Bucket: import.meta.env.VITE_REACT_APP_AWS_BUCKET_NAME,
+      Key: `${uuidv4()}-${teamPhotos.teamLogoFull.name}`,
+      Body: teamPhotos.teamLogoFull,
+    };
+    try {
+      const data = await s3.upload(params).promise()
+      setImgMessages({
+        ...imgMessages,
+        teamLogoFull: `File uploaded successfully. File URL: ${data.Location}`,
+      })
+      setFileLoading({
+        ...fileLoading,
+        teamLogoFull: false
+      })
+    } catch (err) {
+      console.log(err);
+      setImgMessages({
+        ...imgMessages,
+        teamLogoFull: "Error uploading file. Please try again."
+      })
+      setFileLoading({
+        ...fileLoading,
+        teamLogoFull: false
+      })
+    }
+  };
+
+  const handleUploadLogoIcon = async () => {
+    if (!teamPhotos.teamLogoIcon) {
+      setImgMessages({
+        ...imgMessages,
+        teamLogoIcon: "Please select a file to upload."
+      });
+      return;
+    }
+    setFileLoading({
+      ...fileLoading,
+      teamLogoIcon: true
+    });
+    const params = {
+      Bucket: import.meta.env.VITE_REACT_APP_AWS_BUCKET_NAME,
+      Key: `${uuidv4()}-${teamPhotos.teamLogoIcon.name}`,
+      Body: teamPhotos.teamLogoIcon,
+    };
+    try {
+      const data = await s3.upload(params).promise()
+      setImgMessages({
+        ...imgMessages,
+        teamLogoIcon: `File uploaded successfully. File URL: ${data.Location}`,
+      })
+      setFileLoading({
+        ...fileLoading,
+        teamLogoIcon: false
+      })
+    } catch (err) {
+      console.log(err);
+      setImgMessages({
+        ...imgMessages,
+        teamLogoIcon: "Error uploading file. Please try again."
+      })
+      setFileLoading({
+        ...fileLoading,
+        teamLogoIcon: false
+      })
     }
   };
 
@@ -106,28 +180,23 @@ function TeamCreate({ closeModal }) {
     setTeamInfo({
       name: "",
       year: 2024,
-      teamPic: {
-        url: "https://i.ytimg.com/vi/ynKateBMV1I/hq720.jpg",
-        descriptor: "Team Picture",
-      },
-      teamPicFront: "https://i.ytimg.com/vi/ynKateBMV1I/hq720.jpg",
-      teamPicBack: "",
-      logoFull: texLogoFull,
-      logoIcon: texLogoIcon,
+      teamImageURL: teamPhoto,
+      teamLogoFull: mlbLogo,
+      teamLogoIcon: baseballIcon,
     });
     setFileLoading({
-      teamPic: false,
-      logoFull: false,
+      teamImage: false,
+      teamLogoFull: false,
       logoIcon: false,
     })
     setImgMessages({
-      teamPic: "",
-      logoFull: "",
+      teamImage: "",
+      teamLogoFull: "",
       logoIcon: "",
     })
     setTeamPhotos({
-      teamPic: null,
-      logoFull: null,
+      teamImage: null,
+      teamLogoFull: null,
       logoIcon: null,
     });
     closeModal();
@@ -186,7 +255,7 @@ function TeamCreate({ closeModal }) {
             type="file"
             id="team-pic-input"
             name="team-pic"
-            onChange={(e) => handleFileChange(e, "teamPic")}
+            onChange={(e) => handleFileChange(e, "teamImage")}
           />
 
           <label htmlFor="logo-full">Full Logo</label>
@@ -194,7 +263,7 @@ function TeamCreate({ closeModal }) {
             type="file"
             id="logo-full-input"
             name="logo-full"
-            onChange={(e) => handleFileChange(e, "logoFull")}
+            onChange={(e) => handleFileChange(e, "teamLogoFull")}
           />
 
           <label htmlFor="logo-icon">Icon Logo</label>
@@ -202,7 +271,7 @@ function TeamCreate({ closeModal }) {
             type="file"
             id="logo-icon-input"
             name="logo-icon"
-            onChange={(e) => handleFileChange(e, "logoIcon")}
+            onChange={(e) => handleFileChange(e, "teamLogoIcon")}
           />
 
           <section

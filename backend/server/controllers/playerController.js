@@ -1,34 +1,37 @@
 import {
   User,
   Team,
-  TeamImageFront,
-  TeamImageBack,
+  TeamImage,
+  TeamLogoFull,
+  TeamLogoIcon,
   Player,
   PlayerBattingStats,
   PlayerPitchingStats,
   PlayerImageFront,
   PlayerImageBack,
-  TeamLogo,
   MLBTeam,
 } from "../../database/models.js";
-import { upsertPlayerImgFront, upsertPlayerImgBack } from "../../database/upserts.js";
+import {
+  upsertPlayerImgFront,
+  upsertPlayerImgBack
+} from "../../database/upserts.js";
 
 const playerFunctions = {
 
   addPlayer: async (req, res) => {
     const sessionUserId = req.session.user.userId;
 
-    const { 
-      firstName, 
-      lastName, 
-      birthMonth, 
-      homeTown, 
+    const {
+      firstName,
+      lastName,
+      birthMonth,
+      homeTown,
       homeCountry,
       homeState,
-      recoveryEmail, 
-      teamId 
+      recoveryEmail,
+      teamId
     } = req.body;
-    
+
     let team = await Team.findByPk(teamId);
 
     if (!team) {
@@ -54,25 +57,38 @@ const playerFunctions = {
       recoveryEmail: recoveryEmail || null,
       userId: sessionUserId
     });
-    
+
     console.log(newPlayer);
 
     const user = await User.findByPk(sessionUserId, {
-      include: [
-        { model: MLBTeam },
+      include: [{
+          model: MLBTeam
+        },
         {
           model: Team,
-          include: [
-            { model: TeamLogo },
-            { model: TeamImageFront },
-            { model: TeamImageBack },
-            { 
+          include: [{
+              model: TeamImage
+            },
+            {
+              model: TeamLogoFull
+            },
+            {
+              model: TeamLogoIcon
+            },
+            {
               model: Player,
-              include: [
-                { model: PlayerImageFront },
-                { model: PlayerImageBack },
-                { model: PlayerBattingStats },
-                { model: PlayerPitchingStats },
+              include: [{
+                  model: PlayerImageFront
+                },
+                {
+                  model: PlayerImageBack
+                },
+                {
+                  model: PlayerBattingStats
+                },
+                {
+                  model: PlayerPitchingStats
+                },
               ]
             }
           ],
@@ -81,17 +97,29 @@ const playerFunctions = {
     });
 
     team = await Team.findByPk(teamId, {
-      include: [
-        { model: TeamLogo },
-        { model: TeamImageFront },
-        { model: TeamImageBack },
+      include: [{
+          model: TeamImage
+        },
+        {
+          model: TeamLogoFull
+        },
+        {
+          model: TeamLogoIcon
+        },
         {
           model: Player,
-          include: [
-            { model: PlayerImageFront },
-            { model: PlayerImageBack },
-            { model: PlayerBattingStats },
-            { model: PlayerPitchingStats }
+          include: [{
+              model: PlayerImageFront
+            },
+            {
+              model: PlayerImageBack
+            },
+            {
+              model: PlayerBattingStats
+            },
+            {
+              model: PlayerPitchingStats
+            }
           ]
         }
       ]
@@ -107,7 +135,11 @@ const playerFunctions = {
   },
 
   editPlayerBasicInfo: async (req, res) => {
-    const { playerId, teamId, playerInfo } = req.body;
+    const {
+      playerId,
+      teamId,
+      playerInfo
+    } = req.body;
     let updatedPlayer;
     let team;
 
@@ -125,7 +157,7 @@ const playerFunctions = {
           playerId
         }
       });
-    } catch(err) {
+    } catch (err) {
       return res.status(500).send({
         success: false,
         message: `Error grabbing player from db: ${err}`
@@ -134,22 +166,34 @@ const playerFunctions = {
 
     try {
       team = await Team.findByPk(teamId, {
-        include: [
-          { model: TeamLogo },
-          { model: TeamImageFront },
-          { model: TeamImageBack },
+        include: [{
+            model: TeamImage
+          },
+          {
+            model: TeamLogoFull
+          },
+          {
+            model: TeamLogoIcon
+          },
           {
             model: Player,
-            include: [
-              { model: PlayerImageFront },
-              { model: PlayerImageBack },
-              { model: PlayerBattingStats },
-              { model: PlayerPitchingStats },
+            include: [{
+                model: PlayerImageFront
+              },
+              {
+                model: PlayerImageBack
+              },
+              {
+                model: PlayerBattingStats
+              },
+              {
+                model: PlayerPitchingStats
+              },
             ]
           }
         ]
       });
-    } catch(err) {
+    } catch (err) {
       return res.status(500).send({
         success: false,
         message: `Error grabbing team from db: ${err}`
@@ -157,30 +201,50 @@ const playerFunctions = {
     }
 
     updatedPlayer = await Player.findByPk(playerId, {
-      include: [
-        { model: PlayerImageFront },
-        { model: PlayerImageBack },
-        { model: PlayerBattingStats },
-        { model: PlayerPitchingStats },
+      include: [{
+          model: PlayerImageFront
+        },
+        {
+          model: PlayerImageBack
+        },
+        {
+          model: PlayerBattingStats
+        },
+        {
+          model: PlayerPitchingStats
+        },
       ]
     })
 
     const user = await User.findByPk(req.session.user.userId, {
-      include: [
-        { model: MLBTeam },
+      include: [{
+          model: MLBTeam
+        },
         {
           model: Team,
-          include: [
-            { model: TeamLogo },
-            { model: TeamImageFront },
-            { model: TeamImageBack },
-            { 
+          include: [{
+              model: TeamImage
+            },
+            {
+              model: TeamLogoFull
+            },
+            {
+              model: TeamLogoIcon
+            },
+            {
               model: Player,
-              include: [
-                { model: PlayerImageFront },
-                { model: PlayerImageBack },
-                { model: PlayerBattingStats },
-                { model: PlayerPitchingStats },
+              include: [{
+                  model: PlayerImageFront
+                },
+                {
+                  model: PlayerImageBack
+                },
+                {
+                  model: PlayerBattingStats
+                },
+                {
+                  model: PlayerPitchingStats
+                },
               ]
             }
           ],
@@ -198,8 +262,12 @@ const playerFunctions = {
   },
 
   editPlayerBattingStats: async (req, res) => {
-    const { playerId, teamId, stats } = req.body;
-    
+    const {
+      playerId,
+      teamId,
+      stats
+    } = req.body;
+
     // Check if user is logged in
     if (!await User.findByPk(req.session.user.userId)) {
       return res.status(404).send({
@@ -217,54 +285,92 @@ const playerFunctions = {
     console.log("playerBattingStats: ", playerBattingStats)
     // if exists, update
     if (playerBattingStats) {
-      playerBattingStats = await playerBattingStats.update({...stats, playerId});
+      playerBattingStats = await playerBattingStats.update({
+        ...stats,
+        playerId
+      });
     } else {
       // if not exists, create new PlayerBattingStats
-      playerBattingStats = await PlayerBattingStats.create({...stats, playerId});
+      playerBattingStats = await PlayerBattingStats.create({
+        ...stats,
+        playerId
+      });
     }
 
     const updatedPlayer = await Player.findByPk(playerId, {
-      include: [
-        { model: PlayerImageFront },
-        { model: PlayerImageBack },
-        { model: PlayerBattingStats },
-        { model: PlayerPitchingStats },
+      include: [{
+          model: PlayerImageFront
+        },
+        {
+          model: PlayerImageBack
+        },
+        {
+          model: PlayerBattingStats
+        },
+        {
+          model: PlayerPitchingStats
+        },
       ]
     })
 
     const team = await Team.findByPk(teamId, {
-      include: [
-        { model: TeamLogo },
-        { model: TeamImageFront },
-        { model: TeamImageBack },
+      include: [{
+          model: TeamImage
+        },
+        {
+          model: TeamLogoFull
+        },
+        {
+          model: TeamLogoIcon
+        },
         {
           model: Player,
-          include: [
-            { model: PlayerImageFront },
-            { model: PlayerImageBack },
-            { model: PlayerBattingStats },
-            { model: PlayerPitchingStats },
+          include: [{
+              model: PlayerImageFront
+            },
+            {
+              model: PlayerImageBack
+            },
+            {
+              model: PlayerBattingStats
+            },
+            {
+              model: PlayerPitchingStats
+            },
           ]
         }
       ]
     });
 
     const user = await User.findByPk(req.session.user.userId, {
-      include: [
-        { model: MLBTeam },
+      include: [{
+          model: MLBTeam
+        },
         {
           model: Team,
-          include: [
-            { model: TeamLogo },
-            { model: TeamImageFront },
-            { model: TeamImageBack },
-            { 
+          include: [{
+              model: TeamImage
+            },
+            {
+              model: TeamLogoFull
+            },
+            {
+              model: TeamLogoIcon
+            },
+            {
               model: Player,
-              include: [
-                { model: PlayerImageFront },
-                { model: PlayerImageBack },
-                { model: PlayerBattingStats },
-                { model: PlayerPitchingStats },
+              include: [{
+                  model: PlayerImageFront
+                },
+                {
+                  model: PlayerImageBack
+                },
+                {
+                  model: PlayerBattingStats
+                },
+                {
+                  model: PlayerPitchingStats
+                },
               ]
             }
           ],
@@ -282,7 +388,10 @@ const playerFunctions = {
   },
 
   addPlayerImageFront: async (req, res) => {
-    const { playerId, imgUrl } = req.body;
+    const {
+      playerId,
+      imgUrl
+    } = req.body;
 
     // Check if user is logged in
     if (!await User.findByPk(req.session.user.userId)) {
@@ -300,49 +409,81 @@ const playerFunctions = {
         message: "Error adding player image front: " + err,
       })
     }
-    
+
     const player = await Player.findByPk(playerId, {
-      include: [
-        { model: PlayerImageFront },
-        { model: PlayerImageBack },
-        { model: PlayerBattingStats },
-        { model: PlayerPitchingStats },
+      include: [{
+          model: PlayerImageFront
+        },
+        {
+          model: PlayerImageBack
+        },
+        {
+          model: PlayerBattingStats
+        },
+        {
+          model: PlayerPitchingStats
+        },
       ]
     });
 
     const team = await Team.findByPk(player.teamId, {
-      include: [
-        { model: TeamLogo },
-        { model: TeamImageFront },
-        { model: TeamImageBack },
+      include: [{
+          model: TeamImage
+        },
+        {
+          model: TeamLogoFull
+        },
+        {
+          model: TeamLogoIcon
+        },
         {
           model: Player,
-          include: [
-            { model: PlayerImageFront },
-            { model: PlayerImageBack },
-            { model: PlayerBattingStats },
-            { model: PlayerPitchingStats },
+          include: [{
+              model: PlayerImageFront
+            },
+            {
+              model: PlayerImageBack
+            },
+            {
+              model: PlayerBattingStats
+            },
+            {
+              model: PlayerPitchingStats
+            },
           ]
         }
       ]
     });
 
     const user = await User.findByPk(req.session.user.userId, {
-      include: [
-        { model: MLBTeam },
+      include: [{
+          model: MLBTeam
+        },
         {
           model: Team,
-          include: [
-            { model: TeamLogo },
-            { model: TeamImageFront },
-            { model: TeamImageBack },
-            { 
+          include: [{
+              model: TeamImage
+            },
+            {
+              model: TeamLogoFull
+            },
+            {
+              model: TeamLogoIcon
+            },
+            {
               model: Player,
-              include: [
-                { model: PlayerImageFront },
-                { model: PlayerImageBack },
-                { model: PlayerBattingStats },
-                { model: PlayerPitchingStats },
+              include: [{
+                  model: PlayerImageFront
+                },
+                {
+                  model: PlayerImageBack
+                },
+                {
+                  model: PlayerBattingStats
+                },
+                {
+                  model: PlayerPitchingStats
+                },
               ]
             }
           ],
@@ -360,7 +501,10 @@ const playerFunctions = {
   },
 
   addPlayerImageBack: async (req, res) => {
-    const { playerId, imgUrl } = req.body;
+    const {
+      playerId,
+      imgUrl
+    } = req.body;
 
     // Check if user is logged in
     if (!await User.findByPk(req.session.user.userId)) {
@@ -378,49 +522,81 @@ const playerFunctions = {
         message: "Error adding player image back: " + err,
       })
     }
-    
+
     const player = await Player.findByPk(playerId, {
-      include: [
-        { model: PlayerImageFront },
-        { model: PlayerImageBack },
-        { model: PlayerBattingStats },
-        { model: PlayerPitchingStats },
+      include: [{
+          model: PlayerImageFront
+        },
+        {
+          model: PlayerImageBack
+        },
+        {
+          model: PlayerBattingStats
+        },
+        {
+          model: PlayerPitchingStats
+        },
       ]
     });
 
     const team = await Team.findByPk(player.teamId, {
-      include: [
-        { model: TeamLogo },
-        { model: TeamImageFront },
-        { model: TeamImageBack },
+      include: [{
+          model: TeamImage
+        },
+        {
+          model: TeamLogoFull
+        },
+        {
+          model: TeamLogoIcon
+        },
         {
           model: Player,
-          include: [
-            { model: PlayerImageFront },
-            { model: PlayerImageBack },
-            { model: PlayerBattingStats },
-            { model: PlayerPitchingStats },
+          include: [{
+              model: PlayerImageFront
+            },
+            {
+              model: PlayerImageBack
+            },
+            {
+              model: PlayerBattingStats
+            },
+            {
+              model: PlayerPitchingStats
+            },
           ]
         }
       ]
     });
 
     const user = await User.findByPk(req.session.user.userId, {
-      include: [
-        { model: MLBTeam },
+      include: [{
+          model: MLBTeam
+        },
         {
           model: Team,
-          include: [
-            { model: TeamLogo },
-            { model: TeamImageFront },
-            { model: TeamImageBack },
-            { 
+          include: [{
+              model: TeamImage
+            },
+            {
+              model: TeamLogoFull
+            },
+            {
+              model: TeamLogoIcon
+            },
+            {
               model: Player,
-              include: [
-                { model: PlayerImageFront },
-                { model: PlayerImageBack },
-                { model: PlayerBattingStats },
-                { model: PlayerPitchingStats },
+              include: [{
+                  model: PlayerImageFront
+                },
+                {
+                  model: PlayerImageBack
+                },
+                {
+                  model: PlayerBattingStats
+                },
+                {
+                  model: PlayerPitchingStats
+                },
               ]
             }
           ],
@@ -435,7 +611,7 @@ const playerFunctions = {
       user,
       player
     })
-  }, 
+  },
 
 }
 

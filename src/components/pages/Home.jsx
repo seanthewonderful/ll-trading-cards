@@ -19,7 +19,7 @@ function Home() {
     <div id="home-container">
       {/* <img src="../assets/pxfield.png" alt="" id="background-image"/> */}
       <Navbar />
-      <ToastContainer 
+      <ToastContainer
         position="top-center"
         autoClose={1000}
         hideProgressBar={false}
@@ -31,7 +31,7 @@ function Home() {
         pauseOnHover={false}
         theme="light"
         transition={Zoom}
-        />
+      />
       <Outlet />
       <Footer />
     </div>
