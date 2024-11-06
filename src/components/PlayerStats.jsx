@@ -21,10 +21,6 @@ function PlayerStats({ player }) {
       RBI: player.playerBattingStat?.RBI || 0,
       SB: player.playerBattingStat?.SB || 0,
       R: player.playerBattingStat?.R || 0,
-      AVG: player.playerBattingStat?.AVG || "000",
-      OBP: player.playerBattingStat?.OBP || "000",
-      SLG: player.playerBattingStat?.SLG || "000",
-      OPS: player.playerBattingStat?.OPS || "000",
       H: player.playerBattingStat?.H || 0,
       '2B': player.playerBattingStat ? player.playerBattingStat['2B'] : 0,
       '3B': player.playerBattingStat ? player.playerBattingStat['3B'] : 0,
@@ -47,15 +43,45 @@ function PlayerStats({ player }) {
       HBP: 0,
     }
   })
-  const [editMode, setEditMode] = useState({
-    AVG: false,
-    OBP: false,
-    SLG: false,
-    OPS: false,
-  })
+
   const inputRef = useRef(null)
 
   // console.log("PlayerStats: ", playerStats)
+
+  let battingAverage = (
+    playerStats.batting.H
+    / playerStats.batting.AB
+  ).toFixed(3)
+
+  let onBasePercentage = (
+    (parseFloat(playerStats.batting.H)
+      +
+      parseFloat(playerStats.batting.BB)
+      +
+      parseFloat(playerStats.batting.HBP))
+    /
+    parseFloat(playerStats.batting.PA)
+  ).toFixed(3)
+
+
+  let sluggingPercentage = (
+    // how many singles
+    ((playerStats.batting.H - playerStats.batting['2B'] - playerStats.batting['3B'] - playerStats.batting.HR)
+      +
+      // how many doubles and triples
+      (playerStats.batting['2B'] * 2) + (playerStats.batting['3B'] * 3)
+      +
+      // how many home runs
+      (playerStats.batting.HR * 4))
+    /
+    // average
+    playerStats.batting.AB
+  ).toFixed(3)
+
+  let onBasePlusSlugging = (
+    parseFloat(sluggingPercentage)
+    + parseFloat(onBasePercentage)
+  ).toFixed(3)
 
   const dispatch = useDispatch()
 
@@ -95,22 +121,6 @@ function PlayerStats({ player }) {
     })
   }
 
-  const calculatePercentages = () => {
-    let avg = (playerStats.batting.H / playerStats.batting.AB * 1000).toFixed(0)
-    let obp = (playerStats.batting.H + playerStats.batting.BB + playerStats.batting.HBP) / (playerStats.batting.AB + playerStats.batting.BB + playerStats.batting.HBP + playerStats.batting.SF) * 1000
-    let slg = ((playerStats.batting['2B'] * 2) + (playerStats.batting['3B'] * 3) + playerStats.batting.HR) / playerStats.batting.AB * 1000
-    let ops = obp + slg
-    setPlayerStats({
-      ...playerStats,
-      batting: {
-        ...playerStats.batting,
-        AVG: avg,
-        OBP: obp,
-        SLG: slg,
-        OPS: ops,
-      }
-    })
-  }
 
   useEffect(() => {
     if (inputRef.current) {
