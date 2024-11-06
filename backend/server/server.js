@@ -10,7 +10,9 @@ import morgan from 'morgan'
 const app = express()
 const PORT = 8411
 
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({
+  extended: false
+}))
 app.use(express.json())
 app.use(morgan("dev"));
 app.use(cors())
@@ -34,6 +36,11 @@ app.get('/api/sessionCheck', (userFunctions.sessionCheck))
 // TEAM ENDPOINTS
 app.post('/api/newTeam', teamFunctions.addTeam)
 app.get('/api/team/:id', teamFunctions.findTeam)
+
+// TEAM IMAGE ENDPOINTS
+app.post('/api/createTeamImage', teamFunctions.addTeamImage)
+app.post('/api/createTeamLogoFull', teamFunctions.addTeamLogoFull)
+app.post('/api/createTeamLogoIcon', teamFunctions.addTeamLogoIcon)
 
 // PLAYER ENDPOINTS
 app.post('/api/newPlayer', teamFunctions.addPlayer)

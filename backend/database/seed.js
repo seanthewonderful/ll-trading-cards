@@ -1,6 +1,18 @@
-import { db, User, MLBTeam, Player, Team, TeamLogo } from "./models.js";
+import {
+  db,
+  User,
+  MLBTeam,
+  Player,
+  Team,
+  TeamImage
+} from "./models.js";
+import mlbLogo from "../../src/assets/league_logos/MLB/mlb-logo.png";
+import baseballIcon from "../../src/assets/baseball_icon.png";
+import sandlotCartoon from "../../src/assets/sandlot_cartoon.jpg"
 
-await db.sync({ force: true });
+await db.sync({
+  force: true
+});
 
 console.log("Seeing users...");
 await User.create({
@@ -24,12 +36,14 @@ const team = await Team.create({
   name: "Rangers",
   year: "2024"
 })
-await team.createTeamLogo({
-  url: "https://i.ytimg.com/vi/ynKateBMV1I/hq720.jpg",
-  descriptor: "Full Logo"
+await team.createTeamIjmage({
+  url: sandlotCartoon,
 })
-await team.createTeamImageFront({
-  url: "https://i.ytimg.com/vi/ynKateBMV1I/hq720.jpg"
+await team.createTeamImageLogoFull({
+  url: mlbLogo
+})
+await team.createTeamImageLogoIcon({
+  url: baseballIcon
 })
 console.log("Teams seeded");
 
@@ -66,8 +80,7 @@ await player.createPlayerBattingStat({
 console.log("Players seeded");
 
 console.log("Seeding MLB Teams...");
-const mlbTeams = [
-  {
+const mlbTeams = [{
     location: "USA",
     name: "MLB",
     abbreviation: "MLB",

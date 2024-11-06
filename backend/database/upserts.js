@@ -1,4 +1,16 @@
-import { db, User, Team, TeamLogo, TeamImageBack, TeamImageFront, Player, PlayerImageFront, PlayerImageBack, PlayerBattingStats, PlayerPitchingStats } from "./models.js";
+import {
+  db,
+  User,
+  Team,
+  TeamImage,
+  TeamLogoFull,
+  TeamLogoIcon,
+  Player,
+  PlayerImageFront,
+  PlayerImageBack,
+  PlayerBattingStats,
+  PlayerPitchingStats
+} from "./models.js";
 
 
 // Add logic to delete image from S3 bucket if prior image exists?
@@ -44,20 +56,20 @@ export async function upsertPlayerImgBack(imgUrl, playerId) {
     })
 }
 
-export async function upsertTeamImgFront(imgUrl, teamId) {
-  return await TeamImageFront
+export async function upsertTeamImage(imgUrl, teamId) {
+  return await TeamImage
     .findOne({
       where: {
         teamId
       }
     })
-    .then((teamImageFront) => {
-      if (teamImageFront) {
-        return teamImageFront.update({
+    .then((teamImage) => {
+      if (teamImage) {
+        return teamImage.update({
           url: imgUrl
         })
       } else {
-        return TeamImageFront.create({
+        return TeamImage.create({
           url: imgUrl,
           teamId
         })
@@ -65,20 +77,41 @@ export async function upsertTeamImgFront(imgUrl, teamId) {
     })
 }
 
-export async function upsertTeamImgBack(imgUrl, teamId) {
-  return await TeamImageBack
+export async function upsertTeamLogoFull(imgUrl, teamId) {
+  return await TeamLogoFull
     .findOne({
       where: {
         teamId
       }
     })
-    .then((teamImageBack) => {
-      if (teamImageBack) {
-        return teamImageBack.update({
+    .then((teamLogoFull) => {
+      if (teamLogoFull) {
+        return teamLogoFull.update({
           url: imgUrl
         })
       } else {
-        return TeamImageBack.create({
+        return TeamLogoFull.create({
+          url: imgUrl,
+          teamId
+        })
+      }
+    })
+}
+
+export async function upsertTeamLogoIcon(imgUrl, teamId) {
+  return await TeamLogoIcon
+    .findOne({
+      where: {
+        teamId
+      }
+    })
+    .then((teamLogoIcon) => {
+      if (teamLogoIcon) {
+        return teamLogoIcon.update({
+          url: imgUrl
+        })
+      } else {
+        return TeamLogoIcon.create({
           url: imgUrl,
           teamId
         })

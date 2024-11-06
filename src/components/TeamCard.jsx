@@ -5,6 +5,7 @@ function TeamCard({ team }) {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  console.log(team)
 
   const handleTeamCardClick = () => {
 
@@ -16,21 +17,21 @@ function TeamCard({ team }) {
   }
 
   return (
-    <div 
+    <div
       className="team-card"
       onClick={handleTeamCardClick}
-      >
+    >
       <img
-        src={team.teamImageFront.url}
+        src={team.teamImageFront?.url || ""}
         alt="Team Photo Front"
         className="team-card-photo"
-        />
+      />
       <p className="team-card-name">{team.name}</p>
-      <img 
-        src={team.teamLogos.filter(logo => logo.descriptor === "Full Logo")[0].url} 
-        className="team-card-logo" 
-        alt="" 
-        />
+      <img
+        src={team.teamLogos ? team.teamLogos.filter(logo => logo.descriptor === "Full Logo")[0].url : ""}
+        className="team-card-logo"
+        alt=""
+      />
       <p className="team-card-year">{team.year}</p>
     </div>
   )
